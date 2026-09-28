@@ -1,0 +1,10 @@
+*
+!requirements.txt
+!app/
+!app/**
+!sql/
+!sql/**
+**/__pycache__/
+**/*.pyc
+**/*.pyo
+**/.env*

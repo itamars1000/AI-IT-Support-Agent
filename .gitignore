@@ -1,0 +1,23 @@
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.env
+.env.*
+!.env.example
+*.pem
+*.p12
+*.pfx
+*.key
+*.dump
+evaluation/.chunking_embedding_cache.sqlite
+
+# Local working notes and generated evaluation output
+README_DETAILED.md
+docs/INTERVIEW.md
+evaluation/REPORT_DETAILED.md
+evaluation/results.json
+evaluation/retrieval_results.json
+evaluation/chunking_results.json
+evaluation/prompt_injection_results.json
+tmp/
