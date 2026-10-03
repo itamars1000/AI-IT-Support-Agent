@@ -31,10 +31,11 @@ class RequestTrace:
     output_tokens: int = 0
     token_usage_available: bool = False
     failed: bool = False
+    events: list[dict] = field(default_factory=list)
 
-    def finish(self, status_code: int) -> None:
-        logger.info(json.dumps({
-            "event": "request",
+    def snapshot(self, status_code: int) -> dict:
+        """Measured processing so far; no prompts, arguments, credentials or results."""
+        return {
             "request_id": self.request_id,
             "endpoint": self.endpoint,
             "latency_ms": elapsed_ms(self.started),
@@ -47,7 +48,13 @@ class RequestTrace:
             "total_tokens": self.input_tokens + self.output_tokens if self.token_usage_available else None,
             "status": "failure" if self.failed or status_code >= 400 else "success",
             "status_code": status_code,
-        }))
+            "events": list(self.events),
+        }
+
+    def finish(self, status_code: int) -> None:
+        summary = self.snapshot(status_code)
+        summary.pop("events")
+        logger.info(json.dumps({"event": "request", **summary}))
 
 
 current_trace: ContextVar[RequestTrace | None] = ContextVar("request_trace", default=None)
@@ -62,10 +69,12 @@ def record_tool(name: str, started: float, status: str) -> None:
     if trace is None:
         return
     trace.tool_names.append(name)
+    duration = elapsed_ms(started)
+    trace.events.append({"kind": "tool", "name": name, "latency_ms": duration, "status": status})
     logger.info(json.dumps({
         "event": "tool_call", "request_id": trace.request_id,
         "endpoint": trace.endpoint, "tool": name,
-        "latency_ms": elapsed_ms(started), "status": status,
+        "latency_ms": duration, "status": status,
     }))
 
 

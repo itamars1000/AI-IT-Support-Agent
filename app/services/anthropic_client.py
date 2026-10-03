@@ -48,6 +48,7 @@ def create_message(
         },
         method="POST",
     )
+    call_status = "failure"
     try:
         with urlopen(request, timeout=60) as response:
             data = json.load(response)
@@ -62,6 +63,7 @@ def create_message(
                     trace.input_tokens += input_tokens
                     trace.output_tokens += output_tokens
                     trace.token_usage_available = True
+        call_status = "success"
         return data
     except HTTPError as error:
         raise AnthropicRequestError(f"Anthropic API returned HTTP {error.code}") from None
@@ -71,7 +73,9 @@ def create_message(
         raise AnthropicRequestError("Anthropic API returned an invalid response") from None
     finally:
         if trace is not None:
-            trace.llm_latency_ms += elapsed_ms(started)
+            duration = elapsed_ms(started)
+            trace.llm_latency_ms += duration
+            trace.events.append({"kind": "llm", "name": model, "latency_ms": duration, "status": call_status})
 
 
 def extract_final_text(data: dict) -> str:

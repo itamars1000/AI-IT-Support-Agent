@@ -2,6 +2,13 @@
 __pycache__/
 *.py[cod]
 .pytest_cache/
+.coverage
+htmlcov/
+*.log
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
 .env
 .env.*
 !.env.example
@@ -20,4 +27,6 @@ evaluation/results.json
 evaluation/retrieval_results.json
 evaluation/chunking_results.json
 evaluation/prompt_injection_results.json
+evaluation/retrieval_baseline.json
+evaluation/retrieval_comparison.json
 tmp/

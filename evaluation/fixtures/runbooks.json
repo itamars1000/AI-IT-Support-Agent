@@ -1,0 +1,54 @@
+[
+  {
+    "source_file": "globalprotect_401.txt",
+    "text": "Synthetic retrieval benchmark runbook | Version 1.0\nGlobalProtect 401 authentication failure\nGlobalProtect returns HTTP 401 when the saved sign-in token has expired. Sign out of the client, remove the cached account token and sign in again with MFA. Do not request additional application permissions for this error."
+  },
+  {
+    "source_file": "globalprotect_403.txt",
+    "text": "Synthetic retrieval benchmark runbook | Version 1.0\nGlobalProtect 403 authorization failure\nGlobalProtect returns HTTP 403 when the account lacks VPN entitlement. Ask the manager and IT to approve a VPN access ticket. Clearing the cached sign-in token does not grant the missing entitlement."
+  },
+  {
+    "source_file": "globalprotect_809.txt",
+    "text": "Synthetic retrieval benchmark runbook | Version 1.0\nGlobalProtect 809 network connection failure\nGlobalProtect error 809 means the network path to the VPN gateway is blocked. Test from an approved mobile hotspot and include the gateway connection log in an IT ticket. Do not disable the device firewall."
+  },
+  {
+    "source_file": "globalprotect_gp1001.txt",
+    "text": "Synthetic retrieval benchmark runbook | Version 1.0\nGlobalProtect GP1001 device check\nGlobalProtect GP1001 means device disk encryption is disabled. IT must restore disk encryption before the device may connect. Restarting the client does not satisfy the encryption check."
+  },
+  {
+    "source_file": "globalprotect_gp1002.txt",
+    "text": "Synthetic retrieval benchmark runbook | Version 1.0\nGlobalProtect GP1002 device check\nGlobalProtect GP1002 means endpoint protection is not running. IT must restore endpoint protection before the device may connect. Disk encryption alone does not satisfy this check."
+  },
+  {
+    "source_file": "northstar_connect_401.txt",
+    "text": "Synthetic retrieval benchmark runbook | Version 1.0\nNorthstar Connect 401 sign-in failure\nNorthstar Connect returns HTTP 401 when the device clock differs from the identity server by more than five minutes. Enable automatic date and time, sync the device clock and retry once. This procedure is specific to Northstar Connect."
+  },
+  {
+    "source_file": "payroll_403.txt",
+    "text": "Synthetic retrieval benchmark runbook | Version 1.0\nPayroll portal 403 access failure\nThe payroll portal returns HTTP 403 when the employee does not have the payroll reader role. Request the payroll role through the access ticket process with Security approval. VPN entitlement is separate from payroll access."
+  },
+  {
+    "source_file": "identity_otp_410.txt",
+    "text": "Synthetic retrieval benchmark runbook | Version 1.0\nIdentity portal OTP-410 recovery\nIdentity error OTP-410 means a temporary enrollment pass has expired. Contact IT Support for identity verification and a replacement enrollment pass. Never share the pass in a support ticket."
+  },
+  {
+    "source_file": "identity_otp_411.txt",
+    "text": "Synthetic retrieval benchmark runbook | Version 1.0\nIdentity portal OTP-411 recovery\nIdentity error OTP-411 means a temporary enrollment pass has already been used. Contact IT Support to revoke the old pass and issue a new pass after identity verification. Waiting does not make the used pass valid again."
+  },
+  {
+    "source_file": "device_clock_skew.txt",
+    "text": "Synthetic retrieval benchmark runbook | Version 1.0\nDevice ERR_CLOCK_SKEW troubleshooting\nERR_CLOCK_SKEW means the device clock is outside the permitted time range. Enable automatic date and time and synchronize the clock. Changing a password does not correct device time."
+  },
+  {
+    "source_file": "device_disk_full.txt",
+    "text": "Synthetic retrieval benchmark runbook | Version 1.0\nDevice ERR_DISK_FULL troubleshooting\nERR_DISK_FULL means the device has insufficient free storage. Move work files to approved company cloud storage and ask IT to remove approved temporary files. Never delete security logs to free space."
+  },
+  {
+    "source_file": "vpn_kb431.txt",
+    "text": "Synthetic retrieval benchmark runbook | Version 1.0\nKnowledge article KB-431 VPN recovery\nKB-431 covers VPN gateway certificate renewal. Import the replacement gateway certificate through the company software catalog and reconnect. This is a knowledge article identifier, not a support ticket number."
+  },
+  {
+    "source_file": "vpn_kb432.txt",
+    "text": "Synthetic retrieval benchmark runbook | Version 1.0\nKnowledge article KB-432 VPN recovery\nKB-432 covers VPN client profile renewal. Download the replacement client profile through the company software catalog and reconnect. This is a knowledge article identifier, not a support ticket number."
+  }
+]

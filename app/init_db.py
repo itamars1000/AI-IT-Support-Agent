@@ -13,6 +13,7 @@ def initialize_database() -> None:
             "004_create_chunk_embeddings.sql",
             "005_add_ticket_escalation.sql",
             "006_ticket_idempotency.sql",
+            "007_add_chunk_text_search.sql",
         ):
             connection.execute((schema_directory / filename).read_text(encoding="utf-8"))
     print("Tickets, documents, pages, chunks and embeddings tables are ready.")

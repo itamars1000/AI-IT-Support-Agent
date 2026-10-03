@@ -9,6 +9,33 @@ from evaluation.runner import cited_relevant_evidence, evaluate_qa_case, looks_l
 
 
 class EvaluationScoringTests(unittest.TestCase):
+    def test_rank_twenty_boundary_and_missing_evidence(self):
+        def hit(index, text):
+            return RagSource(reference=f"[{index}]", chunk_id=index, document_id=1,
+                             source_file="policy.pdf", page_number=1, chunk_index=index,
+                             text=text, distance=0.1)
+        case = {"evidence": [
+            {"source_file": "policy.pdf", "anchor": "required rule"},
+            {"source_file": "missing.pdf", "anchor": "other rule"},
+        ]}
+        hits = [hit(index, "irrelevant") for index in range(1, 20)] + [hit(20, "required rule")]
+        metrics = retrieval_metrics(case, hits)
+        self.assertEqual(metrics["evidence_ranks"], [20, None])
+        self.assertEqual(metrics["recall_at"]["5"], 0)
+        self.assertEqual(metrics["recall_at"]["20"], 0.5)
+        self.assertFalse(metrics["all_evidence_at"]["20"])
+
+    def test_duplicate_overlapping_chunks_do_not_count_as_extra_evidence(self):
+        source = RagSource(reference="[1]", chunk_id=1, document_id=1,
+                           source_file="policy.pdf", page_number=1, chunk_index=0,
+                           text="required rule", distance=0.1)
+        case = {"evidence": [
+            {"source_file": "policy.pdf", "anchor": "required rule"},
+            {"source_file": "policy.pdf", "anchor": "absent rule"},
+        ]}
+        metrics = retrieval_metrics(case, [source, source.model_copy(update={"chunk_id": 2})])
+        self.assertEqual(metrics["recall_at"]["3"], 0.5)
+
     def test_recall_tracks_each_required_source_at_multiple_ranks(self):
         def hit(chunk_id, source_file, text):
             return RagSource(reference=f"[{chunk_id}]", chunk_id=chunk_id, document_id=5,

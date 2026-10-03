@@ -1,5 +1,6 @@
 from functools import lru_cache
 from pathlib import Path
+from typing import Literal
 
 from pydantic import SecretStr
 from pydantic_settings import BaseSettings, SettingsConfigDict
@@ -17,7 +18,8 @@ class Settings(BaseSettings):
     database_port: int | None = None
     voyage_api_key: SecretStr | None = None
     anthropic_api_key: SecretStr | None = None
-    anthropic_model: str = "claude-sonnet-5"
+    anthropic_model: str = "claude-haiku-4-5-20251001"
+    retrieval_mode: Literal["vector", "hybrid"] = "vector"
 
 
 @lru_cache

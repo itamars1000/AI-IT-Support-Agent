@@ -1,6 +1,8 @@
 import psycopg
+from pathlib import Path
 from fastapi import FastAPI, HTTPException, Request
-from fastapi.responses import JSONResponse
+from fastapi.responses import FileResponse, JSONResponse
+from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
 from app.database import check_database_connection
@@ -17,12 +19,19 @@ from app.observability import current_trace, new_trace
 
 
 app = FastAPI(title="AI IT Support Agent", version="1.0.0")
+UI_DIRECTORY = Path(__file__).resolve().parent / "ui"
+app.mount("/assets", StaticFiles(directory=UI_DIRECTORY), name="ui-assets")
 app.include_router(tickets_router)
 app.include_router(documents_router)
 app.include_router(search_router)
 app.include_router(rag_router)
 app.include_router(tool_calling_router)
 app.include_router(agent_router)
+
+
+@app.get("/", include_in_schema=False)
+def chat_ui() -> FileResponse:
+    return FileResponse(UI_DIRECTORY / "index.html")
 
 
 @app.middleware("http")
@@ -34,6 +43,8 @@ async def trace_requests(request: Request, call_next):
         response = await call_next(request)
         status_code = response.status_code
         response.headers["X-Request-ID"] = trace.request_id
+        if request.url.path == "/" or request.url.path.startswith("/assets/"):
+            response.headers["Cache-Control"] = "no-cache"
         return response
     finally:
         trace.finish(status_code)
@@ -67,7 +78,11 @@ async def answer_provider_unavailable_handler(request: Request, error: AnswerPro
 
 @app.exception_handler(AnthropicRequestError)
 async def anthropic_request_error_handler(request: Request, error: AnthropicRequestError) -> JSONResponse:
-    return JSONResponse(status_code=502, content={"detail": "Answer provider request failed"})
+    trace = current_trace.get()
+    content = {"detail": "Answer provider request failed"}
+    if trace is not None and request.url.path == "/agent":
+        content["trace"] = trace.snapshot(502)
+    return JSONResponse(status_code=502, content=content)
 
 
 @app.exception_handler(IdempotencyConflict)

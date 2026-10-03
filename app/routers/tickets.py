@@ -1,4 +1,7 @@
-from fastapi import APIRouter
+from typing import Annotated
+from uuid import UUID
+
+from fastapi import APIRouter, Header
 
 from app.schemas import TicketCreate, TicketResponse, TicketUpdate
 from app.services import ticket_service
@@ -8,8 +11,11 @@ router = APIRouter(prefix="/tickets", tags=["tickets"])
 
 
 @router.post("", response_model=TicketResponse, status_code=201)
-def create_ticket(payload: TicketCreate) -> TicketResponse:
-    return ticket_service.create_ticket(payload)
+def create_ticket(
+    payload: TicketCreate,
+    idempotency_key: Annotated[UUID | None, Header(alias="Idempotency-Key")] = None,
+) -> TicketResponse:
+    return ticket_service.create_ticket(payload, idempotency_key)
 
 
 @router.get("", response_model=list[TicketResponse])

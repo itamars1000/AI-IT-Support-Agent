@@ -88,6 +88,7 @@ class SearchRequest(BaseModel):
     question: str = Field(min_length=1, max_length=2000)
     top_k: int = Field(default=5, ge=1, le=20)
     document_id: int | None = Field(default=None, gt=0)
+    retrieval_mode: Literal["vector", "hybrid"] | None = None
 
 
 class SearchHit(BaseModel):
@@ -98,6 +99,9 @@ class SearchHit(BaseModel):
     chunk_index: int
     text: str
     distance: float
+    retrieval_score: float | None = None
+    vector_rank: int | None = None
+    lexical_rank: int | None = None
 
 
 class RagRequest(SearchRequest):
@@ -138,19 +142,44 @@ class ToolCallResponse(BaseModel):
     tool_call: ToolExecution | None = None
 
 
+MAX_HISTORY_MESSAGES = 6
+MAX_HISTORY_MESSAGE_CHARS = 6000
+MAX_HISTORY_CHARS = 12000
+
+
+class ConversationMessage(BaseModel):
+    """Plain conversational context; no system roles, tool blocks or permissions."""
+
+    model_config = ConfigDict(str_strip_whitespace=True, extra="forbid")
+
+    role: Literal["user", "assistant"]
+    content: str = Field(min_length=1, max_length=MAX_HISTORY_MESSAGE_CHARS)
+
+
 class AgentRequest(BaseModel):
     model_config = ConfigDict(str_strip_whitespace=True, extra="forbid")
 
     message: str = Field(min_length=1, max_length=2000)
+    history: list[ConversationMessage] = Field(default_factory=list, max_length=MAX_HISTORY_MESSAGES)
     allowed_actions: list[Literal["create_ticket", "escalate_ticket"]] = Field(default_factory=list)
     idempotency_key: UUID | None = None
+    approved_ticket: TicketCreate | None = None
 
     @model_validator(mode="after")
     def require_idempotency_for_create(self) -> "AgentRequest":
+        if len(self.history) % 2 or any(
+            item.role != ("user" if index % 2 == 0 else "assistant")
+            for index, item in enumerate(self.history)
+        ):
+            raise ValueError("history must contain complete user/assistant pairs")
+        if sum(len(item.content) for item in self.history) > MAX_HISTORY_CHARS:
+            raise ValueError("history exceeds the conversation context limit")
         if len(self.allowed_actions) != len(set(self.allowed_actions)):
             raise ValueError("allowed_actions cannot contain duplicates")
         if "create_ticket" in self.allowed_actions and self.idempotency_key is None:
             raise ValueError("idempotency_key is required when create_ticket is allowed")
+        if self.approved_ticket is not None and self.allowed_actions != ["create_ticket"]:
+            raise ValueError("approved_ticket requires only the create_ticket action")
         return self
 
 
@@ -160,7 +189,32 @@ class AgentStep(BaseModel):
     result: dict
 
 
+class RequestActivityEvent(BaseModel):
+    kind: Literal["llm", "tool"]
+    name: str
+    latency_ms: float = Field(ge=0)
+    status: Literal["success", "failure"]
+
+
+class RequestActivity(BaseModel):
+    request_id: str
+    endpoint: str
+    latency_ms: float = Field(ge=0)
+    llm_model: str | None
+    embedding_model: str | None
+    number_of_tool_calls: int = Field(ge=0)
+    tool_names: list[str]
+    retrieval_latency_ms: float = Field(ge=0)
+    llm_latency_ms: float = Field(ge=0)
+    total_tokens: int | None
+    status: Literal["success", "failure"]
+    status_code: int
+    events: list[RequestActivityEvent]
+
+
 class AgentResponse(BaseModel):
     answer: str
     steps: list[AgentStep]
     completed: bool
+    ticket_proposal: TicketCreate | None = None
+    trace: RequestActivity | None = None

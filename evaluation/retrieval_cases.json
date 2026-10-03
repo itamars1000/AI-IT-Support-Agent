@@ -1,0 +1,343 @@
+{
+  "description": "Fixed development benchmark: original policy questions plus paraphrases, confusing deadlines, multiple sources and synthetic troubleshooting identifiers. Runbooks are fictional and are not product documentation. Labels frozen before comparing strategies.",
+  "qa": [
+    {
+      "id": "forgot_factor",
+      "category": "paraphrase",
+      "question": "I cannot use my authenticator anymore. How do I prove who I am to support?",
+      "evidence": [
+        {
+          "source_file": "password_mfa_policy.pdf",
+          "anchor": "live video check against the staff directory"
+        }
+      ]
+    },
+    {
+      "id": "random_mfa_prompt",
+      "category": "paraphrase",
+      "question": "My phone asks me to approve a login I did not start. What should I do?",
+      "evidence": [
+        {
+          "source_file": "incident_response_security_reporting_policy.pdf",
+          "anchor": "For an unexpected MFA prompt, reject it"
+        }
+      ]
+    },
+    {
+      "id": "ransomware_power",
+      "category": "paraphrase",
+      "question": "My files look encrypted by malware. Should I switch off the laptop?",
+      "evidence": [
+        {
+          "source_file": "incident_response_security_reporting_policy.pdf",
+          "anchor": "Keep the device powered on unless Security tells you"
+        }
+      ]
+    },
+    {
+      "id": "vpn_mail",
+      "category": "paraphrase",
+      "question": "Do I need the remote connection to read company cloud email?",
+      "evidence": [
+        {
+          "source_file": "vpn_remote_access_policy.pdf",
+          "anchor": "Company cloud email and the support"
+        }
+      ]
+    },
+    {
+      "id": "work_backup",
+      "category": "paraphrase",
+      "question": "Are files saved only on my desktop protected by company backups?",
+      "evidence": [
+        {
+          "source_file": "laptop_device_policy.pdf",
+          "anchor": "Local-only files are not backed up by IT"
+        }
+      ]
+    },
+    {
+      "id": "travel_notice",
+      "category": "paraphrase",
+      "question": "I am flying abroad for work. How far ahead should I notify IT?",
+      "evidence": [
+        {
+          "source_file": "laptop_device_policy.pdf",
+          "anchor": "at least 5 business days before international travel"
+        }
+      ]
+    },
+    {
+      "id": "contractor_role",
+      "category": "near_match",
+      "question": "Does a contractor temporary project role last 30 days or 90 days?",
+      "evidence": [
+        {
+          "source_file": "access_control_policy.pdf",
+          "anchor": "the project role expires within 30 days"
+        }
+      ]
+    },
+    {
+      "id": "ordinary_patch",
+      "category": "near_match",
+      "question": "Are ordinary security updates due in 48 hours or 14 calendar days?",
+      "evidence": [
+        {
+          "source_file": "laptop_device_policy.pdf",
+          "anchor": "Install all other security updates within 14 calendar days"
+        }
+      ]
+    },
+    {
+      "id": "vpn_total_limit",
+      "category": "near_match",
+      "question": "What is the maximum total VPN connection time, even if I am active?",
+      "evidence": [
+        {
+          "source_file": "vpn_remote_access_policy.pdf",
+          "anchor": "12 hours of total connection time"
+        }
+      ]
+    },
+    {
+      "id": "screen_lock",
+      "category": "near_match",
+      "question": "How long can my screen stay idle before it locks, rather than the VPN disconnecting?",
+      "evidence": [
+        {
+          "source_file": "laptop_device_policy.pdf",
+          "anchor": "screen must lock after 5 minutes of inactivity"
+        }
+      ]
+    },
+    {
+      "id": "p1_ack",
+      "category": "exact_term",
+      "question": "P1 ransomware acknowledgment target?",
+      "evidence": [
+        {
+          "source_file": "incident_response_security_reporting_policy.pdf",
+          "anchor": "target acknowledgment within 15 minutes"
+        }
+      ]
+    },
+    {
+      "id": "p3_ack",
+      "category": "exact_term",
+      "question": "P3 blocked phishing acknowledgment target?",
+      "evidence": [
+        {
+          "source_file": "incident_response_security_reporting_policy.pdf",
+          "anchor": "target acknowledgment within 4 hours"
+        }
+      ]
+    },
+    {
+      "id": "it04_emergency",
+      "category": "exact_term",
+      "question": "IT-04 emergency access duration?",
+      "evidence": [
+        {
+          "source_file": "access_control_policy.pdf",
+          "anchor": "authorize emergency\naccess in a ticket for up to 4 hours"
+        }
+      ]
+    },
+    {
+      "id": "vpn_hostname",
+      "category": "exact_term",
+      "question": "Which VPN hostname should Northstar Connect use?",
+      "evidence": [
+        {
+          "source_file": "vpn_remote_access_policy.pdf",
+          "anchor": "Connect to vpn.northstar.example"
+        }
+      ]
+    },
+    {
+      "id": "password_reset_url",
+      "category": "exact_term",
+      "question": "Where is the identity password reset URL?",
+      "evidence": [
+        {
+          "source_file": "password_mfa_policy.pdf",
+          "anchor": "https://identity.northstar.example/reset"
+        }
+      ]
+    },
+    {
+      "id": "contractor_vpn_mfa",
+      "category": "cross_document",
+      "question": "How long can contractor VPN access last and which MFA methods are allowed?",
+      "evidence": [
+        {
+          "source_file": "vpn_remote_access_policy.pdf",
+          "anchor": "contractor VPN access expires after no more than 90 days"
+        },
+        {
+          "source_file": "password_mfa_policy.pdf",
+          "anchor": "SMS is not an approved MFA method"
+        }
+      ]
+    },
+    {
+      "id": "vpn_admin_rights",
+      "category": "cross_document",
+      "question": "Does connecting to VPN give application permissions, and how do I get an administrator role?",
+      "evidence": [
+        {
+          "source_file": "vpn_remote_access_policy.pdf",
+          "anchor": "A VPN connection does not grant new application permissions"
+        },
+        {
+          "source_file": "access_control_policy.pdf",
+          "anchor": "Production administrator roles require manager, system owner and Security"
+        }
+      ]
+    },
+    {
+      "id": "gp401",
+      "category": "identifier",
+      "question": "GlobalProtect 401: how do I fix it?",
+      "evidence": [
+        {
+          "source_file": "globalprotect_401.txt",
+          "anchor": "remove the cached account token"
+        }
+      ]
+    },
+    {
+      "id": "gp403",
+      "category": "identifier",
+      "question": "GlobalProtect 403: what access is missing?",
+      "evidence": [
+        {
+          "source_file": "globalprotect_403.txt",
+          "anchor": "account lacks VPN entitlement"
+        }
+      ]
+    },
+    {
+      "id": "gp809",
+      "category": "identifier",
+      "question": "GlobalProtect error 809 connection failure",
+      "evidence": [
+        {
+          "source_file": "globalprotect_809.txt",
+          "anchor": "network path to the VPN gateway is blocked"
+        }
+      ]
+    },
+    {
+      "id": "gp1001",
+      "category": "identifier",
+      "question": "GlobalProtect GP1001 device check failed",
+      "evidence": [
+        {
+          "source_file": "globalprotect_gp1001.txt",
+          "anchor": "device disk encryption is disabled"
+        }
+      ]
+    },
+    {
+      "id": "gp1002",
+      "category": "identifier",
+      "question": "GlobalProtect GP1002 device check failed",
+      "evidence": [
+        {
+          "source_file": "globalprotect_gp1002.txt",
+          "anchor": "endpoint protection is not running"
+        }
+      ]
+    },
+    {
+      "id": "ns401",
+      "category": "identifier",
+      "question": "Northstar Connect 401: how do I fix it?",
+      "evidence": [
+        {
+          "source_file": "northstar_connect_401.txt",
+          "anchor": "Enable automatic date and time"
+        }
+      ]
+    },
+    {
+      "id": "payroll403",
+      "category": "identifier",
+      "question": "Payroll portal 403: what role do I need?",
+      "evidence": [
+        {
+          "source_file": "payroll_403.txt",
+          "anchor": "payroll reader role"
+        }
+      ]
+    },
+    {
+      "id": "otp410",
+      "category": "identifier",
+      "question": "OTP-410 enrollment pass issue",
+      "evidence": [
+        {
+          "source_file": "identity_otp_410.txt",
+          "anchor": "temporary enrollment pass has expired"
+        }
+      ]
+    },
+    {
+      "id": "otp411",
+      "category": "identifier",
+      "question": "OTP-411 enrollment pass issue",
+      "evidence": [
+        {
+          "source_file": "identity_otp_411.txt",
+          "anchor": "temporary enrollment pass has already been used"
+        }
+      ]
+    },
+    {
+      "id": "clock_skew",
+      "category": "identifier",
+      "question": "ERR_CLOCK_SKEW fix",
+      "evidence": [
+        {
+          "source_file": "device_clock_skew.txt",
+          "anchor": "synchronize the clock"
+        }
+      ]
+    },
+    {
+      "id": "disk_full",
+      "category": "identifier",
+      "question": "ERR_DISK_FULL fix",
+      "evidence": [
+        {
+          "source_file": "device_disk_full.txt",
+          "anchor": "insufficient free storage"
+        }
+      ]
+    },
+    {
+      "id": "kb431",
+      "category": "identifier",
+      "question": "KB-431 recovery steps",
+      "evidence": [
+        {
+          "source_file": "vpn_kb431.txt",
+          "anchor": "replacement gateway certificate"
+        }
+      ]
+    },
+    {
+      "id": "kb432",
+      "category": "identifier",
+      "question": "KB-432 recovery steps",
+      "evidence": [
+        {
+          "source_file": "vpn_kb432.txt",
+          "anchor": "replacement client profile"
+        }
+      ]
+    }
+  ]
+}

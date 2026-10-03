@@ -21,7 +21,8 @@ SYSTEM_PROMPT = (
 
 def answer_question(request: RagRequest) -> RagResponse:
     hits = search_documents(
-        SearchRequest(question=request.question, top_k=request.top_k, document_id=request.document_id)
+        SearchRequest(question=request.question, top_k=request.top_k, document_id=request.document_id,
+                      retrieval_mode=request.retrieval_mode)
     )
     if not hits:
         return RagResponse(answer="לא נמצאו מקורות במסמכים עבור השאלה.", sources=[])
