@@ -1,0 +1,67 @@
+{
+  "description": "Faithfulness split. dev was inspected and tuned on; held-out sets are scored, never debugged.",
+  "seed": 20261011,
+  "dev": [
+    "password_length",
+    "sms_mfa",
+    "lockout_duration",
+    "service_secret_rotation",
+    "exception_expiry",
+    "access_approval",
+    "incident_reporting_deadline",
+    "critical_device_updates",
+    "vpn_idle_timeout",
+    "personal_laptop_vpn",
+    "lost_laptop_reporting"
+  ],
+  "heldout_a": [
+    "clock_skew",
+    "disk_full",
+    "forgot_factor",
+    "gp1001",
+    "gp1002",
+    "gp401",
+    "gp403",
+    "ns401",
+    "ordinary_patch",
+    "p1_ack",
+    "p3_ack",
+    "random_mfa_prompt",
+    "vpn_admin_rights",
+    "vpn_mail",
+    "vpn_total_limit"
+  ],
+  "heldout_b": [
+    "contractor_role",
+    "contractor_vpn_mfa",
+    "gp809",
+    "it04_emergency",
+    "kb431",
+    "kb432",
+    "otp410",
+    "otp411",
+    "password_reset_url",
+    "payroll403",
+    "ransomware_power",
+    "screen_lock",
+    "travel_notice",
+    "vpn_hostname",
+    "work_backup"
+  ],
+  "categories": {
+    "heldout_a": {
+      "cross_document": 1,
+      "exact_term": 2,
+      "identifier": 7,
+      "near_match": 2,
+      "paraphrase": 3
+    },
+    "heldout_b": {
+      "cross_document": 1,
+      "exact_term": 3,
+      "identifier": 6,
+      "near_match": 2,
+      "paraphrase": 3
+    }
+  }
+}
