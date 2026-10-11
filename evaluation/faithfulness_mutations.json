@@ -1,0 +1,857 @@
+{
+  "description": "Frozen RAG answers with one injected unfaithful claim each, plus unchanged controls.",
+  "cases": [
+    {
+      "id": "password_length__control",
+      "base_case": "password_length",
+      "mutation": "none",
+      "expected": "faithful",
+      "question": "What is the minimum password length?",
+      "sources": [
+        {
+          "number": 1,
+          "source_file": "password_mfa_policy.pdf",
+          "page_number": 1,
+          "text": "NORTHSTAR ANALYTICS | Synthetic training policy | Version 1.0\nIT-01 | Page 1\nNORTHSTAR ANALYTICS / IT POLICY\nPassword & MFA Policy\nIT-01 | Version 1.0 | Effective 01 September 2026\nOwner: IT & Security | Applies to employees and contractors\nFictional company policy for RAG training and evaluation. All .example addresses are placeholders; these are not live\nservices.\n1. Purpose and scope\nProtect Northstar Analytics accounts against unauthorized use. This policy applies to employees,\ncontractors and administrators using company accounts, including email, the support portal, VPN and\nbusiness applications.\n2. Password rules\nPasswords must contain at least 14 characters; spaces and passphrases are allowed. Do not reuse a\ncompany password for personal accounts or share it with anyone. The identity service rejects known\ncompromised passwords. Use the company-approved password manager to generate and store unique\npasswords. Routine password changes are not required; change a password immediate"
+        },
+        {
+          "number": 2,
+          "source_file": "password_mfa_policy.pdf",
+          "page_number": 1,
+          "text": "ty service rejects known\ncompromised passwords. Use the company-approved password manager to generate and store unique\npasswords. Routine password changes are not required; change a password immediately if compromise\nis suspected or Security instructs you to do so.\n3. Multi-factor authentication\nMFA is required for all interactive company sign-ins, including VPN access. Register a security key or the\ncompany authenticator app before the first sign-in. SMS is not an approved MFA method. Administrators\nmust use a hardware security key for privileged access. Reject any MFA prompt you did not initiate and\nreport it immediately under IT-05.\n4. Failed sign-ins\nAfter 5 consecutive failed password attempts, the account is locked for 15 minutes. Wait for the lock to\nexpire or contact IT Support. Repeated lockouts or unfamiliar sign-in alerts must be reported\nimmediately. A lockout does not remove the MFA requirement."
+        },
+        {
+          "number": 3,
+          "source_file": "vpn_remote_access_policy.pdf",
+          "page_number": 2,
+          "text": "r attach passwords or MFA codes. Five failed password attempts lock the account for 15\nminutes under IT-01. Do not repeatedly retry during a lockout.\n7. Restricted remote actions\nDo not expose company remote desktop services directly to the internet. Privileged remote access\nrequires the approved administrative gateway and the separate administrator account described in IT-04.\nA VPN connection does not grant new application permissions. Security may immediately terminate\nsessions if compromise is suspected.\n8. Exceptions and related policies\nSecurity must approve any exception in writing with an owner and an expiry of no more than 30 days.\nThis policy does not allow personal laptops on the VPN. Use IT-01 for MFA recovery, IT-02 for device\ncompliance and IT-05 for suspicious sign-ins."
+        }
+      ],
+      "answer": "Based on the supplied documents, the minimum password length is **at least 14 characters** [1].\n\nThe policy states: \"Passwords must contain at least 14 characters; spaces and passphrases are allowed.\" [1]"
+    },
+    {
+      "id": "sms_mfa__control",
+      "base_case": "sms_mfa",
+      "mutation": "none",
+      "expected": "faithful",
+      "question": "Is SMS an approved MFA method?",
+      "sources": [
+        {
+          "number": 1,
+          "source_file": "password_mfa_policy.pdf",
+          "page_number": 1,
+          "text": "ty service rejects known\ncompromised passwords. Use the company-approved password manager to generate and store unique\npasswords. Routine password changes are not required; change a password immediately if compromise\nis suspected or Security instructs you to do so.\n3. Multi-factor authentication\nMFA is required for all interactive company sign-ins, including VPN access. Register a security key or the\ncompany authenticator app before the first sign-in. SMS is not an approved MFA method. Administrators\nmust use a hardware security key for privileged access. Reject any MFA prompt you did not initiate and\nreport it immediately under IT-05.\n4. Failed sign-ins\nAfter 5 consecutive failed password attempts, the account is locked for 15 minutes. Wait for the lock to\nexpire or contact IT Support. Repeated lockouts or unfamiliar sign-in alerts must be reported\nimmediately. A lockout does not remove the MFA requirement."
+        },
+        {
+          "number": 2,
+          "source_file": "password_mfa_policy.pdf",
+          "page_number": 2,
+          "text": "NORTHSTAR ANALYTICS | Synthetic training policy | Version 1.0\nIT-01 | Page 2\nNORTHSTAR ANALYTICS / IT POLICY\nPassword & MFA Policy\nProcedures and responsibilities\n5. Password reset\nUse https://identity.northstar.example/reset and complete verification with a registered MFA factor. If no\nfactor is available, contact IT Support at https://support.northstar.example. Support verifies identity\nthrough a live video check against the staff directory and confirmation from the recorded manager\nthrough an existing company channel. Support never asks for your password, an MFA code or approval\nof an unsolicited prompt.\n6. Lost factor and recovery\nReport a lost security key or phone immediately. Support revokes the missing factor and active sessions\nafter identity verification. A temporary enrollment pass expires after 30 minutes and can be used once; it\nis issued only to register a replacement factor. Register the replacement before normal access resumes.\nStore recovery codes in the approved passw"
+        },
+        {
+          "number": 3,
+          "source_file": "password_mfa_policy.pdf",
+          "page_number": 2,
+          "text": "ass expires after 30 minutes and can be used once; it\nis issued only to register a replacement factor. Register the replacement before normal access resumes.\nStore recovery codes in the approved password manager, separate from the device used for MFA.\n7. Service accounts and exceptions\nNon-interactive service credentials are stored in the managed secrets vault, never in source code or\ntickets. Their owner rotates secrets at least every 90 days and immediately after suspected exposure.\nAny exception requires written Security approval, a named owner and an expiry of no more than 30 days.\nNo exception may authorize sharing passwords.\n8. Related policies\nUse IT-03 for VPN eligibility, IT-04 for granting or removing access, and IT-05 for reporting suspected\ncredential compromise."
+        }
+      ],
+      "answer": "No, SMS is **not** an approved MFA method.\n\nAccording to the policy: \"SMS is not an approved MFA method.\" [1]\n\nThe approved MFA methods are:\n- A security key\n- The company authenticator app\n\nAdministrators must use a hardware security key specifically for privileged access. [1]"
+    },
+    {
+      "id": "lockout_duration__control",
+      "base_case": "lockout_duration",
+      "mutation": "none",
+      "expected": "faithful",
+      "question": "How long is an account locked after five failed password attempts?",
+      "sources": [
+        {
+          "number": 1,
+          "source_file": "password_mfa_policy.pdf",
+          "page_number": 1,
+          "text": "ty service rejects known\ncompromised passwords. Use the company-approved password manager to generate and store unique\npasswords. Routine password changes are not required; change a password immediately if compromise\nis suspected or Security instructs you to do so.\n3. Multi-factor authentication\nMFA is required for all interactive company sign-ins, including VPN access. Register a security key or the\ncompany authenticator app before the first sign-in. SMS is not an approved MFA method. Administrators\nmust use a hardware security key for privileged access. Reject any MFA prompt you did not initiate and\nreport it immediately under IT-05.\n4. Failed sign-ins\nAfter 5 consecutive failed password attempts, the account is locked for 15 minutes. Wait for the lock to\nexpire or contact IT Support. Repeated lockouts or unfamiliar sign-in alerts must be reported\nimmediately. A lockout does not remove the MFA requirement."
+        },
+        {
+          "number": 2,
+          "source_file": "vpn_remote_access_policy.pdf",
+          "page_number": 2,
+          "text": "r attach passwords or MFA codes. Five failed password attempts lock the account for 15\nminutes under IT-01. Do not repeatedly retry during a lockout.\n7. Restricted remote actions\nDo not expose company remote desktop services directly to the internet. Privileged remote access\nrequires the approved administrative gateway and the separate administrator account described in IT-04.\nA VPN connection does not grant new application permissions. Security may immediately terminate\nsessions if compromise is suspected.\n8. Exceptions and related policies\nSecurity must approve any exception in writing with an owner and an expiry of no more than 30 days.\nThis policy does not allow personal laptops on the VPN. Use IT-01 for MFA recovery, IT-02 for device\ncompliance and IT-05 for suspicious sign-ins."
+        },
+        {
+          "number": 3,
+          "source_file": "vpn_remote_access_policy.pdf",
+          "page_number": 2,
+          "text": "NORTHSTAR ANALYTICS | Synthetic training policy | Version 1.0\nIT-03 | Page 2\nNORTHSTAR ANALYTICS / IT POLICY\nVPN & Remote Access Policy\nProcedures and responsibilities\n5. Networks and routing\nUse a trusted home network or a personal mobile hotspot. Public Wi-Fi is permitted only with the\ncompany VPN active, and confidential work should be avoided in exposed locations. The company VPN\nuses full-tunnel routing: all network traffic goes through company controls while connected. Do not use\nanother VPN simultaneously, alter routes or turn off the firewall.\n6. Troubleshooting\nIf connection fails, confirm internet access, check the device clock, restart Northstar Connect and try\nonce more. If the issue persists, open a ticket with the error message, time, client version and device\nasset tag. Never attach passwords or MFA codes. Five failed password attempts lock the account for 15\nminutes under IT-01. Do not repeatedly retry during a lockout.\n7. Restricted remote actions\nDo not expose company"
+        }
+      ],
+      "answer": "According to the supplied documents, an account is locked for **15 minutes** after five failed password attempts [1][2]."
+    },
+    {
+      "id": "service_secret_rotation__control",
+      "base_case": "service_secret_rotation",
+      "mutation": "none",
+      "expected": "faithful",
+      "question": "How often must owners rotate service account secrets?",
+      "sources": [
+        {
+          "number": 1,
+          "source_file": "access_control_policy.pdf",
+          "page_number": 2,
+          "text": "er\nreviews access every 90 days; secret rotation follows IT-01. Exceptions need written Security approval,\nan owner and an expiry of no more than 30 days. Exceptions cannot permit shared human accounts or\nself-approval."
+        },
+        {
+          "number": 2,
+          "source_file": "password_mfa_policy.pdf",
+          "page_number": 2,
+          "text": "ass expires after 30 minutes and can be used once; it\nis issued only to register a replacement factor. Register the replacement before normal access resumes.\nStore recovery codes in the approved password manager, separate from the device used for MFA.\n7. Service accounts and exceptions\nNon-interactive service credentials are stored in the managed secrets vault, never in source code or\ntickets. Their owner rotates secrets at least every 90 days and immediately after suspected exposure.\nAny exception requires written Security approval, a named owner and an expiry of no more than 30 days.\nNo exception may authorize sharing passwords.\n8. Related policies\nUse IT-03 for VPN eligibility, IT-04 for granting or removing access, and IT-05 for reporting suspected\ncredential compromise."
+        },
+        {
+          "number": 3,
+          "source_file": "access_control_policy.pdf",
+          "page_number": 2,
+          "text": "ies the\ndeparture date and exact time. IT disables the account and revokes sessions at that time; for involuntary\ndepartures, HR and Security coordinate immediate removal at the agreed notification time. Device return\nfollows IT-02 and may occur later than account removal.\n7. Reviews and emergency access\nSystem owners review access every 90 days. IT removes unneeded access within 2 business days after\nthe review decision. For an active security incident, the Security incident lead may authorize emergency\naccess in a ticket for up to 4 hours. All actions are logged; the system owner and Security review use\nwithin 1 business day. Extensions require a new approval.\n8. Service accounts and exceptions\nEvery service account needs a named owner, documented purpose and minimum permissions. Its owner\nreviews access every 90 days; secret rotation follows IT-01. Exceptions need written Security approval,\nan owner and an expiry of no more than 30 days. Exceptions cannot permit shared human account"
+        }
+      ],
+      "answer": "Based on the supplied documents, **owners must rotate service account secrets at least every 90 days** [2].\n\nAdditionally, secrets must be rotated **immediately after suspected exposure** [2].\n\nThe policy specifies that service account credentials must be stored in a managed secrets vault and never in source code or tickets [2]."
+    },
+    {
+      "id": "exception_expiry__control",
+      "base_case": "exception_expiry",
+      "mutation": "none",
+      "expected": "faithful",
+      "question": "Under the Password & MFA Policy, what is the maximum duration of a Security-approved exception?",
+      "sources": [
+        {
+          "number": 1,
+          "source_file": "password_mfa_policy.pdf",
+          "page_number": 2,
+          "text": "ass expires after 30 minutes and can be used once; it\nis issued only to register a replacement factor. Register the replacement before normal access resumes.\nStore recovery codes in the approved password manager, separate from the device used for MFA.\n7. Service accounts and exceptions\nNon-interactive service credentials are stored in the managed secrets vault, never in source code or\ntickets. Their owner rotates secrets at least every 90 days and immediately after suspected exposure.\nAny exception requires written Security approval, a named owner and an expiry of no more than 30 days.\nNo exception may authorize sharing passwords.\n8. Related policies\nUse IT-03 for VPN eligibility, IT-04 for granting or removing access, and IT-05 for reporting suspected\ncredential compromise."
+        },
+        {
+          "number": 2,
+          "source_file": "vpn_remote_access_policy.pdf",
+          "page_number": 2,
+          "text": "r attach passwords or MFA codes. Five failed password attempts lock the account for 15\nminutes under IT-01. Do not repeatedly retry during a lockout.\n7. Restricted remote actions\nDo not expose company remote desktop services directly to the internet. Privileged remote access\nrequires the approved administrative gateway and the separate administrator account described in IT-04.\nA VPN connection does not grant new application permissions. Security may immediately terminate\nsessions if compromise is suspected.\n8. Exceptions and related policies\nSecurity must approve any exception in writing with an owner and an expiry of no more than 30 days.\nThis policy does not allow personal laptops on the VPN. Use IT-01 for MFA recovery, IT-02 for device\ncompliance and IT-05 for suspicious sign-ins."
+        },
+        {
+          "number": 3,
+          "source_file": "access_control_policy.pdf",
+          "page_number": 2,
+          "text": "er\nreviews access every 90 days; secret rotation follows IT-01. Exceptions need written Security approval,\nan owner and an expiry of no more than 30 days. Exceptions cannot permit shared human accounts or\nself-approval."
+        }
+      ],
+      "answer": "According to the Password & MFA Policy, the maximum duration of a Security-approved exception is **no more than 30 days**.\n\nThis is stated in the policy: \"Any exception requires written Security approval, a named owner and an expiry of no more than 30 days.\" [1]"
+    },
+    {
+      "id": "access_approval__control",
+      "base_case": "access_approval",
+      "mutation": "none",
+      "expected": "faithful",
+      "question": "Who must approve an access request before IT provisions access?",
+      "sources": [
+        {
+          "number": 1,
+          "source_file": "access_control_policy.pdf",
+          "page_number": 1,
+          "text": "NORTHSTAR ANALYTICS | Synthetic training policy | Version 1.0\nIT-04 | Page 1\nNORTHSTAR ANALYTICS / IT POLICY\nAccess Control Policy\nIT-04 | Version 1.0 | Effective 01 September 2026\nOwner: IT & Security | Applies to employees and contractors\nFictional company policy for RAG training and evaluation. All .example addresses are placeholders; these are not live\nservices.\n1. Purpose and principles\nGive each employee or contractor only the access needed for assigned work. All human users receive\nindividual accounts. Shared human accounts are prohibited. Application permissions are separate from\nVPN eligibility; connection to the VPN does not authorize access to every system.\n2. Request and approval\nSubmit a ticket at https://support.northstar.example naming the system, requested role, business reason,\nstart date and end date if temporary. The line manager and system owner must approve before IT\nprovisions access. The requester cannot approve their own request. IT records approval and the actu"
+        },
+        {
+          "number": 2,
+          "source_file": "access_control_policy.pdf",
+          "page_number": 1,
+          "text": "ason,\nstart date and end date if temporary. The line manager and system owner must approve before IT\nprovisions access. The requester cannot approve their own request. IT records approval and the actual\npermissions in the ticket.\n3. Standard and sensitive roles\nRead-only access is the default when it satisfies the work need. Editing, export and administrative rights\nmust be explicitly requested. Access to payroll, production administration or bulk customer-data exports\nadditionally requires Security approval. IT targets fulfillment of ordinary requests within 2 business days\nafter all approvals; urgent incident access uses the emergency procedure below.\n4. Temporary and contractor access\nTemporary project permissions expire after no more than 30 days. Contractor accounts and VPN\nentitlements expire after no more than 90 days and require a named employee sponsor. For a contractor\nassigned a temporary project role, both limits apply: the project role expires within 30 days even if the\nac"
+        },
+        {
+          "number": 3,
+          "source_file": "access_control_policy.pdf",
+          "page_number": 2,
+          "text": "NORTHSTAR ANALYTICS | Synthetic training policy | Version 1.0\nIT-04 | Page 2\nNORTHSTAR ANALYTICS / IT POLICY\nAccess Control Policy\nProcedures and responsibilities\n5. Privileged access\nUse a separate administrator account for privileged tasks and the normal account for everyday work.\nPrivileged sign-ins require a hardware security key. Local administrator elevation on a laptop expires\nafter no more than 8 hours. Production administrator roles require manager, system owner and Security\napproval, with an explicit end date and a maximum grant of 30 days before renewal.\n6. Role changes and departures\nThe manager submits role changes before the effective date. IT removes permissions no longer needed\nwithin 1 business day of that date, then provisions new permissions only after approval. HR supplies the\ndeparture date and exact time. IT disables the account and revokes sessions at that time; for involuntary\ndepartures, HR and Security coordinate immediate removal at the agreed notification ti"
+        }
+      ],
+      "answer": "According to the policy, **the line manager and system owner must approve before IT provisions access** [1][2].\n\nThe policy also specifies that \"the requester cannot approve their own request\" [2]. Additionally, for access to sensitive roles (payroll, production administration, or bulk customer-data exports), **Security approval is also required** [2]."
+    },
+    {
+      "id": "incident_reporting_deadline__control",
+      "base_case": "incident_reporting_deadline",
+      "mutation": "none",
+      "expected": "faithful",
+      "question": "How soon after discovery must a suspected security incident be reported?",
+      "sources": [
+        {
+          "number": 1,
+          "source_file": "incident_response_security_reporting_policy.pdf",
+          "page_number": 1,
+          "text": "NORTHSTAR ANALYTICS | Synthetic training policy | Version 1.0\nIT-05 | Page 1\nNORTHSTAR ANALYTICS / IT POLICY\nIncident Response & Security Reporting\nPolicy\nIT-05 | Version 1.0 | Effective 01 September 2026\nOwner: IT & Security | Applies to employees and contractors\nFictional company policy for RAG training and evaluation. All .example addresses are placeholders; these are not live\nservices.\n1. Purpose and scope\nHelp staff report and contain suspected security incidents quickly. Report phishing, unexpected MFA\nprompts, malware alerts, lost devices, exposed credentials and possible data disclosure. You do not\nneed proof before reporting. Prompt good-faith reporting is encouraged; do not investigate by accessing\nsomeone else's account.\n2. Reporting deadlines and channels\nReport suspected incidents immediately, and no later than 1 hour after discovery. Use\nsecurity@northstar.example or the Security Incident form at https://support.northstar.example. If\ncompany sign-in or email is unavailabl"
+        },
+        {
+          "number": 2,
+          "source_file": "incident_response_security_reporting_policy.pdf",
+          "page_number": 2,
+          "text": "NORTHSTAR ANALYTICS | Synthetic training policy | Version 1.0\nIT-05 | Page 2\nNORTHSTAR ANALYTICS / IT POLICY\nIncident Response & Security Reporting\nPolicy\nProcedures and responsibilities\n5. Credential and device incidents\nIf credentials may be exposed, contact Security immediately and reset the password through the known\nidentity portal under IT-01 if safe to do so. Security revokes sessions and compromised factors as\nneeded. Report a lost or stolen device within the same 1-hour limit, with the last known location and\nwhether it was unlocked. Security coordinates remote lock or wipe under IT-02.\n6. Triage and response targets\nSecurity assigns severity. P1 covers active ransomware, confirmed account takeover or ongoing\nsensitive-data exposure: target acknowledgment within 15 minutes of receipt. P2 covers suspected\ncompromise without evidence of active spread: target acknowledgment within 1 hour. P3 covers blocked\nphishing with no interaction: target acknowledgment within 4 hours. These "
+        },
+        {
+          "number": 3,
+          "source_file": "incident_response_security_reporting_policy.pdf",
+          "page_number": 2,
+          "text": "ipt. P2 covers suspected\ncompromise without evidence of active spread: target acknowledgment within 1 hour. P3 covers blocked\nphishing with no interaction: target acknowledgment within 4 hours. These are 24/7 acknowledgment\ntargets, not resolution guarantees. If the target passes without acknowledgment, resubmit through the\nalternate reporting channel and reference the original report time.\n7. Containment and evidence\nThe Security incident lead may isolate devices, revoke sessions, block accounts and request emergency\naccess under IT-04. Preserve original messages, screenshots and logs. Do not delete files, reinstall\nsoftware, factory-reset the device or perform a forensic investigation yourself. Security records evidence\naccess and coordinates with Legal before external notifications. Employees must not contact affected\ncustomers or publish incident details unless explicitly assigned to do so.\n8. Closure and follow-up\nSecurity confirms containment and recovery before IT restores norma"
+        }
+      ],
+      "answer": "According to the policy, suspected security incidents must be reported **immediately, and no later than 1 hour after discovery** [1].\n\nThe policy specifies two reporting channels: security@northstar.example or the Security Incident form at https://support.northstar.example [1]."
+    },
+    {
+      "id": "critical_device_updates__control",
+      "base_case": "critical_device_updates",
+      "mutation": "none",
+      "expected": "faithful",
+      "question": "How quickly must critical security updates be installed on company devices?",
+      "sources": [
+        {
+          "number": 1,
+          "source_file": "laptop_device_policy.pdf",
+          "page_number": 1,
+          "text": "the host firewall must remain enabled. The screen must lock after 5 minutes of inactivity;\nlock it manually before leaving it unattended. Employees use standard user accounts. Local administrator\naccess requires approval under IT-04 and expires after no more than 8 hours.\n3. Updates and software\nInstall Security-designated critical security updates within 48 hours of the company deployment notice.\nInstall all other security updates within 14 calendar days. Restart when prompted to complete installation.\nInstall software only through the company software catalog or an IT-approved ticket. Do not disable\nsecurity controls or use unlicensed software.\n4. Data and backups\nStore work files in approved company cloud storage, which provides daily backups with 30-day retention.\nLocal-only files are not backed up by IT. Do not copy work files to personal cloud storage or unapproved\nUSB devices. An approved removable drive must be encrypted. Report suspected disclosure under\nIT-05."
+        },
+        {
+          "number": 2,
+          "source_file": "laptop_device_policy.pdf",
+          "page_number": 2,
+          "text": " not attempt to recover a stolen device yourself. Use the\nemergency reporting channels in IT-05 if normal sign-in is unavailable.\n7. Repair, replacement and return\nOpen an IT ticket for damage or malfunction; do not arrange repairs independently. IT aims to provide a\nloaner within 1 business day after triage, subject to stock. The standard laptop replacement cycle is 4\nyears; earlier replacement requires IT approval. Return devices, chargers and security keys within 3\nbusiness days of the last working day. IT performs data preservation and secure wiping; do not\nfactory-reset devices yourself.\n8. Exceptions and related policies\nSecurity must approve exceptions in writing with an owner and an expiry of no more than 30 days. See\nIT-03 for remote access, IT-04 for administrator permissions and IT-05 for incident reporting."
+        },
+        {
+          "number": 3,
+          "source_file": "incident_response_security_reporting_policy.pdf",
+          "page_number": 2,
+          "text": "NORTHSTAR ANALYTICS | Synthetic training policy | Version 1.0\nIT-05 | Page 2\nNORTHSTAR ANALYTICS / IT POLICY\nIncident Response & Security Reporting\nPolicy\nProcedures and responsibilities\n5. Credential and device incidents\nIf credentials may be exposed, contact Security immediately and reset the password through the known\nidentity portal under IT-01 if safe to do so. Security revokes sessions and compromised factors as\nneeded. Report a lost or stolen device within the same 1-hour limit, with the last known location and\nwhether it was unlocked. Security coordinates remote lock or wipe under IT-02.\n6. Triage and response targets\nSecurity assigns severity. P1 covers active ransomware, confirmed account takeover or ongoing\nsensitive-data exposure: target acknowledgment within 15 minutes of receipt. P2 covers suspected\ncompromise without evidence of active spread: target acknowledgment within 1 hour. P3 covers blocked\nphishing with no interaction: target acknowledgment within 4 hours. These "
+        }
+      ],
+      "answer": "According to the supplied documents, critical security updates must be installed within **48 hours** of the company deployment notice [1].\n\nThe policy distinguishes between critical security updates and other security updates: all other security updates must be installed within 14 calendar days [1]."
+    },
+    {
+      "id": "vpn_idle_timeout__control",
+      "base_case": "vpn_idle_timeout",
+      "mutation": "none",
+      "expected": "faithful",
+      "question": "After how much inactivity does a VPN session disconnect?",
+      "sources": [
+        {
+          "number": 1,
+          "source_file": "vpn_remote_access_policy.pdf",
+          "page_number": 1,
+          "text": "r and IT must approve a VPN access ticket. Contractors also need a named employee\nsponsor; contractor VPN access expires after no more than 90 days and must be reapproved before\nrenewal. Access approvals follow IT-04.\n3. Connection procedure\nInstall Northstar Connect from the company software catalog. Connect to vpn.northstar.example, sign in\nwith the company account and complete MFA. Confirm the client shows Connected before opening\ninternal systems. The client checks disk encryption, endpoint protection, host firewall and update\ncompliance under IT-02. A failed device check blocks connection; contact IT instead of bypassing it.\n4. Session limits\nVPN sessions disconnect after 30 minutes of inactivity or 12 hours of total connection time, whichever\noccurs first. Reconnect and complete MFA to start a new session. Only 1 concurrent VPN session per\nuser is permitted. Disconnect when work is finished. Do not share a VPN account or allow another person\nto use an active session."
+        },
+        {
+          "number": 2,
+          "source_file": "vpn_remote_access_policy.pdf",
+          "page_number": 2,
+          "text": "r attach passwords or MFA codes. Five failed password attempts lock the account for 15\nminutes under IT-01. Do not repeatedly retry during a lockout.\n7. Restricted remote actions\nDo not expose company remote desktop services directly to the internet. Privileged remote access\nrequires the approved administrative gateway and the separate administrator account described in IT-04.\nA VPN connection does not grant new application permissions. Security may immediately terminate\nsessions if compromise is suspected.\n8. Exceptions and related policies\nSecurity must approve any exception in writing with an owner and an expiry of no more than 30 days.\nThis policy does not allow personal laptops on the VPN. Use IT-01 for MFA recovery, IT-02 for device\ncompliance and IT-05 for suspicious sign-ins."
+        },
+        {
+          "number": 3,
+          "source_file": "vpn_remote_access_policy.pdf",
+          "page_number": 2,
+          "text": "NORTHSTAR ANALYTICS | Synthetic training policy | Version 1.0\nIT-03 | Page 2\nNORTHSTAR ANALYTICS / IT POLICY\nVPN & Remote Access Policy\nProcedures and responsibilities\n5. Networks and routing\nUse a trusted home network or a personal mobile hotspot. Public Wi-Fi is permitted only with the\ncompany VPN active, and confidential work should be avoided in exposed locations. The company VPN\nuses full-tunnel routing: all network traffic goes through company controls while connected. Do not use\nanother VPN simultaneously, alter routes or turn off the firewall.\n6. Troubleshooting\nIf connection fails, confirm internet access, check the device clock, restart Northstar Connect and try\nonce more. If the issue persists, open a ticket with the error message, time, client version and device\nasset tag. Never attach passwords or MFA codes. Five failed password attempts lock the account for 15\nminutes under IT-01. Do not repeatedly retry during a lockout.\n7. Restricted remote actions\nDo not expose company"
+        }
+      ],
+      "answer": "According to the source documents, **VPN sessions disconnect after 30 minutes of inactivity** [1].\n\nMore specifically, the policy states: \"VPN sessions disconnect after 30 minutes of inactivity or 12 hours of total connection time, whichever occurs first.\" [1]"
+    },
+    {
+      "id": "personal_laptop_vpn__control",
+      "base_case": "personal_laptop_vpn",
+      "mutation": "none",
+      "expected": "faithful",
+      "question": "Can I connect to the company VPN using a personal laptop, and which device is required?",
+      "sources": [
+        {
+          "number": 1,
+          "source_file": "laptop_device_policy.pdf",
+          "page_number": 1,
+          "text": "NORTHSTAR ANALYTICS | Synthetic training policy | Version 1.0\nIT-02 | Page 1\nNORTHSTAR ANALYTICS / IT POLICY\nLaptop & Device Policy\nIT-02 | Version 1.0 | Effective 01 September 2026\nOwner: IT & Security | Applies to employees and contractors\nFictional company policy for RAG training and evaluation. All .example addresses are placeholders; these are not live\nservices.\n1. Purpose and scope\nMaintain secure, reliable company devices. This policy applies to company-issued laptops and\ncompany-managed phones. Only company-issued, managed laptops may connect to the VPN. Personal\nphones may run the authenticator app, but may not store company files or access the VPN.\n2. Required protections\nIT enrolls each device in endpoint management before handover. Full-disk encryption, endpoint\nprotection and the host firewall must remain enabled. The screen must lock after 5 minutes of inactivity;\nlock it manually before leaving it unattended. Employees use standard user accounts. Local administrator\nacce"
+        },
+        {
+          "number": 2,
+          "source_file": "vpn_remote_access_policy.pdf",
+          "page_number": 1,
+          "text": "NORTHSTAR ANALYTICS | Synthetic training policy | Version 1.0\nIT-03 | Page 1\nNORTHSTAR ANALYTICS / IT POLICY\nVPN & Remote Access Policy\nIT-03 | Version 1.0 | Effective 01 September 2026\nOwner: IT & Security | Applies to employees and contractors\nFictional company policy for RAG training and evaluation. All .example addresses are placeholders; these are not live\nservices.\n1. Purpose and scope\nProvide secure remote access to internal systems. Employees and approved contractors must use the\ncompany VPN for internal applications outside the office network. Company cloud email and the support\nportal do not require VPN, but still require company sign-in and MFA.\n2. Eligibility and approval\nVPN use requires a company-issued, managed laptop, an active company account and registered MFA.\nThe manager and IT must approve a VPN access ticket. Contractors also need a named employee\nsponsor; contractor VPN access expires after no more than 90 days and must be reapproved before\nrenewal. Access approv"
+        },
+        {
+          "number": 3,
+          "source_file": "vpn_remote_access_policy.pdf",
+          "page_number": 2,
+          "text": "r attach passwords or MFA codes. Five failed password attempts lock the account for 15\nminutes under IT-01. Do not repeatedly retry during a lockout.\n7. Restricted remote actions\nDo not expose company remote desktop services directly to the internet. Privileged remote access\nrequires the approved administrative gateway and the separate administrator account described in IT-04.\nA VPN connection does not grant new application permissions. Security may immediately terminate\nsessions if compromise is suspected.\n8. Exceptions and related policies\nSecurity must approve any exception in writing with an owner and an expiry of no more than 30 days.\nThis policy does not allow personal laptops on the VPN. Use IT-01 for MFA recovery, IT-02 for device\ncompliance and IT-05 for suspicious sign-ins."
+        }
+      ],
+      "answer": "Based on the supplied documents:\n\n**No, you cannot connect to the company VPN using a personal laptop.**\n\nThe required device is a **company-issued, managed laptop**.\n\nThis is stated explicitly in two places:\n\n1. From the Laptop & Device Policy: \"Only company-issued, managed laptops may connect to the VPN.\" [1]\n\n2. From the VPN & Remote Access Policy: \"VPN use requires a company-issued, managed laptop, an active company account and registered MFA\" [2], and \"This policy does not allow personal laptops on the VPN.\" [3]"
+    },
+    {
+      "id": "lost_laptop_reporting__control",
+      "base_case": "lost_laptop_reporting",
+      "mutation": "none",
+      "expected": "faithful",
+      "question": "If my company laptop is stolen and company sign-in is unavailable, how soon must I report it and which alternate reporting channel can I use?",
+      "sources": [
+        {
+          "number": 1,
+          "source_file": "laptop_device_policy.pdf",
+          "page_number": 2,
+          "text": " not attempt to recover a stolen device yourself. Use the\nemergency reporting channels in IT-05 if normal sign-in is unavailable.\n7. Repair, replacement and return\nOpen an IT ticket for damage or malfunction; do not arrange repairs independently. IT aims to provide a\nloaner within 1 business day after triage, subject to stock. The standard laptop replacement cycle is 4\nyears; earlier replacement requires IT approval. Return devices, chargers and security keys within 3\nbusiness days of the last working day. IT performs data preservation and secure wiping; do not\nfactory-reset devices yourself.\n8. Exceptions and related policies\nSecurity must approve exceptions in writing with an owner and an expiry of no more than 30 days. See\nIT-03 for remote access, IT-04 for administrator permissions and IT-05 for incident reporting."
+        },
+        {
+          "number": 2,
+          "source_file": "laptop_device_policy.pdf",
+          "page_number": 2,
+          "text": "NORTHSTAR ANALYTICS | Synthetic training policy | Version 1.0\nIT-02 | Page 2\nNORTHSTAR ANALYTICS / IT POLICY\nLaptop & Device Policy\nProcedures and responsibilities\n5. Travel and physical care\nKeep devices in your possession or in locked storage. Do not leave a laptop in an unattended vehicle or\nchecked baggage. Use a privacy screen when working with confidential information in public. Notify IT\nthrough a ticket at least 5 business days before international travel so it can review device and access\nrequirements.\n6. Lost or stolen devices\nReport loss or theft immediately to Security, and no later than 1 hour after discovery. Give the asset tag if\nknown, last known location, discovery time and whether the device was unlocked. Security coordinates\nsession revocation and remote lock or wipe. Do not attempt to recover a stolen device yourself. Use the\nemergency reporting channels in IT-05 if normal sign-in is unavailable.\n7. Repair, replacement and return\nOpen an IT ticket for damage or malf"
+        },
+        {
+          "number": 3,
+          "source_file": "incident_response_security_reporting_policy.pdf",
+          "page_number": 1,
+          "text": "ents immediately, and no later than 1 hour after discovery. Use\nsecurity@northstar.example or the Security Incident form at https://support.northstar.example. If\ncompany sign-in or email is unavailable, use https://security.northstar.example/report from another\ndevice; this form does not require sign-in. The security reporting queue is monitored 24/7. Routine IT\nrequests are handled Monday-Friday, 09:00-17:00 UTC, excluding company holidays.\n3. Information to include\nProvide your name, a reachable contact, discovery time with time zone, affected account or device asset\ntag, what happened and what you already did. Include the sender, subject and received time for\nsuspected phishing. Attach safe screenshots if useful. Never submit passwords, recovery codes or MFA\ncodes. Use the reporting form rather than replying to a suspicious message.\n4. Immediate employee actions\nFor phishing, do not click links, open attachments or forward the message to coworkers. Use the email\nReport Phishing butt"
+        }
+      ],
+      "answer": "Based on the supplied documents:\n\n**Reporting Timeline:**\nYou must report a stolen laptop **immediately, and no later than 1 hour after discovery** [2].\n\n**Alternate Reporting Channel:**\nIf normal company sign-in is unavailable, use the emergency reporting channel: **https://security.northstar.example/report** from another device. This form does not require sign-in [3].\n\n**Additional Details:**\nWhen reporting, provide your name, a reachable contact, discovery time with time zone, the device asset tag (if known), last known location, discovery time, and whether the device was unlocked [2][3]. Report the theft to Security, which will coordinate session revocation and remote lock or wipe [2]."
+    },
+    {
+      "id": "password_length__number",
+      "base_case": "password_length",
+      "mutation": "number",
+      "expected": "unfaithful",
+      "change": {
+        "find": "at least 14 characters** [1]",
+        "replace": "at least 12 characters** [1]"
+      },
+      "marker": "12 characters",
+      "expected_claim_label": "contradicted",
+      "question": "What is the minimum password length?",
+      "sources": [
+        {
+          "number": 1,
+          "source_file": "password_mfa_policy.pdf",
+          "page_number": 1,
+          "text": "NORTHSTAR ANALYTICS | Synthetic training policy | Version 1.0\nIT-01 | Page 1\nNORTHSTAR ANALYTICS / IT POLICY\nPassword & MFA Policy\nIT-01 | Version 1.0 | Effective 01 September 2026\nOwner: IT & Security | Applies to employees and contractors\nFictional company policy for RAG training and evaluation. All .example addresses are placeholders; these are not live\nservices.\n1. Purpose and scope\nProtect Northstar Analytics accounts against unauthorized use. This policy applies to employees,\ncontractors and administrators using company accounts, including email, the support portal, VPN and\nbusiness applications.\n2. Password rules\nPasswords must contain at least 14 characters; spaces and passphrases are allowed. Do not reuse a\ncompany password for personal accounts or share it with anyone. The identity service rejects known\ncompromised passwords. Use the company-approved password manager to generate and store unique\npasswords. Routine password changes are not required; change a password immediate"
+        },
+        {
+          "number": 2,
+          "source_file": "password_mfa_policy.pdf",
+          "page_number": 1,
+          "text": "ty service rejects known\ncompromised passwords. Use the company-approved password manager to generate and store unique\npasswords. Routine password changes are not required; change a password immediately if compromise\nis suspected or Security instructs you to do so.\n3. Multi-factor authentication\nMFA is required for all interactive company sign-ins, including VPN access. Register a security key or the\ncompany authenticator app before the first sign-in. SMS is not an approved MFA method. Administrators\nmust use a hardware security key for privileged access. Reject any MFA prompt you did not initiate and\nreport it immediately under IT-05.\n4. Failed sign-ins\nAfter 5 consecutive failed password attempts, the account is locked for 15 minutes. Wait for the lock to\nexpire or contact IT Support. Repeated lockouts or unfamiliar sign-in alerts must be reported\nimmediately. A lockout does not remove the MFA requirement."
+        },
+        {
+          "number": 3,
+          "source_file": "vpn_remote_access_policy.pdf",
+          "page_number": 2,
+          "text": "r attach passwords or MFA codes. Five failed password attempts lock the account for 15\nminutes under IT-01. Do not repeatedly retry during a lockout.\n7. Restricted remote actions\nDo not expose company remote desktop services directly to the internet. Privileged remote access\nrequires the approved administrative gateway and the separate administrator account described in IT-04.\nA VPN connection does not grant new application permissions. Security may immediately terminate\nsessions if compromise is suspected.\n8. Exceptions and related policies\nSecurity must approve any exception in writing with an owner and an expiry of no more than 30 days.\nThis policy does not allow personal laptops on the VPN. Use IT-01 for MFA recovery, IT-02 for device\ncompliance and IT-05 for suspicious sign-ins."
+        }
+      ],
+      "answer": "Based on the supplied documents, the minimum password length is **at least 12 characters** [1].\n\nThe policy states: \"Passwords must contain at least 14 characters; spaces and passphrases are allowed.\" [1]"
+    },
+    {
+      "id": "lockout_duration__number",
+      "base_case": "lockout_duration",
+      "mutation": "number",
+      "expected": "unfaithful",
+      "change": {
+        "find": "**15 minutes**",
+        "replace": "**60 minutes**"
+      },
+      "marker": "60 minutes",
+      "expected_claim_label": "contradicted",
+      "question": "How long is an account locked after five failed password attempts?",
+      "sources": [
+        {
+          "number": 1,
+          "source_file": "password_mfa_policy.pdf",
+          "page_number": 1,
+          "text": "ty service rejects known\ncompromised passwords. Use the company-approved password manager to generate and store unique\npasswords. Routine password changes are not required; change a password immediately if compromise\nis suspected or Security instructs you to do so.\n3. Multi-factor authentication\nMFA is required for all interactive company sign-ins, including VPN access. Register a security key or the\ncompany authenticator app before the first sign-in. SMS is not an approved MFA method. Administrators\nmust use a hardware security key for privileged access. Reject any MFA prompt you did not initiate and\nreport it immediately under IT-05.\n4. Failed sign-ins\nAfter 5 consecutive failed password attempts, the account is locked for 15 minutes. Wait for the lock to\nexpire or contact IT Support. Repeated lockouts or unfamiliar sign-in alerts must be reported\nimmediately. A lockout does not remove the MFA requirement."
+        },
+        {
+          "number": 2,
+          "source_file": "vpn_remote_access_policy.pdf",
+          "page_number": 2,
+          "text": "r attach passwords or MFA codes. Five failed password attempts lock the account for 15\nminutes under IT-01. Do not repeatedly retry during a lockout.\n7. Restricted remote actions\nDo not expose company remote desktop services directly to the internet. Privileged remote access\nrequires the approved administrative gateway and the separate administrator account described in IT-04.\nA VPN connection does not grant new application permissions. Security may immediately terminate\nsessions if compromise is suspected.\n8. Exceptions and related policies\nSecurity must approve any exception in writing with an owner and an expiry of no more than 30 days.\nThis policy does not allow personal laptops on the VPN. Use IT-01 for MFA recovery, IT-02 for device\ncompliance and IT-05 for suspicious sign-ins."
+        },
+        {
+          "number": 3,
+          "source_file": "vpn_remote_access_policy.pdf",
+          "page_number": 2,
+          "text": "NORTHSTAR ANALYTICS | Synthetic training policy | Version 1.0\nIT-03 | Page 2\nNORTHSTAR ANALYTICS / IT POLICY\nVPN & Remote Access Policy\nProcedures and responsibilities\n5. Networks and routing\nUse a trusted home network or a personal mobile hotspot. Public Wi-Fi is permitted only with the\ncompany VPN active, and confidential work should be avoided in exposed locations. The company VPN\nuses full-tunnel routing: all network traffic goes through company controls while connected. Do not use\nanother VPN simultaneously, alter routes or turn off the firewall.\n6. Troubleshooting\nIf connection fails, confirm internet access, check the device clock, restart Northstar Connect and try\nonce more. If the issue persists, open a ticket with the error message, time, client version and device\nasset tag. Never attach passwords or MFA codes. Five failed password attempts lock the account for 15\nminutes under IT-01. Do not repeatedly retry during a lockout.\n7. Restricted remote actions\nDo not expose company"
+        }
+      ],
+      "answer": "According to the supplied documents, an account is locked for **60 minutes** after five failed password attempts [1][2]."
+    },
+    {
+      "id": "critical_device_updates__number",
+      "base_case": "critical_device_updates",
+      "mutation": "number",
+      "expected": "unfaithful",
+      "change": {
+        "find": "**48 hours**",
+        "replace": "**72 hours**"
+      },
+      "marker": "72 hours",
+      "expected_claim_label": "contradicted",
+      "question": "How quickly must critical security updates be installed on company devices?",
+      "sources": [
+        {
+          "number": 1,
+          "source_file": "laptop_device_policy.pdf",
+          "page_number": 1,
+          "text": "the host firewall must remain enabled. The screen must lock after 5 minutes of inactivity;\nlock it manually before leaving it unattended. Employees use standard user accounts. Local administrator\naccess requires approval under IT-04 and expires after no more than 8 hours.\n3. Updates and software\nInstall Security-designated critical security updates within 48 hours of the company deployment notice.\nInstall all other security updates within 14 calendar days. Restart when prompted to complete installation.\nInstall software only through the company software catalog or an IT-approved ticket. Do not disable\nsecurity controls or use unlicensed software.\n4. Data and backups\nStore work files in approved company cloud storage, which provides daily backups with 30-day retention.\nLocal-only files are not backed up by IT. Do not copy work files to personal cloud storage or unapproved\nUSB devices. An approved removable drive must be encrypted. Report suspected disclosure under\nIT-05."
+        },
+        {
+          "number": 2,
+          "source_file": "laptop_device_policy.pdf",
+          "page_number": 2,
+          "text": " not attempt to recover a stolen device yourself. Use the\nemergency reporting channels in IT-05 if normal sign-in is unavailable.\n7. Repair, replacement and return\nOpen an IT ticket for damage or malfunction; do not arrange repairs independently. IT aims to provide a\nloaner within 1 business day after triage, subject to stock. The standard laptop replacement cycle is 4\nyears; earlier replacement requires IT approval. Return devices, chargers and security keys within 3\nbusiness days of the last working day. IT performs data preservation and secure wiping; do not\nfactory-reset devices yourself.\n8. Exceptions and related policies\nSecurity must approve exceptions in writing with an owner and an expiry of no more than 30 days. See\nIT-03 for remote access, IT-04 for administrator permissions and IT-05 for incident reporting."
+        },
+        {
+          "number": 3,
+          "source_file": "incident_response_security_reporting_policy.pdf",
+          "page_number": 2,
+          "text": "NORTHSTAR ANALYTICS | Synthetic training policy | Version 1.0\nIT-05 | Page 2\nNORTHSTAR ANALYTICS / IT POLICY\nIncident Response & Security Reporting\nPolicy\nProcedures and responsibilities\n5. Credential and device incidents\nIf credentials may be exposed, contact Security immediately and reset the password through the known\nidentity portal under IT-01 if safe to do so. Security revokes sessions and compromised factors as\nneeded. Report a lost or stolen device within the same 1-hour limit, with the last known location and\nwhether it was unlocked. Security coordinates remote lock or wipe under IT-02.\n6. Triage and response targets\nSecurity assigns severity. P1 covers active ransomware, confirmed account takeover or ongoing\nsensitive-data exposure: target acknowledgment within 15 minutes of receipt. P2 covers suspected\ncompromise without evidence of active spread: target acknowledgment within 1 hour. P3 covers blocked\nphishing with no interaction: target acknowledgment within 4 hours. These "
+        }
+      ],
+      "answer": "According to the supplied documents, critical security updates must be installed within **72 hours** of the company deployment notice [1].\n\nThe policy distinguishes between critical security updates and other security updates: all other security updates must be installed within 14 calendar days [1]."
+    },
+    {
+      "id": "vpn_idle_timeout__number",
+      "base_case": "vpn_idle_timeout",
+      "mutation": "number",
+      "expected": "unfaithful",
+      "change": {
+        "find": "after 30 minutes of inactivity** [1]",
+        "replace": "after 45 minutes of inactivity** [1]"
+      },
+      "marker": "45 minutes",
+      "expected_claim_label": "contradicted",
+      "question": "After how much inactivity does a VPN session disconnect?",
+      "sources": [
+        {
+          "number": 1,
+          "source_file": "vpn_remote_access_policy.pdf",
+          "page_number": 1,
+          "text": "r and IT must approve a VPN access ticket. Contractors also need a named employee\nsponsor; contractor VPN access expires after no more than 90 days and must be reapproved before\nrenewal. Access approvals follow IT-04.\n3. Connection procedure\nInstall Northstar Connect from the company software catalog. Connect to vpn.northstar.example, sign in\nwith the company account and complete MFA. Confirm the client shows Connected before opening\ninternal systems. The client checks disk encryption, endpoint protection, host firewall and update\ncompliance under IT-02. A failed device check blocks connection; contact IT instead of bypassing it.\n4. Session limits\nVPN sessions disconnect after 30 minutes of inactivity or 12 hours of total connection time, whichever\noccurs first. Reconnect and complete MFA to start a new session. Only 1 concurrent VPN session per\nuser is permitted. Disconnect when work is finished. Do not share a VPN account or allow another person\nto use an active session."
+        },
+        {
+          "number": 2,
+          "source_file": "vpn_remote_access_policy.pdf",
+          "page_number": 2,
+          "text": "r attach passwords or MFA codes. Five failed password attempts lock the account for 15\nminutes under IT-01. Do not repeatedly retry during a lockout.\n7. Restricted remote actions\nDo not expose company remote desktop services directly to the internet. Privileged remote access\nrequires the approved administrative gateway and the separate administrator account described in IT-04.\nA VPN connection does not grant new application permissions. Security may immediately terminate\nsessions if compromise is suspected.\n8. Exceptions and related policies\nSecurity must approve any exception in writing with an owner and an expiry of no more than 30 days.\nThis policy does not allow personal laptops on the VPN. Use IT-01 for MFA recovery, IT-02 for device\ncompliance and IT-05 for suspicious sign-ins."
+        },
+        {
+          "number": 3,
+          "source_file": "vpn_remote_access_policy.pdf",
+          "page_number": 2,
+          "text": "NORTHSTAR ANALYTICS | Synthetic training policy | Version 1.0\nIT-03 | Page 2\nNORTHSTAR ANALYTICS / IT POLICY\nVPN & Remote Access Policy\nProcedures and responsibilities\n5. Networks and routing\nUse a trusted home network or a personal mobile hotspot. Public Wi-Fi is permitted only with the\ncompany VPN active, and confidential work should be avoided in exposed locations. The company VPN\nuses full-tunnel routing: all network traffic goes through company controls while connected. Do not use\nanother VPN simultaneously, alter routes or turn off the firewall.\n6. Troubleshooting\nIf connection fails, confirm internet access, check the device clock, restart Northstar Connect and try\nonce more. If the issue persists, open a ticket with the error message, time, client version and device\nasset tag. Never attach passwords or MFA codes. Five failed password attempts lock the account for 15\nminutes under IT-01. Do not repeatedly retry during a lockout.\n7. Restricted remote actions\nDo not expose company"
+        }
+      ],
+      "answer": "According to the source documents, **VPN sessions disconnect after 45 minutes of inactivity** [1].\n\nMore specifically, the policy states: \"VPN sessions disconnect after 30 minutes of inactivity or 12 hours of total connection time, whichever occurs first.\" [1]"
+    },
+    {
+      "id": "sms_mfa__negation",
+      "base_case": "sms_mfa",
+      "mutation": "negation",
+      "expected": "unfaithful",
+      "change": {
+        "find": "No, SMS is **not** an approved MFA method.",
+        "replace": "Yes, SMS is an approved MFA method."
+      },
+      "marker": "sms is an approved",
+      "expected_claim_label": "contradicted",
+      "question": "Is SMS an approved MFA method?",
+      "sources": [
+        {
+          "number": 1,
+          "source_file": "password_mfa_policy.pdf",
+          "page_number": 1,
+          "text": "ty service rejects known\ncompromised passwords. Use the company-approved password manager to generate and store unique\npasswords. Routine password changes are not required; change a password immediately if compromise\nis suspected or Security instructs you to do so.\n3. Multi-factor authentication\nMFA is required for all interactive company sign-ins, including VPN access. Register a security key or the\ncompany authenticator app before the first sign-in. SMS is not an approved MFA method. Administrators\nmust use a hardware security key for privileged access. Reject any MFA prompt you did not initiate and\nreport it immediately under IT-05.\n4. Failed sign-ins\nAfter 5 consecutive failed password attempts, the account is locked for 15 minutes. Wait for the lock to\nexpire or contact IT Support. Repeated lockouts or unfamiliar sign-in alerts must be reported\nimmediately. A lockout does not remove the MFA requirement."
+        },
+        {
+          "number": 2,
+          "source_file": "password_mfa_policy.pdf",
+          "page_number": 2,
+          "text": "NORTHSTAR ANALYTICS | Synthetic training policy | Version 1.0\nIT-01 | Page 2\nNORTHSTAR ANALYTICS / IT POLICY\nPassword & MFA Policy\nProcedures and responsibilities\n5. Password reset\nUse https://identity.northstar.example/reset and complete verification with a registered MFA factor. If no\nfactor is available, contact IT Support at https://support.northstar.example. Support verifies identity\nthrough a live video check against the staff directory and confirmation from the recorded manager\nthrough an existing company channel. Support never asks for your password, an MFA code or approval\nof an unsolicited prompt.\n6. Lost factor and recovery\nReport a lost security key or phone immediately. Support revokes the missing factor and active sessions\nafter identity verification. A temporary enrollment pass expires after 30 minutes and can be used once; it\nis issued only to register a replacement factor. Register the replacement before normal access resumes.\nStore recovery codes in the approved passw"
+        },
+        {
+          "number": 3,
+          "source_file": "password_mfa_policy.pdf",
+          "page_number": 2,
+          "text": "ass expires after 30 minutes and can be used once; it\nis issued only to register a replacement factor. Register the replacement before normal access resumes.\nStore recovery codes in the approved password manager, separate from the device used for MFA.\n7. Service accounts and exceptions\nNon-interactive service credentials are stored in the managed secrets vault, never in source code or\ntickets. Their owner rotates secrets at least every 90 days and immediately after suspected exposure.\nAny exception requires written Security approval, a named owner and an expiry of no more than 30 days.\nNo exception may authorize sharing passwords.\n8. Related policies\nUse IT-03 for VPN eligibility, IT-04 for granting or removing access, and IT-05 for reporting suspected\ncredential compromise."
+        }
+      ],
+      "answer": "Yes, SMS is an approved MFA method.\n\nAccording to the policy: \"SMS is not an approved MFA method.\" [1]\n\nThe approved MFA methods are:\n- A security key\n- The company authenticator app\n\nAdministrators must use a hardware security key specifically for privileged access. [1]"
+    },
+    {
+      "id": "personal_laptop_vpn__negation",
+      "base_case": "personal_laptop_vpn",
+      "mutation": "negation",
+      "expected": "unfaithful",
+      "change": {
+        "find": "**No, you cannot connect to the company VPN using a personal laptop.**",
+        "replace": "**Yes, you can connect to the company VPN using a personal laptop.**"
+      },
+      "marker": "can connect",
+      "expected_claim_label": "contradicted",
+      "question": "Can I connect to the company VPN using a personal laptop, and which device is required?",
+      "sources": [
+        {
+          "number": 1,
+          "source_file": "laptop_device_policy.pdf",
+          "page_number": 1,
+          "text": "NORTHSTAR ANALYTICS | Synthetic training policy | Version 1.0\nIT-02 | Page 1\nNORTHSTAR ANALYTICS / IT POLICY\nLaptop & Device Policy\nIT-02 | Version 1.0 | Effective 01 September 2026\nOwner: IT & Security | Applies to employees and contractors\nFictional company policy for RAG training and evaluation. All .example addresses are placeholders; these are not live\nservices.\n1. Purpose and scope\nMaintain secure, reliable company devices. This policy applies to company-issued laptops and\ncompany-managed phones. Only company-issued, managed laptops may connect to the VPN. Personal\nphones may run the authenticator app, but may not store company files or access the VPN.\n2. Required protections\nIT enrolls each device in endpoint management before handover. Full-disk encryption, endpoint\nprotection and the host firewall must remain enabled. The screen must lock after 5 minutes of inactivity;\nlock it manually before leaving it unattended. Employees use standard user accounts. Local administrator\nacce"
+        },
+        {
+          "number": 2,
+          "source_file": "vpn_remote_access_policy.pdf",
+          "page_number": 1,
+          "text": "NORTHSTAR ANALYTICS | Synthetic training policy | Version 1.0\nIT-03 | Page 1\nNORTHSTAR ANALYTICS / IT POLICY\nVPN & Remote Access Policy\nIT-03 | Version 1.0 | Effective 01 September 2026\nOwner: IT & Security | Applies to employees and contractors\nFictional company policy for RAG training and evaluation. All .example addresses are placeholders; these are not live\nservices.\n1. Purpose and scope\nProvide secure remote access to internal systems. Employees and approved contractors must use the\ncompany VPN for internal applications outside the office network. Company cloud email and the support\nportal do not require VPN, but still require company sign-in and MFA.\n2. Eligibility and approval\nVPN use requires a company-issued, managed laptop, an active company account and registered MFA.\nThe manager and IT must approve a VPN access ticket. Contractors also need a named employee\nsponsor; contractor VPN access expires after no more than 90 days and must be reapproved before\nrenewal. Access approv"
+        },
+        {
+          "number": 3,
+          "source_file": "vpn_remote_access_policy.pdf",
+          "page_number": 2,
+          "text": "r attach passwords or MFA codes. Five failed password attempts lock the account for 15\nminutes under IT-01. Do not repeatedly retry during a lockout.\n7. Restricted remote actions\nDo not expose company remote desktop services directly to the internet. Privileged remote access\nrequires the approved administrative gateway and the separate administrator account described in IT-04.\nA VPN connection does not grant new application permissions. Security may immediately terminate\nsessions if compromise is suspected.\n8. Exceptions and related policies\nSecurity must approve any exception in writing with an owner and an expiry of no more than 30 days.\nThis policy does not allow personal laptops on the VPN. Use IT-01 for MFA recovery, IT-02 for device\ncompliance and IT-05 for suspicious sign-ins."
+        }
+      ],
+      "answer": "Based on the supplied documents:\n\n**Yes, you can connect to the company VPN using a personal laptop.**\n\nThe required device is a **company-issued, managed laptop**.\n\nThis is stated explicitly in two places:\n\n1. From the Laptop & Device Policy: \"Only company-issued, managed laptops may connect to the VPN.\" [1]\n\n2. From the VPN & Remote Access Policy: \"VPN use requires a company-issued, managed laptop, an active company account and registered MFA\" [2], and \"This policy does not allow personal laptops on the VPN.\" [3]"
+    },
+    {
+      "id": "access_approval__negation",
+      "base_case": "access_approval",
+      "mutation": "negation",
+      "expected": "unfaithful",
+      "change": {
+        "find": "\"the requester cannot approve their own request\"",
+        "replace": "\"the requester can approve their own request\""
+      },
+      "marker": "can approve their own",
+      "expected_claim_label": "contradicted",
+      "question": "Who must approve an access request before IT provisions access?",
+      "sources": [
+        {
+          "number": 1,
+          "source_file": "access_control_policy.pdf",
+          "page_number": 1,
+          "text": "NORTHSTAR ANALYTICS | Synthetic training policy | Version 1.0\nIT-04 | Page 1\nNORTHSTAR ANALYTICS / IT POLICY\nAccess Control Policy\nIT-04 | Version 1.0 | Effective 01 September 2026\nOwner: IT & Security | Applies to employees and contractors\nFictional company policy for RAG training and evaluation. All .example addresses are placeholders; these are not live\nservices.\n1. Purpose and principles\nGive each employee or contractor only the access needed for assigned work. All human users receive\nindividual accounts. Shared human accounts are prohibited. Application permissions are separate from\nVPN eligibility; connection to the VPN does not authorize access to every system.\n2. Request and approval\nSubmit a ticket at https://support.northstar.example naming the system, requested role, business reason,\nstart date and end date if temporary. The line manager and system owner must approve before IT\nprovisions access. The requester cannot approve their own request. IT records approval and the actu"
+        },
+        {
+          "number": 2,
+          "source_file": "access_control_policy.pdf",
+          "page_number": 1,
+          "text": "ason,\nstart date and end date if temporary. The line manager and system owner must approve before IT\nprovisions access. The requester cannot approve their own request. IT records approval and the actual\npermissions in the ticket.\n3. Standard and sensitive roles\nRead-only access is the default when it satisfies the work need. Editing, export and administrative rights\nmust be explicitly requested. Access to payroll, production administration or bulk customer-data exports\nadditionally requires Security approval. IT targets fulfillment of ordinary requests within 2 business days\nafter all approvals; urgent incident access uses the emergency procedure below.\n4. Temporary and contractor access\nTemporary project permissions expire after no more than 30 days. Contractor accounts and VPN\nentitlements expire after no more than 90 days and require a named employee sponsor. For a contractor\nassigned a temporary project role, both limits apply: the project role expires within 30 days even if the\nac"
+        },
+        {
+          "number": 3,
+          "source_file": "access_control_policy.pdf",
+          "page_number": 2,
+          "text": "NORTHSTAR ANALYTICS | Synthetic training policy | Version 1.0\nIT-04 | Page 2\nNORTHSTAR ANALYTICS / IT POLICY\nAccess Control Policy\nProcedures and responsibilities\n5. Privileged access\nUse a separate administrator account for privileged tasks and the normal account for everyday work.\nPrivileged sign-ins require a hardware security key. Local administrator elevation on a laptop expires\nafter no more than 8 hours. Production administrator roles require manager, system owner and Security\napproval, with an explicit end date and a maximum grant of 30 days before renewal.\n6. Role changes and departures\nThe manager submits role changes before the effective date. IT removes permissions no longer needed\nwithin 1 business day of that date, then provisions new permissions only after approval. HR supplies the\ndeparture date and exact time. IT disables the account and revokes sessions at that time; for involuntary\ndepartures, HR and Security coordinate immediate removal at the agreed notification ti"
+        }
+      ],
+      "answer": "According to the policy, **the line manager and system owner must approve before IT provisions access** [1][2].\n\nThe policy also specifies that \"the requester can approve their own request\" [2]. Additionally, for access to sensitive roles (payroll, production administration, or bulk customer-data exports), **Security approval is also required** [2]."
+    },
+    {
+      "id": "lost_laptop_reporting__negation",
+      "base_case": "lost_laptop_reporting",
+      "mutation": "negation",
+      "expected": "unfaithful",
+      "change": {
+        "find": "This form does not require sign-in [3].",
+        "replace": "This form requires company sign-in [3]."
+      },
+      "marker": "requires company sign-in",
+      "expected_claim_label": "contradicted",
+      "question": "If my company laptop is stolen and company sign-in is unavailable, how soon must I report it and which alternate reporting channel can I use?",
+      "sources": [
+        {
+          "number": 1,
+          "source_file": "laptop_device_policy.pdf",
+          "page_number": 2,
+          "text": " not attempt to recover a stolen device yourself. Use the\nemergency reporting channels in IT-05 if normal sign-in is unavailable.\n7. Repair, replacement and return\nOpen an IT ticket for damage or malfunction; do not arrange repairs independently. IT aims to provide a\nloaner within 1 business day after triage, subject to stock. The standard laptop replacement cycle is 4\nyears; earlier replacement requires IT approval. Return devices, chargers and security keys within 3\nbusiness days of the last working day. IT performs data preservation and secure wiping; do not\nfactory-reset devices yourself.\n8. Exceptions and related policies\nSecurity must approve exceptions in writing with an owner and an expiry of no more than 30 days. See\nIT-03 for remote access, IT-04 for administrator permissions and IT-05 for incident reporting."
+        },
+        {
+          "number": 2,
+          "source_file": "laptop_device_policy.pdf",
+          "page_number": 2,
+          "text": "NORTHSTAR ANALYTICS | Synthetic training policy | Version 1.0\nIT-02 | Page 2\nNORTHSTAR ANALYTICS / IT POLICY\nLaptop & Device Policy\nProcedures and responsibilities\n5. Travel and physical care\nKeep devices in your possession or in locked storage. Do not leave a laptop in an unattended vehicle or\nchecked baggage. Use a privacy screen when working with confidential information in public. Notify IT\nthrough a ticket at least 5 business days before international travel so it can review device and access\nrequirements.\n6. Lost or stolen devices\nReport loss or theft immediately to Security, and no later than 1 hour after discovery. Give the asset tag if\nknown, last known location, discovery time and whether the device was unlocked. Security coordinates\nsession revocation and remote lock or wipe. Do not attempt to recover a stolen device yourself. Use the\nemergency reporting channels in IT-05 if normal sign-in is unavailable.\n7. Repair, replacement and return\nOpen an IT ticket for damage or malf"
+        },
+        {
+          "number": 3,
+          "source_file": "incident_response_security_reporting_policy.pdf",
+          "page_number": 1,
+          "text": "ents immediately, and no later than 1 hour after discovery. Use\nsecurity@northstar.example or the Security Incident form at https://support.northstar.example. If\ncompany sign-in or email is unavailable, use https://security.northstar.example/report from another\ndevice; this form does not require sign-in. The security reporting queue is monitored 24/7. Routine IT\nrequests are handled Monday-Friday, 09:00-17:00 UTC, excluding company holidays.\n3. Information to include\nProvide your name, a reachable contact, discovery time with time zone, affected account or device asset\ntag, what happened and what you already did. Include the sender, subject and received time for\nsuspected phishing. Attach safe screenshots if useful. Never submit passwords, recovery codes or MFA\ncodes. Use the reporting form rather than replying to a suspicious message.\n4. Immediate employee actions\nFor phishing, do not click links, open attachments or forward the message to coworkers. Use the email\nReport Phishing butt"
+        }
+      ],
+      "answer": "Based on the supplied documents:\n\n**Reporting Timeline:**\nYou must report a stolen laptop **immediately, and no later than 1 hour after discovery** [2].\n\n**Alternate Reporting Channel:**\nIf normal company sign-in is unavailable, use the emergency reporting channel: **https://security.northstar.example/report** from another device. This form requires company sign-in [3].\n\n**Additional Details:**\nWhen reporting, provide your name, a reachable contact, discovery time with time zone, the device asset tag (if known), last known location, discovery time, and whether the device was unlocked [2][3]. Report the theft to Security, which will coordinate session revocation and remote lock or wipe [2]."
+    },
+    {
+      "id": "password_length__invented_fact",
+      "base_case": "password_length",
+      "mutation": "invented_fact",
+      "expected": "unfaithful",
+      "change": {
+        "find": "spaces and passphrases are allowed.\" [1]",
+        "replace": "spaces and passphrases are allowed.\" [1] Passwords must also include at least one special character [1]."
+      },
+      "marker": "special character",
+      "expected_claim_label": "unsupported",
+      "question": "What is the minimum password length?",
+      "sources": [
+        {
+          "number": 1,
+          "source_file": "password_mfa_policy.pdf",
+          "page_number": 1,
+          "text": "NORTHSTAR ANALYTICS | Synthetic training policy | Version 1.0\nIT-01 | Page 1\nNORTHSTAR ANALYTICS / IT POLICY\nPassword & MFA Policy\nIT-01 | Version 1.0 | Effective 01 September 2026\nOwner: IT & Security | Applies to employees and contractors\nFictional company policy for RAG training and evaluation. All .example addresses are placeholders; these are not live\nservices.\n1. Purpose and scope\nProtect Northstar Analytics accounts against unauthorized use. This policy applies to employees,\ncontractors and administrators using company accounts, including email, the support portal, VPN and\nbusiness applications.\n2. Password rules\nPasswords must contain at least 14 characters; spaces and passphrases are allowed. Do not reuse a\ncompany password for personal accounts or share it with anyone. The identity service rejects known\ncompromised passwords. Use the company-approved password manager to generate and store unique\npasswords. Routine password changes are not required; change a password immediate"
+        },
+        {
+          "number": 2,
+          "source_file": "password_mfa_policy.pdf",
+          "page_number": 1,
+          "text": "ty service rejects known\ncompromised passwords. Use the company-approved password manager to generate and store unique\npasswords. Routine password changes are not required; change a password immediately if compromise\nis suspected or Security instructs you to do so.\n3. Multi-factor authentication\nMFA is required for all interactive company sign-ins, including VPN access. Register a security key or the\ncompany authenticator app before the first sign-in. SMS is not an approved MFA method. Administrators\nmust use a hardware security key for privileged access. Reject any MFA prompt you did not initiate and\nreport it immediately under IT-05.\n4. Failed sign-ins\nAfter 5 consecutive failed password attempts, the account is locked for 15 minutes. Wait for the lock to\nexpire or contact IT Support. Repeated lockouts or unfamiliar sign-in alerts must be reported\nimmediately. A lockout does not remove the MFA requirement."
+        },
+        {
+          "number": 3,
+          "source_file": "vpn_remote_access_policy.pdf",
+          "page_number": 2,
+          "text": "r attach passwords or MFA codes. Five failed password attempts lock the account for 15\nminutes under IT-01. Do not repeatedly retry during a lockout.\n7. Restricted remote actions\nDo not expose company remote desktop services directly to the internet. Privileged remote access\nrequires the approved administrative gateway and the separate administrator account described in IT-04.\nA VPN connection does not grant new application permissions. Security may immediately terminate\nsessions if compromise is suspected.\n8. Exceptions and related policies\nSecurity must approve any exception in writing with an owner and an expiry of no more than 30 days.\nThis policy does not allow personal laptops on the VPN. Use IT-01 for MFA recovery, IT-02 for device\ncompliance and IT-05 for suspicious sign-ins."
+        }
+      ],
+      "answer": "Based on the supplied documents, the minimum password length is **at least 14 characters** [1].\n\nThe policy states: \"Passwords must contain at least 14 characters; spaces and passphrases are allowed.\" [1] Passwords must also include at least one special character [1]."
+    },
+    {
+      "id": "service_secret_rotation__invented_fact",
+      "base_case": "service_secret_rotation",
+      "mutation": "invented_fact",
+      "expected": "unfaithful",
+      "change": {
+        "find": "never in source code or tickets [2].",
+        "replace": "never in source code or tickets [2]. Each rotation must be logged in the change-management system [2]."
+      },
+      "marker": "change-management",
+      "expected_claim_label": "unsupported",
+      "question": "How often must owners rotate service account secrets?",
+      "sources": [
+        {
+          "number": 1,
+          "source_file": "access_control_policy.pdf",
+          "page_number": 2,
+          "text": "er\nreviews access every 90 days; secret rotation follows IT-01. Exceptions need written Security approval,\nan owner and an expiry of no more than 30 days. Exceptions cannot permit shared human accounts or\nself-approval."
+        },
+        {
+          "number": 2,
+          "source_file": "password_mfa_policy.pdf",
+          "page_number": 2,
+          "text": "ass expires after 30 minutes and can be used once; it\nis issued only to register a replacement factor. Register the replacement before normal access resumes.\nStore recovery codes in the approved password manager, separate from the device used for MFA.\n7. Service accounts and exceptions\nNon-interactive service credentials are stored in the managed secrets vault, never in source code or\ntickets. Their owner rotates secrets at least every 90 days and immediately after suspected exposure.\nAny exception requires written Security approval, a named owner and an expiry of no more than 30 days.\nNo exception may authorize sharing passwords.\n8. Related policies\nUse IT-03 for VPN eligibility, IT-04 for granting or removing access, and IT-05 for reporting suspected\ncredential compromise."
+        },
+        {
+          "number": 3,
+          "source_file": "access_control_policy.pdf",
+          "page_number": 2,
+          "text": "ies the\ndeparture date and exact time. IT disables the account and revokes sessions at that time; for involuntary\ndepartures, HR and Security coordinate immediate removal at the agreed notification time. Device return\nfollows IT-02 and may occur later than account removal.\n7. Reviews and emergency access\nSystem owners review access every 90 days. IT removes unneeded access within 2 business days after\nthe review decision. For an active security incident, the Security incident lead may authorize emergency\naccess in a ticket for up to 4 hours. All actions are logged; the system owner and Security review use\nwithin 1 business day. Extensions require a new approval.\n8. Service accounts and exceptions\nEvery service account needs a named owner, documented purpose and minimum permissions. Its owner\nreviews access every 90 days; secret rotation follows IT-01. Exceptions need written Security approval,\nan owner and an expiry of no more than 30 days. Exceptions cannot permit shared human account"
+        }
+      ],
+      "answer": "Based on the supplied documents, **owners must rotate service account secrets at least every 90 days** [2].\n\nAdditionally, secrets must be rotated **immediately after suspected exposure** [2].\n\nThe policy specifies that service account credentials must be stored in a managed secrets vault and never in source code or tickets [2]. Each rotation must be logged in the change-management system [2]."
+    },
+    {
+      "id": "incident_reporting_deadline__invented_fact",
+      "base_case": "incident_reporting_deadline",
+      "mutation": "invented_fact",
+      "expected": "unfaithful",
+      "change": {
+        "find": "https://support.northstar.example [1].",
+        "replace": "https://support.northstar.example [1]. Incidents can also be reported by phone at extension 4400 [1]."
+      },
+      "marker": "4400",
+      "expected_claim_label": "unsupported",
+      "question": "How soon after discovery must a suspected security incident be reported?",
+      "sources": [
+        {
+          "number": 1,
+          "source_file": "incident_response_security_reporting_policy.pdf",
+          "page_number": 1,
+          "text": "NORTHSTAR ANALYTICS | Synthetic training policy | Version 1.0\nIT-05 | Page 1\nNORTHSTAR ANALYTICS / IT POLICY\nIncident Response & Security Reporting\nPolicy\nIT-05 | Version 1.0 | Effective 01 September 2026\nOwner: IT & Security | Applies to employees and contractors\nFictional company policy for RAG training and evaluation. All .example addresses are placeholders; these are not live\nservices.\n1. Purpose and scope\nHelp staff report and contain suspected security incidents quickly. Report phishing, unexpected MFA\nprompts, malware alerts, lost devices, exposed credentials and possible data disclosure. You do not\nneed proof before reporting. Prompt good-faith reporting is encouraged; do not investigate by accessing\nsomeone else's account.\n2. Reporting deadlines and channels\nReport suspected incidents immediately, and no later than 1 hour after discovery. Use\nsecurity@northstar.example or the Security Incident form at https://support.northstar.example. If\ncompany sign-in or email is unavailabl"
+        },
+        {
+          "number": 2,
+          "source_file": "incident_response_security_reporting_policy.pdf",
+          "page_number": 2,
+          "text": "NORTHSTAR ANALYTICS | Synthetic training policy | Version 1.0\nIT-05 | Page 2\nNORTHSTAR ANALYTICS / IT POLICY\nIncident Response & Security Reporting\nPolicy\nProcedures and responsibilities\n5. Credential and device incidents\nIf credentials may be exposed, contact Security immediately and reset the password through the known\nidentity portal under IT-01 if safe to do so. Security revokes sessions and compromised factors as\nneeded. Report a lost or stolen device within the same 1-hour limit, with the last known location and\nwhether it was unlocked. Security coordinates remote lock or wipe under IT-02.\n6. Triage and response targets\nSecurity assigns severity. P1 covers active ransomware, confirmed account takeover or ongoing\nsensitive-data exposure: target acknowledgment within 15 minutes of receipt. P2 covers suspected\ncompromise without evidence of active spread: target acknowledgment within 1 hour. P3 covers blocked\nphishing with no interaction: target acknowledgment within 4 hours. These "
+        },
+        {
+          "number": 3,
+          "source_file": "incident_response_security_reporting_policy.pdf",
+          "page_number": 2,
+          "text": "ipt. P2 covers suspected\ncompromise without evidence of active spread: target acknowledgment within 1 hour. P3 covers blocked\nphishing with no interaction: target acknowledgment within 4 hours. These are 24/7 acknowledgment\ntargets, not resolution guarantees. If the target passes without acknowledgment, resubmit through the\nalternate reporting channel and reference the original report time.\n7. Containment and evidence\nThe Security incident lead may isolate devices, revoke sessions, block accounts and request emergency\naccess under IT-04. Preserve original messages, screenshots and logs. Do not delete files, reinstall\nsoftware, factory-reset the device or perform a forensic investigation yourself. Security records evidence\naccess and coordinates with Legal before external notifications. Employees must not contact affected\ncustomers or publish incident details unless explicitly assigned to do so.\n8. Closure and follow-up\nSecurity confirms containment and recovery before IT restores norma"
+        }
+      ],
+      "answer": "According to the policy, suspected security incidents must be reported **immediately, and no later than 1 hour after discovery** [1].\n\nThe policy specifies two reporting channels: security@northstar.example or the Security Incident form at https://support.northstar.example [1]. Incidents can also be reported by phone at extension 4400 [1]."
+    },
+    {
+      "id": "exception_expiry__invented_fact",
+      "base_case": "exception_expiry",
+      "mutation": "invented_fact",
+      "expected": "unfaithful",
+      "change": {
+        "find": "no more than 30 days.\" [1]",
+        "replace": "no more than 30 days.\" [1] An exception can be renewed once for another 30 days [1]."
+      },
+      "marker": "renewed",
+      "expected_claim_label": "unsupported",
+      "question": "Under the Password & MFA Policy, what is the maximum duration of a Security-approved exception?",
+      "sources": [
+        {
+          "number": 1,
+          "source_file": "password_mfa_policy.pdf",
+          "page_number": 2,
+          "text": "ass expires after 30 minutes and can be used once; it\nis issued only to register a replacement factor. Register the replacement before normal access resumes.\nStore recovery codes in the approved password manager, separate from the device used for MFA.\n7. Service accounts and exceptions\nNon-interactive service credentials are stored in the managed secrets vault, never in source code or\ntickets. Their owner rotates secrets at least every 90 days and immediately after suspected exposure.\nAny exception requires written Security approval, a named owner and an expiry of no more than 30 days.\nNo exception may authorize sharing passwords.\n8. Related policies\nUse IT-03 for VPN eligibility, IT-04 for granting or removing access, and IT-05 for reporting suspected\ncredential compromise."
+        },
+        {
+          "number": 2,
+          "source_file": "vpn_remote_access_policy.pdf",
+          "page_number": 2,
+          "text": "r attach passwords or MFA codes. Five failed password attempts lock the account for 15\nminutes under IT-01. Do not repeatedly retry during a lockout.\n7. Restricted remote actions\nDo not expose company remote desktop services directly to the internet. Privileged remote access\nrequires the approved administrative gateway and the separate administrator account described in IT-04.\nA VPN connection does not grant new application permissions. Security may immediately terminate\nsessions if compromise is suspected.\n8. Exceptions and related policies\nSecurity must approve any exception in writing with an owner and an expiry of no more than 30 days.\nThis policy does not allow personal laptops on the VPN. Use IT-01 for MFA recovery, IT-02 for device\ncompliance and IT-05 for suspicious sign-ins."
+        },
+        {
+          "number": 3,
+          "source_file": "access_control_policy.pdf",
+          "page_number": 2,
+          "text": "er\nreviews access every 90 days; secret rotation follows IT-01. Exceptions need written Security approval,\nan owner and an expiry of no more than 30 days. Exceptions cannot permit shared human accounts or\nself-approval."
+        }
+      ],
+      "answer": "According to the Password & MFA Policy, the maximum duration of a Security-approved exception is **no more than 30 days**.\n\nThis is stated in the policy: \"Any exception requires written Security approval, a named owner and an expiry of no more than 30 days.\" [1] An exception can be renewed once for another 30 days [1]."
+    },
+    {
+      "id": "access_approval__broader_scope",
+      "base_case": "access_approval",
+      "mutation": "broader_scope",
+      "expected": "unfaithful",
+      "change": {
+        "find": "for access to sensitive roles (payroll, production administration, or bulk customer-data exports), **Security approval is also required** [2]",
+        "replace": "**Security approval is also required for every access request** [2]"
+      },
+      "marker": "every access request",
+      "expected_claim_label": "unsupported",
+      "question": "Who must approve an access request before IT provisions access?",
+      "sources": [
+        {
+          "number": 1,
+          "source_file": "access_control_policy.pdf",
+          "page_number": 1,
+          "text": "NORTHSTAR ANALYTICS | Synthetic training policy | Version 1.0\nIT-04 | Page 1\nNORTHSTAR ANALYTICS / IT POLICY\nAccess Control Policy\nIT-04 | Version 1.0 | Effective 01 September 2026\nOwner: IT & Security | Applies to employees and contractors\nFictional company policy for RAG training and evaluation. All .example addresses are placeholders; these are not live\nservices.\n1. Purpose and principles\nGive each employee or contractor only the access needed for assigned work. All human users receive\nindividual accounts. Shared human accounts are prohibited. Application permissions are separate from\nVPN eligibility; connection to the VPN does not authorize access to every system.\n2. Request and approval\nSubmit a ticket at https://support.northstar.example naming the system, requested role, business reason,\nstart date and end date if temporary. The line manager and system owner must approve before IT\nprovisions access. The requester cannot approve their own request. IT records approval and the actu"
+        },
+        {
+          "number": 2,
+          "source_file": "access_control_policy.pdf",
+          "page_number": 1,
+          "text": "ason,\nstart date and end date if temporary. The line manager and system owner must approve before IT\nprovisions access. The requester cannot approve their own request. IT records approval and the actual\npermissions in the ticket.\n3. Standard and sensitive roles\nRead-only access is the default when it satisfies the work need. Editing, export and administrative rights\nmust be explicitly requested. Access to payroll, production administration or bulk customer-data exports\nadditionally requires Security approval. IT targets fulfillment of ordinary requests within 2 business days\nafter all approvals; urgent incident access uses the emergency procedure below.\n4. Temporary and contractor access\nTemporary project permissions expire after no more than 30 days. Contractor accounts and VPN\nentitlements expire after no more than 90 days and require a named employee sponsor. For a contractor\nassigned a temporary project role, both limits apply: the project role expires within 30 days even if the\nac"
+        },
+        {
+          "number": 3,
+          "source_file": "access_control_policy.pdf",
+          "page_number": 2,
+          "text": "NORTHSTAR ANALYTICS | Synthetic training policy | Version 1.0\nIT-04 | Page 2\nNORTHSTAR ANALYTICS / IT POLICY\nAccess Control Policy\nProcedures and responsibilities\n5. Privileged access\nUse a separate administrator account for privileged tasks and the normal account for everyday work.\nPrivileged sign-ins require a hardware security key. Local administrator elevation on a laptop expires\nafter no more than 8 hours. Production administrator roles require manager, system owner and Security\napproval, with an explicit end date and a maximum grant of 30 days before renewal.\n6. Role changes and departures\nThe manager submits role changes before the effective date. IT removes permissions no longer needed\nwithin 1 business day of that date, then provisions new permissions only after approval. HR supplies the\ndeparture date and exact time. IT disables the account and revokes sessions at that time; for involuntary\ndepartures, HR and Security coordinate immediate removal at the agreed notification ti"
+        }
+      ],
+      "answer": "According to the policy, **the line manager and system owner must approve before IT provisions access** [1][2].\n\nThe policy also specifies that \"the requester cannot approve their own request\" [2]. Additionally, **Security approval is also required for every access request** [2]."
+    },
+    {
+      "id": "incident_reporting_deadline__broader_scope",
+      "base_case": "incident_reporting_deadline",
+      "mutation": "broader_scope",
+      "expected": "unfaithful",
+      "change": {
+        "find": "suspected security incidents must be reported",
+        "replace": "all IT issues, including password resets, must be reported"
+      },
+      "marker": "all it issues",
+      "expected_claim_label": "unsupported",
+      "question": "How soon after discovery must a suspected security incident be reported?",
+      "sources": [
+        {
+          "number": 1,
+          "source_file": "incident_response_security_reporting_policy.pdf",
+          "page_number": 1,
+          "text": "NORTHSTAR ANALYTICS | Synthetic training policy | Version 1.0\nIT-05 | Page 1\nNORTHSTAR ANALYTICS / IT POLICY\nIncident Response & Security Reporting\nPolicy\nIT-05 | Version 1.0 | Effective 01 September 2026\nOwner: IT & Security | Applies to employees and contractors\nFictional company policy for RAG training and evaluation. All .example addresses are placeholders; these are not live\nservices.\n1. Purpose and scope\nHelp staff report and contain suspected security incidents quickly. Report phishing, unexpected MFA\nprompts, malware alerts, lost devices, exposed credentials and possible data disclosure. You do not\nneed proof before reporting. Prompt good-faith reporting is encouraged; do not investigate by accessing\nsomeone else's account.\n2. Reporting deadlines and channels\nReport suspected incidents immediately, and no later than 1 hour after discovery. Use\nsecurity@northstar.example or the Security Incident form at https://support.northstar.example. If\ncompany sign-in or email is unavailabl"
+        },
+        {
+          "number": 2,
+          "source_file": "incident_response_security_reporting_policy.pdf",
+          "page_number": 2,
+          "text": "NORTHSTAR ANALYTICS | Synthetic training policy | Version 1.0\nIT-05 | Page 2\nNORTHSTAR ANALYTICS / IT POLICY\nIncident Response & Security Reporting\nPolicy\nProcedures and responsibilities\n5. Credential and device incidents\nIf credentials may be exposed, contact Security immediately and reset the password through the known\nidentity portal under IT-01 if safe to do so. Security revokes sessions and compromised factors as\nneeded. Report a lost or stolen device within the same 1-hour limit, with the last known location and\nwhether it was unlocked. Security coordinates remote lock or wipe under IT-02.\n6. Triage and response targets\nSecurity assigns severity. P1 covers active ransomware, confirmed account takeover or ongoing\nsensitive-data exposure: target acknowledgment within 15 minutes of receipt. P2 covers suspected\ncompromise without evidence of active spread: target acknowledgment within 1 hour. P3 covers blocked\nphishing with no interaction: target acknowledgment within 4 hours. These "
+        },
+        {
+          "number": 3,
+          "source_file": "incident_response_security_reporting_policy.pdf",
+          "page_number": 2,
+          "text": "ipt. P2 covers suspected\ncompromise without evidence of active spread: target acknowledgment within 1 hour. P3 covers blocked\nphishing with no interaction: target acknowledgment within 4 hours. These are 24/7 acknowledgment\ntargets, not resolution guarantees. If the target passes without acknowledgment, resubmit through the\nalternate reporting channel and reference the original report time.\n7. Containment and evidence\nThe Security incident lead may isolate devices, revoke sessions, block accounts and request emergency\naccess under IT-04. Preserve original messages, screenshots and logs. Do not delete files, reinstall\nsoftware, factory-reset the device or perform a forensic investigation yourself. Security records evidence\naccess and coordinates with Legal before external notifications. Employees must not contact affected\ncustomers or publish incident details unless explicitly assigned to do so.\n8. Closure and follow-up\nSecurity confirms containment and recovery before IT restores norma"
+        }
+      ],
+      "answer": "According to the policy, all IT issues, including password resets, must be reported **immediately, and no later than 1 hour after discovery** [1].\n\nThe policy specifies two reporting channels: security@northstar.example or the Security Incident form at https://support.northstar.example [1]."
+    },
+    {
+      "id": "service_secret_rotation__broader_scope",
+      "base_case": "service_secret_rotation",
+      "mutation": "broader_scope",
+      "expected": "unfaithful",
+      "change": {
+        "find": "**owners must rotate service account secrets at least every 90 days**",
+        "replace": "**all passwords, including personal user passwords, must be rotated at least every 90 days**"
+      },
+      "marker": "all passwords",
+      "expected_claim_label": "unsupported",
+      "question": "How often must owners rotate service account secrets?",
+      "sources": [
+        {
+          "number": 1,
+          "source_file": "access_control_policy.pdf",
+          "page_number": 2,
+          "text": "er\nreviews access every 90 days; secret rotation follows IT-01. Exceptions need written Security approval,\nan owner and an expiry of no more than 30 days. Exceptions cannot permit shared human accounts or\nself-approval."
+        },
+        {
+          "number": 2,
+          "source_file": "password_mfa_policy.pdf",
+          "page_number": 2,
+          "text": "ass expires after 30 minutes and can be used once; it\nis issued only to register a replacement factor. Register the replacement before normal access resumes.\nStore recovery codes in the approved password manager, separate from the device used for MFA.\n7. Service accounts and exceptions\nNon-interactive service credentials are stored in the managed secrets vault, never in source code or\ntickets. Their owner rotates secrets at least every 90 days and immediately after suspected exposure.\nAny exception requires written Security approval, a named owner and an expiry of no more than 30 days.\nNo exception may authorize sharing passwords.\n8. Related policies\nUse IT-03 for VPN eligibility, IT-04 for granting or removing access, and IT-05 for reporting suspected\ncredential compromise."
+        },
+        {
+          "number": 3,
+          "source_file": "access_control_policy.pdf",
+          "page_number": 2,
+          "text": "ies the\ndeparture date and exact time. IT disables the account and revokes sessions at that time; for involuntary\ndepartures, HR and Security coordinate immediate removal at the agreed notification time. Device return\nfollows IT-02 and may occur later than account removal.\n7. Reviews and emergency access\nSystem owners review access every 90 days. IT removes unneeded access within 2 business days after\nthe review decision. For an active security incident, the Security incident lead may authorize emergency\naccess in a ticket for up to 4 hours. All actions are logged; the system owner and Security review use\nwithin 1 business day. Extensions require a new approval.\n8. Service accounts and exceptions\nEvery service account needs a named owner, documented purpose and minimum permissions. Its owner\nreviews access every 90 days; secret rotation follows IT-01. Exceptions need written Security approval,\nan owner and an expiry of no more than 30 days. Exceptions cannot permit shared human account"
+        }
+      ],
+      "answer": "Based on the supplied documents, **all passwords, including personal user passwords, must be rotated at least every 90 days** [2].\n\nAdditionally, secrets must be rotated **immediately after suspected exposure** [2].\n\nThe policy specifies that service account credentials must be stored in a managed secrets vault and never in source code or tickets [2]."
+    },
+    {
+      "id": "vpn_idle_timeout__broader_scope",
+      "base_case": "vpn_idle_timeout",
+      "mutation": "broader_scope",
+      "expected": "unfaithful",
+      "change": {
+        "find": "**VPN sessions disconnect after 30 minutes of inactivity** [1]",
+        "replace": "**all company applications sign out after 30 minutes of inactivity** [1]"
+      },
+      "marker": "all company applications",
+      "expected_claim_label": "unsupported",
+      "question": "After how much inactivity does a VPN session disconnect?",
+      "sources": [
+        {
+          "number": 1,
+          "source_file": "vpn_remote_access_policy.pdf",
+          "page_number": 1,
+          "text": "r and IT must approve a VPN access ticket. Contractors also need a named employee\nsponsor; contractor VPN access expires after no more than 90 days and must be reapproved before\nrenewal. Access approvals follow IT-04.\n3. Connection procedure\nInstall Northstar Connect from the company software catalog. Connect to vpn.northstar.example, sign in\nwith the company account and complete MFA. Confirm the client shows Connected before opening\ninternal systems. The client checks disk encryption, endpoint protection, host firewall and update\ncompliance under IT-02. A failed device check blocks connection; contact IT instead of bypassing it.\n4. Session limits\nVPN sessions disconnect after 30 minutes of inactivity or 12 hours of total connection time, whichever\noccurs first. Reconnect and complete MFA to start a new session. Only 1 concurrent VPN session per\nuser is permitted. Disconnect when work is finished. Do not share a VPN account or allow another person\nto use an active session."
+        },
+        {
+          "number": 2,
+          "source_file": "vpn_remote_access_policy.pdf",
+          "page_number": 2,
+          "text": "r attach passwords or MFA codes. Five failed password attempts lock the account for 15\nminutes under IT-01. Do not repeatedly retry during a lockout.\n7. Restricted remote actions\nDo not expose company remote desktop services directly to the internet. Privileged remote access\nrequires the approved administrative gateway and the separate administrator account described in IT-04.\nA VPN connection does not grant new application permissions. Security may immediately terminate\nsessions if compromise is suspected.\n8. Exceptions and related policies\nSecurity must approve any exception in writing with an owner and an expiry of no more than 30 days.\nThis policy does not allow personal laptops on the VPN. Use IT-01 for MFA recovery, IT-02 for device\ncompliance and IT-05 for suspicious sign-ins."
+        },
+        {
+          "number": 3,
+          "source_file": "vpn_remote_access_policy.pdf",
+          "page_number": 2,
+          "text": "NORTHSTAR ANALYTICS | Synthetic training policy | Version 1.0\nIT-03 | Page 2\nNORTHSTAR ANALYTICS / IT POLICY\nVPN & Remote Access Policy\nProcedures and responsibilities\n5. Networks and routing\nUse a trusted home network or a personal mobile hotspot. Public Wi-Fi is permitted only with the\ncompany VPN active, and confidential work should be avoided in exposed locations. The company VPN\nuses full-tunnel routing: all network traffic goes through company controls while connected. Do not use\nanother VPN simultaneously, alter routes or turn off the firewall.\n6. Troubleshooting\nIf connection fails, confirm internet access, check the device clock, restart Northstar Connect and try\nonce more. If the issue persists, open a ticket with the error message, time, client version and device\nasset tag. Never attach passwords or MFA codes. Five failed password attempts lock the account for 15\nminutes under IT-01. Do not repeatedly retry during a lockout.\n7. Restricted remote actions\nDo not expose company"
+        }
+      ],
+      "answer": "According to the source documents, **all company applications sign out after 30 minutes of inactivity** [1].\n\nMore specifically, the policy states: \"VPN sessions disconnect after 30 minutes of inactivity or 12 hours of total connection time, whichever occurs first.\" [1]"
+    }
+  ]
+}

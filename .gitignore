@@ -30,3 +30,7 @@ evaluation/prompt_injection_results.json
 evaluation/retrieval_baseline.json
 evaluation/retrieval_comparison.json
 tmp/
+evaluation/faithfulness_answers.json
+evaluation/faithfulness_results.json
+evaluation/faithfulness_labels.json
+evaluation/faithfulness_calibration_results.json
