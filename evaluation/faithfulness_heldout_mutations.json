@@ -1,0 +1,1988 @@
+{
+  "description": "Held-out answers with one injected unfaithful claim each, written by a separate model, plus unchanged controls.",
+  "mutator_model": "claude-sonnet-5-5",
+  "answer_model": "claude-haiku-4-5-20251001",
+  "cases": [
+    {
+      "id": "forgot_factor__control",
+      "base_case": "forgot_factor",
+      "set": "heldout_a",
+      "category": "paraphrase",
+      "mutation": "none",
+      "expected": "faithful",
+      "question": "I cannot use my authenticator anymore. How do I prove who I am to support?",
+      "sources": [
+        {
+          "number": 1,
+          "source_file": "password_mfa_policy.pdf",
+          "page_number": 2,
+          "text": "NORTHSTAR ANALYTICS | Synthetic training policy | Version 1.0\nIT-01 | Page 2\nNORTHSTAR ANALYTICS / IT POLICY\nPassword & MFA Policy\nProcedures and responsibilities\n5. Password reset\nUse https://identity.northstar.example/reset and complete verification with a registered MFA factor. If no\nfactor is available, contact IT Support at https://support.northstar.example. Support verifies identity\nthrough a live video check against the staff directory and confirmation from the recorded manager\nthrough an existing company channel. Support never asks for your password, an MFA code or approval\nof an unsolicited prompt.\n6. Lost factor and recovery\nReport a lost security key or phone immediately. Support revokes the missing factor and active sessions\nafter identity verification. A temporary enrollment pass expires after 30 minutes and can be used once; it\nis issued only to register a replacement factor. Register the replacement before normal access resumes.\nStore recovery codes in the approved passw"
+        },
+        {
+          "number": 2,
+          "source_file": "identity_otp_410.txt",
+          "page_number": 1,
+          "text": "Synthetic retrieval benchmark runbook | Version 1.0\nIdentity portal OTP-410 recovery\nIdentity error OTP-410 means a temporary enrollment pass has expired. Contact IT Support for identity verification and a replacement enrollment pass. Never share the pass in a support ticket."
+        },
+        {
+          "number": 3,
+          "source_file": "identity_otp_411.txt",
+          "page_number": 1,
+          "text": "Synthetic retrieval benchmark runbook | Version 1.0\nIdentity portal OTP-411 recovery\nIdentity error OTP-411 means a temporary enrollment pass has already been used. Contact IT Support to revoke the old pass and issue a new pass after identity verification. Waiting does not make the used pass valid again."
+        }
+      ],
+      "answer": "According to the supplied documents, if you cannot use your authenticator anymore, you should contact IT Support at https://support.northstar.example [1].\n\nSupport will verify your identity through:\n- A live video check against the staff directory\n- Confirmation from your recorded manager through an existing company channel [1]\n\nAfter your identity is verified, Support will revoke your missing authenticator and issue you a temporary enrollment pass that expires after 30 minutes and can be used once to register a replacement factor [1].\n\nImportant: Support never asks for your password, an MFA code, or approval of an unsolicited prompt [1], and you should never share the enrollment pass in a support ticket [2]."
+    },
+    {
+      "id": "random_mfa_prompt__control",
+      "base_case": "random_mfa_prompt",
+      "set": "heldout_a",
+      "category": "paraphrase",
+      "mutation": "none",
+      "expected": "faithful",
+      "question": "My phone asks me to approve a login I did not start. What should I do?",
+      "sources": [
+        {
+          "number": 1,
+          "source_file": "incident_response_security_reporting_policy.pdf",
+          "page_number": 1,
+          "text": "m rather than replying to a suspicious message.\n4. Immediate employee actions\nFor phishing, do not click links, open attachments or forward the message to coworkers. Use the email\nReport Phishing button or the channels above. For an unexpected MFA prompt, reject it and report it\nimmediately. If malware or ransomware is suspected, disconnect Wi-Fi and the network cable, stop using\nthe device and report from a different device. Keep the device powered on unless Security tells you\notherwise."
+        },
+        {
+          "number": 2,
+          "source_file": "password_mfa_policy.pdf",
+          "page_number": 1,
+          "text": "ty service rejects known\ncompromised passwords. Use the company-approved password manager to generate and store unique\npasswords. Routine password changes are not required; change a password immediately if compromise\nis suspected or Security instructs you to do so.\n3. Multi-factor authentication\nMFA is required for all interactive company sign-ins, including VPN access. Register a security key or the\ncompany authenticator app before the first sign-in. SMS is not an approved MFA method. Administrators\nmust use a hardware security key for privileged access. Reject any MFA prompt you did not initiate and\nreport it immediately under IT-05.\n4. Failed sign-ins\nAfter 5 consecutive failed password attempts, the account is locked for 15 minutes. Wait for the lock to\nexpire or contact IT Support. Repeated lockouts or unfamiliar sign-in alerts must be reported\nimmediately. A lockout does not remove the MFA requirement."
+        },
+        {
+          "number": 3,
+          "source_file": "northstar_connect_401.txt",
+          "page_number": 1,
+          "text": "Synthetic retrieval benchmark runbook | Version 1.0\nNorthstar Connect 401 sign-in failure\nNorthstar Connect returns HTTP 401 when the device clock differs from the identity server by more than five minutes. Enable automatic date and time, sync the device clock and retry once. This procedure is specific to Northstar Connect."
+        }
+      ],
+      "answer": "Based on the supplied documents, if your phone asks you to approve a login you did not start, you should:\n\n1. **Reject the MFA prompt** - Do not approve it [2]\n\n2. **Report it immediately** - The policy states to \"report it immediately under IT-05\" [2]\n\nAccording to the incident response policy, \"For an unexpected MFA prompt, reject it and report it immediately\" [1]\n\nThis is treated as a security concern that requires prompt action and reporting to your IT/Security team."
+    },
+    {
+      "id": "ransomware_power__control",
+      "base_case": "ransomware_power",
+      "set": "heldout_b",
+      "category": "paraphrase",
+      "mutation": "none",
+      "expected": "faithful",
+      "question": "My files look encrypted by malware. Should I switch off the laptop?",
+      "sources": [
+        {
+          "number": 1,
+          "source_file": "globalprotect_gp1001.txt",
+          "page_number": 1,
+          "text": "Synthetic retrieval benchmark runbook | Version 1.0\nGlobalProtect GP1001 device check\nGlobalProtect GP1001 means device disk encryption is disabled. IT must restore disk encryption before the device may connect. Restarting the client does not satisfy the encryption check."
+        },
+        {
+          "number": 2,
+          "source_file": "incident_response_security_reporting_policy.pdf",
+          "page_number": 1,
+          "text": "m rather than replying to a suspicious message.\n4. Immediate employee actions\nFor phishing, do not click links, open attachments or forward the message to coworkers. Use the email\nReport Phishing button or the channels above. For an unexpected MFA prompt, reject it and report it\nimmediately. If malware or ransomware is suspected, disconnect Wi-Fi and the network cable, stop using\nthe device and report from a different device. Keep the device powered on unless Security tells you\notherwise."
+        },
+        {
+          "number": 3,
+          "source_file": "globalprotect_gp1002.txt",
+          "page_number": 1,
+          "text": "Synthetic retrieval benchmark runbook | Version 1.0\nGlobalProtect GP1002 device check\nGlobalProtect GP1002 means endpoint protection is not running. IT must restore endpoint protection before the device may connect. Disk encryption alone does not satisfy this check."
+        }
+      ],
+      "answer": "Based on the supplied documents, **do not switch off the laptop**. \n\nAccording to the incident response policy [2]: \"If malware or ransomware is suspected, disconnect Wi-Fi and the network cable, stop using the device and report from a different device. **Keep the device powered on unless Security tells you otherwise.**\"\n\nThe recommended actions are to:\n1. Disconnect Wi-Fi and the network cable\n2. Stop using the device\n3. Report the suspected malware from a different device\n4. Keep the device powered on (unless Security instructs otherwise)"
+    },
+    {
+      "id": "vpn_mail__control",
+      "base_case": "vpn_mail",
+      "set": "heldout_a",
+      "category": "paraphrase",
+      "mutation": "none",
+      "expected": "faithful",
+      "question": "Do I need the remote connection to read company cloud email?",
+      "sources": [
+        {
+          "number": 1,
+          "source_file": "vpn_remote_access_policy.pdf",
+          "page_number": 1,
+          "text": "NORTHSTAR ANALYTICS | Synthetic training policy | Version 1.0\nIT-03 | Page 1\nNORTHSTAR ANALYTICS / IT POLICY\nVPN & Remote Access Policy\nIT-03 | Version 1.0 | Effective 01 September 2026\nOwner: IT & Security | Applies to employees and contractors\nFictional company policy for RAG training and evaluation. All .example addresses are placeholders; these are not live\nservices.\n1. Purpose and scope\nProvide secure remote access to internal systems. Employees and approved contractors must use the\ncompany VPN for internal applications outside the office network. Company cloud email and the support\nportal do not require VPN, but still require company sign-in and MFA.\n2. Eligibility and approval\nVPN use requires a company-issued, managed laptop, an active company account and registered MFA.\nThe manager and IT must approve a VPN access ticket. Contractors also need a named employee\nsponsor; contractor VPN access expires after no more than 90 days and must be reapproved before\nrenewal. Access approv"
+        },
+        {
+          "number": 2,
+          "source_file": "vpn_remote_access_policy.pdf",
+          "page_number": 2,
+          "text": "NORTHSTAR ANALYTICS | Synthetic training policy | Version 1.0\nIT-03 | Page 2\nNORTHSTAR ANALYTICS / IT POLICY\nVPN & Remote Access Policy\nProcedures and responsibilities\n5. Networks and routing\nUse a trusted home network or a personal mobile hotspot. Public Wi-Fi is permitted only with the\ncompany VPN active, and confidential work should be avoided in exposed locations. The company VPN\nuses full-tunnel routing: all network traffic goes through company controls while connected. Do not use\nanother VPN simultaneously, alter routes or turn off the firewall.\n6. Troubleshooting\nIf connection fails, confirm internet access, check the device clock, restart Northstar Connect and try\nonce more. If the issue persists, open a ticket with the error message, time, client version and device\nasset tag. Never attach passwords or MFA codes. Five failed password attempts lock the account for 15\nminutes under IT-01. Do not repeatedly retry during a lockout.\n7. Restricted remote actions\nDo not expose company"
+        },
+        {
+          "number": 3,
+          "source_file": "vpn_remote_access_policy.pdf",
+          "page_number": 2,
+          "text": "r attach passwords or MFA codes. Five failed password attempts lock the account for 15\nminutes under IT-01. Do not repeatedly retry during a lockout.\n7. Restricted remote actions\nDo not expose company remote desktop services directly to the internet. Privileged remote access\nrequires the approved administrative gateway and the separate administrator account described in IT-04.\nA VPN connection does not grant new application permissions. Security may immediately terminate\nsessions if compromise is suspected.\n8. Exceptions and related policies\nSecurity must approve any exception in writing with an owner and an expiry of no more than 30 days.\nThis policy does not allow personal laptops on the VPN. Use IT-01 for MFA recovery, IT-02 for device\ncompliance and IT-05 for suspicious sign-ins."
+        }
+      ],
+      "answer": "No, you do not need the remote connection to read company cloud email. \n\nAccording to the policy: \"Company cloud email and the support portal do not require VPN, but still require company sign-in and MFA.\" [1]\n\nHowever, you will still need to sign in with your company account and use multi-factor authentication (MFA) to access it."
+    },
+    {
+      "id": "work_backup__control",
+      "base_case": "work_backup",
+      "set": "heldout_b",
+      "category": "paraphrase",
+      "mutation": "none",
+      "expected": "faithful",
+      "question": "Are files saved only on my desktop protected by company backups?",
+      "sources": [
+        {
+          "number": 1,
+          "source_file": "laptop_device_policy.pdf",
+          "page_number": 1,
+          "text": "the host firewall must remain enabled. The screen must lock after 5 minutes of inactivity;\nlock it manually before leaving it unattended. Employees use standard user accounts. Local administrator\naccess requires approval under IT-04 and expires after no more than 8 hours.\n3. Updates and software\nInstall Security-designated critical security updates within 48 hours of the company deployment notice.\nInstall all other security updates within 14 calendar days. Restart when prompted to complete installation.\nInstall software only through the company software catalog or an IT-approved ticket. Do not disable\nsecurity controls or use unlicensed software.\n4. Data and backups\nStore work files in approved company cloud storage, which provides daily backups with 30-day retention.\nLocal-only files are not backed up by IT. Do not copy work files to personal cloud storage or unapproved\nUSB devices. An approved removable drive must be encrypted. Report suspected disclosure under\nIT-05."
+        },
+        {
+          "number": 2,
+          "source_file": "laptop_device_policy.pdf",
+          "page_number": 1,
+          "text": "NORTHSTAR ANALYTICS | Synthetic training policy | Version 1.0\nIT-02 | Page 1\nNORTHSTAR ANALYTICS / IT POLICY\nLaptop & Device Policy\nIT-02 | Version 1.0 | Effective 01 September 2026\nOwner: IT & Security | Applies to employees and contractors\nFictional company policy for RAG training and evaluation. All .example addresses are placeholders; these are not live\nservices.\n1. Purpose and scope\nMaintain secure, reliable company devices. This policy applies to company-issued laptops and\ncompany-managed phones. Only company-issued, managed laptops may connect to the VPN. Personal\nphones may run the authenticator app, but may not store company files or access the VPN.\n2. Required protections\nIT enrolls each device in endpoint management before handover. Full-disk encryption, endpoint\nprotection and the host firewall must remain enabled. The screen must lock after 5 minutes of inactivity;\nlock it manually before leaving it unattended. Employees use standard user accounts. Local administrator\nacce"
+        },
+        {
+          "number": 3,
+          "source_file": "vpn_remote_access_policy.pdf",
+          "page_number": 2,
+          "text": "r attach passwords or MFA codes. Five failed password attempts lock the account for 15\nminutes under IT-01. Do not repeatedly retry during a lockout.\n7. Restricted remote actions\nDo not expose company remote desktop services directly to the internet. Privileged remote access\nrequires the approved administrative gateway and the separate administrator account described in IT-04.\nA VPN connection does not grant new application permissions. Security may immediately terminate\nsessions if compromise is suspected.\n8. Exceptions and related policies\nSecurity must approve any exception in writing with an owner and an expiry of no more than 30 days.\nThis policy does not allow personal laptops on the VPN. Use IT-01 for MFA recovery, IT-02 for device\ncompliance and IT-05 for suspicious sign-ins."
+        }
+      ],
+      "answer": "Based on the supplied documents, **no, files saved only on your desktop are not protected by company backups**.\n\nAccording to the policy: \"Store work files in approved company cloud storage, which provides daily backups with 30-day retention. **Local-only files are not backed up by IT.**\" [1]\n\nTo have your files protected by company backups, you need to store them in approved company cloud storage rather than saving them locally on your desktop."
+    },
+    {
+      "id": "travel_notice__control",
+      "base_case": "travel_notice",
+      "set": "heldout_b",
+      "category": "paraphrase",
+      "mutation": "none",
+      "expected": "faithful",
+      "question": "I am flying abroad for work. How far ahead should I notify IT?",
+      "sources": [
+        {
+          "number": 1,
+          "source_file": "laptop_device_policy.pdf",
+          "page_number": 2,
+          "text": "NORTHSTAR ANALYTICS | Synthetic training policy | Version 1.0\nIT-02 | Page 2\nNORTHSTAR ANALYTICS / IT POLICY\nLaptop & Device Policy\nProcedures and responsibilities\n5. Travel and physical care\nKeep devices in your possession or in locked storage. Do not leave a laptop in an unattended vehicle or\nchecked baggage. Use a privacy screen when working with confidential information in public. Notify IT\nthrough a ticket at least 5 business days before international travel so it can review device and access\nrequirements.\n6. Lost or stolen devices\nReport loss or theft immediately to Security, and no later than 1 hour after discovery. Give the asset tag if\nknown, last known location, discovery time and whether the device was unlocked. Security coordinates\nsession revocation and remote lock or wipe. Do not attempt to recover a stolen device yourself. Use the\nemergency reporting channels in IT-05 if normal sign-in is unavailable.\n7. Repair, replacement and return\nOpen an IT ticket for damage or malf"
+        },
+        {
+          "number": 2,
+          "source_file": "laptop_device_policy.pdf",
+          "page_number": 2,
+          "text": " not attempt to recover a stolen device yourself. Use the\nemergency reporting channels in IT-05 if normal sign-in is unavailable.\n7. Repair, replacement and return\nOpen an IT ticket for damage or malfunction; do not arrange repairs independently. IT aims to provide a\nloaner within 1 business day after triage, subject to stock. The standard laptop replacement cycle is 4\nyears; earlier replacement requires IT approval. Return devices, chargers and security keys within 3\nbusiness days of the last working day. IT performs data preservation and secure wiping; do not\nfactory-reset devices yourself.\n8. Exceptions and related policies\nSecurity must approve exceptions in writing with an owner and an expiry of no more than 30 days. See\nIT-03 for remote access, IT-04 for administrator permissions and IT-05 for incident reporting."
+        },
+        {
+          "number": 3,
+          "source_file": "access_control_policy.pdf",
+          "page_number": 1,
+          "text": "ason,\nstart date and end date if temporary. The line manager and system owner must approve before IT\nprovisions access. The requester cannot approve their own request. IT records approval and the actual\npermissions in the ticket.\n3. Standard and sensitive roles\nRead-only access is the default when it satisfies the work need. Editing, export and administrative rights\nmust be explicitly requested. Access to payroll, production administration or bulk customer-data exports\nadditionally requires Security approval. IT targets fulfillment of ordinary requests within 2 business days\nafter all approvals; urgent incident access uses the emergency procedure below.\n4. Temporary and contractor access\nTemporary project permissions expire after no more than 30 days. Contractor accounts and VPN\nentitlements expire after no more than 90 days and require a named employee sponsor. For a contractor\nassigned a temporary project role, both limits apply: the project role expires within 30 days even if the\nac"
+        }
+      ],
+      "answer": "According to the supplied documents, you should notify IT **at least 5 business days before international travel** [1].\n\nThe policy states: \"Notify IT through a ticket at least 5 business days before international travel so it can review device and access requirements.\" [1]"
+    },
+    {
+      "id": "contractor_role__control",
+      "base_case": "contractor_role",
+      "set": "heldout_b",
+      "category": "near_match",
+      "mutation": "none",
+      "expected": "faithful",
+      "question": "Does a contractor temporary project role last 30 days or 90 days?",
+      "sources": [
+        {
+          "number": 1,
+          "source_file": "access_control_policy.pdf",
+          "page_number": 1,
+          "text": "ts expire after no more than 90 days and require a named employee sponsor. For a contractor\nassigned a temporary project role, both limits apply: the project role expires within 30 days even if the\naccount remains active. Renewals require fresh approval before expiry."
+        },
+        {
+          "number": 2,
+          "source_file": "access_control_policy.pdf",
+          "page_number": 1,
+          "text": "ason,\nstart date and end date if temporary. The line manager and system owner must approve before IT\nprovisions access. The requester cannot approve their own request. IT records approval and the actual\npermissions in the ticket.\n3. Standard and sensitive roles\nRead-only access is the default when it satisfies the work need. Editing, export and administrative rights\nmust be explicitly requested. Access to payroll, production administration or bulk customer-data exports\nadditionally requires Security approval. IT targets fulfillment of ordinary requests within 2 business days\nafter all approvals; urgent incident access uses the emergency procedure below.\n4. Temporary and contractor access\nTemporary project permissions expire after no more than 30 days. Contractor accounts and VPN\nentitlements expire after no more than 90 days and require a named employee sponsor. For a contractor\nassigned a temporary project role, both limits apply: the project role expires within 30 days even if the\nac"
+        },
+        {
+          "number": 3,
+          "source_file": "vpn_remote_access_policy.pdf",
+          "page_number": 1,
+          "text": "NORTHSTAR ANALYTICS | Synthetic training policy | Version 1.0\nIT-03 | Page 1\nNORTHSTAR ANALYTICS / IT POLICY\nVPN & Remote Access Policy\nIT-03 | Version 1.0 | Effective 01 September 2026\nOwner: IT & Security | Applies to employees and contractors\nFictional company policy for RAG training and evaluation. All .example addresses are placeholders; these are not live\nservices.\n1. Purpose and scope\nProvide secure remote access to internal systems. Employees and approved contractors must use the\ncompany VPN for internal applications outside the office network. Company cloud email and the support\nportal do not require VPN, but still require company sign-in and MFA.\n2. Eligibility and approval\nVPN use requires a company-issued, managed laptop, an active company account and registered MFA.\nThe manager and IT must approve a VPN access ticket. Contractors also need a named employee\nsponsor; contractor VPN access expires after no more than 90 days and must be reapproved before\nrenewal. Access approv"
+        }
+      ],
+      "answer": "According to the supplied documents, a contractor temporary project role lasts **30 days**.\n\nThe policy states: \"For a contractor assigned a temporary project role, both limits apply: the project role expires within 30 days even if the account remains active.\" [1]\n\nThis means that while contractor accounts generally expire after 90 days, when a contractor is specifically assigned a temporary project role, that project role component expires within 30 days, regardless of the overall account status."
+    },
+    {
+      "id": "ordinary_patch__control",
+      "base_case": "ordinary_patch",
+      "set": "heldout_a",
+      "category": "near_match",
+      "mutation": "none",
+      "expected": "faithful",
+      "question": "Are ordinary security updates due in 48 hours or 14 calendar days?",
+      "sources": [
+        {
+          "number": 1,
+          "source_file": "laptop_device_policy.pdf",
+          "page_number": 1,
+          "text": "the host firewall must remain enabled. The screen must lock after 5 minutes of inactivity;\nlock it manually before leaving it unattended. Employees use standard user accounts. Local administrator\naccess requires approval under IT-04 and expires after no more than 8 hours.\n3. Updates and software\nInstall Security-designated critical security updates within 48 hours of the company deployment notice.\nInstall all other security updates within 14 calendar days. Restart when prompted to complete installation.\nInstall software only through the company software catalog or an IT-approved ticket. Do not disable\nsecurity controls or use unlicensed software.\n4. Data and backups\nStore work files in approved company cloud storage, which provides daily backups with 30-day retention.\nLocal-only files are not backed up by IT. Do not copy work files to personal cloud storage or unapproved\nUSB devices. An approved removable drive must be encrypted. Report suspected disclosure under\nIT-05."
+        },
+        {
+          "number": 2,
+          "source_file": "access_control_policy.pdf",
+          "page_number": 2,
+          "text": "er\nreviews access every 90 days; secret rotation follows IT-01. Exceptions need written Security approval,\nan owner and an expiry of no more than 30 days. Exceptions cannot permit shared human accounts or\nself-approval."
+        },
+        {
+          "number": 3,
+          "source_file": "access_control_policy.pdf",
+          "page_number": 1,
+          "text": "ason,\nstart date and end date if temporary. The line manager and system owner must approve before IT\nprovisions access. The requester cannot approve their own request. IT records approval and the actual\npermissions in the ticket.\n3. Standard and sensitive roles\nRead-only access is the default when it satisfies the work need. Editing, export and administrative rights\nmust be explicitly requested. Access to payroll, production administration or bulk customer-data exports\nadditionally requires Security approval. IT targets fulfillment of ordinary requests within 2 business days\nafter all approvals; urgent incident access uses the emergency procedure below.\n4. Temporary and contractor access\nTemporary project permissions expire after no more than 30 days. Contractor accounts and VPN\nentitlements expire after no more than 90 days and require a named employee sponsor. For a contractor\nassigned a temporary project role, both limits apply: the project role expires within 30 days even if the\nac"
+        }
+      ],
+      "answer": "According to the supplied documents, **ordinary security updates are due in 14 calendar days**.\n\nThe policy states: \"Install Security-designated critical security updates within 48 hours of the company deployment notice. Install all other security updates within 14 calendar days.\" [1]\n\nThe 48-hour deadline applies specifically to critical security updates designated by Security, while the 14-calendar-day deadline applies to all other security updates."
+    },
+    {
+      "id": "vpn_total_limit__control",
+      "base_case": "vpn_total_limit",
+      "set": "heldout_a",
+      "category": "near_match",
+      "mutation": "none",
+      "expected": "faithful",
+      "question": "What is the maximum total VPN connection time, even if I am active?",
+      "sources": [
+        {
+          "number": 1,
+          "source_file": "vpn_remote_access_policy.pdf",
+          "page_number": 1,
+          "text": "r and IT must approve a VPN access ticket. Contractors also need a named employee\nsponsor; contractor VPN access expires after no more than 90 days and must be reapproved before\nrenewal. Access approvals follow IT-04.\n3. Connection procedure\nInstall Northstar Connect from the company software catalog. Connect to vpn.northstar.example, sign in\nwith the company account and complete MFA. Confirm the client shows Connected before opening\ninternal systems. The client checks disk encryption, endpoint protection, host firewall and update\ncompliance under IT-02. A failed device check blocks connection; contact IT instead of bypassing it.\n4. Session limits\nVPN sessions disconnect after 30 minutes of inactivity or 12 hours of total connection time, whichever\noccurs first. Reconnect and complete MFA to start a new session. Only 1 concurrent VPN session per\nuser is permitted. Disconnect when work is finished. Do not share a VPN account or allow another person\nto use an active session."
+        },
+        {
+          "number": 2,
+          "source_file": "vpn_remote_access_policy.pdf",
+          "page_number": 2,
+          "text": "r attach passwords or MFA codes. Five failed password attempts lock the account for 15\nminutes under IT-01. Do not repeatedly retry during a lockout.\n7. Restricted remote actions\nDo not expose company remote desktop services directly to the internet. Privileged remote access\nrequires the approved administrative gateway and the separate administrator account described in IT-04.\nA VPN connection does not grant new application permissions. Security may immediately terminate\nsessions if compromise is suspected.\n8. Exceptions and related policies\nSecurity must approve any exception in writing with an owner and an expiry of no more than 30 days.\nThis policy does not allow personal laptops on the VPN. Use IT-01 for MFA recovery, IT-02 for device\ncompliance and IT-05 for suspicious sign-ins."
+        },
+        {
+          "number": 3,
+          "source_file": "vpn_remote_access_policy.pdf",
+          "page_number": 2,
+          "text": "NORTHSTAR ANALYTICS | Synthetic training policy | Version 1.0\nIT-03 | Page 2\nNORTHSTAR ANALYTICS / IT POLICY\nVPN & Remote Access Policy\nProcedures and responsibilities\n5. Networks and routing\nUse a trusted home network or a personal mobile hotspot. Public Wi-Fi is permitted only with the\ncompany VPN active, and confidential work should be avoided in exposed locations. The company VPN\nuses full-tunnel routing: all network traffic goes through company controls while connected. Do not use\nanother VPN simultaneously, alter routes or turn off the firewall.\n6. Troubleshooting\nIf connection fails, confirm internet access, check the device clock, restart Northstar Connect and try\nonce more. If the issue persists, open a ticket with the error message, time, client version and device\nasset tag. Never attach passwords or MFA codes. Five failed password attempts lock the account for 15\nminutes under IT-01. Do not repeatedly retry during a lockout.\n7. Restricted remote actions\nDo not expose company"
+        }
+      ],
+      "answer": "According to the supplied documents, the maximum total VPN connection time is **12 hours**, even if you are active.\n\nThis is stated in the policy: \"VPN sessions disconnect after 30 minutes of inactivity or 12 hours of total connection time, whichever occurs first.\" [1]\n\nAfter a 12-hour session ends, you must reconnect and complete MFA to start a new session."
+    },
+    {
+      "id": "screen_lock__control",
+      "base_case": "screen_lock",
+      "set": "heldout_b",
+      "category": "near_match",
+      "mutation": "none",
+      "expected": "faithful",
+      "question": "How long can my screen stay idle before it locks, rather than the VPN disconnecting?",
+      "sources": [
+        {
+          "number": 1,
+          "source_file": "vpn_remote_access_policy.pdf",
+          "page_number": 2,
+          "text": "r attach passwords or MFA codes. Five failed password attempts lock the account for 15\nminutes under IT-01. Do not repeatedly retry during a lockout.\n7. Restricted remote actions\nDo not expose company remote desktop services directly to the internet. Privileged remote access\nrequires the approved administrative gateway and the separate administrator account described in IT-04.\nA VPN connection does not grant new application permissions. Security may immediately terminate\nsessions if compromise is suspected.\n8. Exceptions and related policies\nSecurity must approve any exception in writing with an owner and an expiry of no more than 30 days.\nThis policy does not allow personal laptops on the VPN. Use IT-01 for MFA recovery, IT-02 for device\ncompliance and IT-05 for suspicious sign-ins."
+        },
+        {
+          "number": 2,
+          "source_file": "vpn_remote_access_policy.pdf",
+          "page_number": 1,
+          "text": "r and IT must approve a VPN access ticket. Contractors also need a named employee\nsponsor; contractor VPN access expires after no more than 90 days and must be reapproved before\nrenewal. Access approvals follow IT-04.\n3. Connection procedure\nInstall Northstar Connect from the company software catalog. Connect to vpn.northstar.example, sign in\nwith the company account and complete MFA. Confirm the client shows Connected before opening\ninternal systems. The client checks disk encryption, endpoint protection, host firewall and update\ncompliance under IT-02. A failed device check blocks connection; contact IT instead of bypassing it.\n4. Session limits\nVPN sessions disconnect after 30 minutes of inactivity or 12 hours of total connection time, whichever\noccurs first. Reconnect and complete MFA to start a new session. Only 1 concurrent VPN session per\nuser is permitted. Disconnect when work is finished. Do not share a VPN account or allow another person\nto use an active session."
+        },
+        {
+          "number": 3,
+          "source_file": "vpn_remote_access_policy.pdf",
+          "page_number": 2,
+          "text": "NORTHSTAR ANALYTICS | Synthetic training policy | Version 1.0\nIT-03 | Page 2\nNORTHSTAR ANALYTICS / IT POLICY\nVPN & Remote Access Policy\nProcedures and responsibilities\n5. Networks and routing\nUse a trusted home network or a personal mobile hotspot. Public Wi-Fi is permitted only with the\ncompany VPN active, and confidential work should be avoided in exposed locations. The company VPN\nuses full-tunnel routing: all network traffic goes through company controls while connected. Do not use\nanother VPN simultaneously, alter routes or turn off the firewall.\n6. Troubleshooting\nIf connection fails, confirm internet access, check the device clock, restart Northstar Connect and try\nonce more. If the issue persists, open a ticket with the error message, time, client version and device\nasset tag. Never attach passwords or MFA codes. Five failed password attempts lock the account for 15\nminutes under IT-01. Do not repeatedly retry during a lockout.\n7. Restricted remote actions\nDo not expose company"
+        }
+      ],
+      "answer": "I do not know from the supplied documents how long your screen can stay idle before it locks.\n\nThe excerpts provided address VPN session timeouts but do not contain information about screen lock policies. According to the VPN policy [2], \"VPN sessions disconnect after 30 minutes of inactivity,\" but this describes VPN disconnection, not screen locking behavior. Screen lock timing would typically be covered in a separate device security or endpoint policy, which is not included in these excerpts.\n\nTo find this information, you would need to consult your device security policy or contact your IT department directly."
+    },
+    {
+      "id": "p1_ack__control",
+      "base_case": "p1_ack",
+      "set": "heldout_a",
+      "category": "exact_term",
+      "mutation": "none",
+      "expected": "faithful",
+      "question": "P1 ransomware acknowledgment target?",
+      "sources": [
+        {
+          "number": 1,
+          "source_file": "incident_response_security_reporting_policy.pdf",
+          "page_number": 2,
+          "text": "NORTHSTAR ANALYTICS | Synthetic training policy | Version 1.0\nIT-05 | Page 2\nNORTHSTAR ANALYTICS / IT POLICY\nIncident Response & Security Reporting\nPolicy\nProcedures and responsibilities\n5. Credential and device incidents\nIf credentials may be exposed, contact Security immediately and reset the password through the known\nidentity portal under IT-01 if safe to do so. Security revokes sessions and compromised factors as\nneeded. Report a lost or stolen device within the same 1-hour limit, with the last known location and\nwhether it was unlocked. Security coordinates remote lock or wipe under IT-02.\n6. Triage and response targets\nSecurity assigns severity. P1 covers active ransomware, confirmed account takeover or ongoing\nsensitive-data exposure: target acknowledgment within 15 minutes of receipt. P2 covers suspected\ncompromise without evidence of active spread: target acknowledgment within 1 hour. P3 covers blocked\nphishing with no interaction: target acknowledgment within 4 hours. These "
+        },
+        {
+          "number": 2,
+          "source_file": "incident_response_security_reporting_policy.pdf",
+          "page_number": 2,
+          "text": "ipt. P2 covers suspected\ncompromise without evidence of active spread: target acknowledgment within 1 hour. P3 covers blocked\nphishing with no interaction: target acknowledgment within 4 hours. These are 24/7 acknowledgment\ntargets, not resolution guarantees. If the target passes without acknowledgment, resubmit through the\nalternate reporting channel and reference the original report time.\n7. Containment and evidence\nThe Security incident lead may isolate devices, revoke sessions, block accounts and request emergency\naccess under IT-04. Preserve original messages, screenshots and logs. Do not delete files, reinstall\nsoftware, factory-reset the device or perform a forensic investigation yourself. Security records evidence\naccess and coordinates with Legal before external notifications. Employees must not contact affected\ncustomers or publish incident details unless explicitly assigned to do so.\n8. Closure and follow-up\nSecurity confirms containment and recovery before IT restores norma"
+        },
+        {
+          "number": 3,
+          "source_file": "globalprotect_gp1002.txt",
+          "page_number": 1,
+          "text": "Synthetic retrieval benchmark runbook | Version 1.0\nGlobalProtect GP1002 device check\nGlobalProtect GP1002 means endpoint protection is not running. IT must restore endpoint protection before the device may connect. Disk encryption alone does not satisfy this check."
+        }
+      ],
+      "answer": "Based on the supplied documents, the P1 ransomware acknowledgment target is **15 minutes of receipt**.\n\nAccording to the policy: \"P1 covers active ransomware, confirmed account takeover or ongoing sensitive-data exposure: target acknowledgment within 15 minutes of receipt.\" [1]\n\nThe policy clarifies that these are \"24/7 acknowledgment targets, not resolution guarantees.\" [2]"
+    },
+    {
+      "id": "p3_ack__control",
+      "base_case": "p3_ack",
+      "set": "heldout_a",
+      "category": "exact_term",
+      "mutation": "none",
+      "expected": "faithful",
+      "question": "P3 blocked phishing acknowledgment target?",
+      "sources": [
+        {
+          "number": 1,
+          "source_file": "incident_response_security_reporting_policy.pdf",
+          "page_number": 2,
+          "text": "ipt. P2 covers suspected\ncompromise without evidence of active spread: target acknowledgment within 1 hour. P3 covers blocked\nphishing with no interaction: target acknowledgment within 4 hours. These are 24/7 acknowledgment\ntargets, not resolution guarantees. If the target passes without acknowledgment, resubmit through the\nalternate reporting channel and reference the original report time.\n7. Containment and evidence\nThe Security incident lead may isolate devices, revoke sessions, block accounts and request emergency\naccess under IT-04. Preserve original messages, screenshots and logs. Do not delete files, reinstall\nsoftware, factory-reset the device or perform a forensic investigation yourself. Security records evidence\naccess and coordinates with Legal before external notifications. Employees must not contact affected\ncustomers or publish incident details unless explicitly assigned to do so.\n8. Closure and follow-up\nSecurity confirms containment and recovery before IT restores norma"
+        },
+        {
+          "number": 2,
+          "source_file": "incident_response_security_reporting_policy.pdf",
+          "page_number": 1,
+          "text": "m rather than replying to a suspicious message.\n4. Immediate employee actions\nFor phishing, do not click links, open attachments or forward the message to coworkers. Use the email\nReport Phishing button or the channels above. For an unexpected MFA prompt, reject it and report it\nimmediately. If malware or ransomware is suspected, disconnect Wi-Fi and the network cable, stop using\nthe device and report from a different device. Keep the device powered on unless Security tells you\notherwise."
+        },
+        {
+          "number": 3,
+          "source_file": "incident_response_security_reporting_policy.pdf",
+          "page_number": 2,
+          "text": "NORTHSTAR ANALYTICS | Synthetic training policy | Version 1.0\nIT-05 | Page 2\nNORTHSTAR ANALYTICS / IT POLICY\nIncident Response & Security Reporting\nPolicy\nProcedures and responsibilities\n5. Credential and device incidents\nIf credentials may be exposed, contact Security immediately and reset the password through the known\nidentity portal under IT-01 if safe to do so. Security revokes sessions and compromised factors as\nneeded. Report a lost or stolen device within the same 1-hour limit, with the last known location and\nwhether it was unlocked. Security coordinates remote lock or wipe under IT-02.\n6. Triage and response targets\nSecurity assigns severity. P1 covers active ransomware, confirmed account takeover or ongoing\nsensitive-data exposure: target acknowledgment within 15 minutes of receipt. P2 covers suspected\ncompromise without evidence of active spread: target acknowledgment within 1 hour. P3 covers blocked\nphishing with no interaction: target acknowledgment within 4 hours. These "
+        }
+      ],
+      "answer": "According to the supplied documents, the P3 blocked phishing acknowledgment target is **within 4 hours** [1].\n\nP3 covers \"blocked phishing with no interaction\" and these are described as \"24/7 acknowledgment targets, not resolution guarantees\" [1]."
+    },
+    {
+      "id": "it04_emergency__control",
+      "base_case": "it04_emergency",
+      "set": "heldout_b",
+      "category": "exact_term",
+      "mutation": "none",
+      "expected": "faithful",
+      "question": "IT-04 emergency access duration?",
+      "sources": [
+        {
+          "number": 1,
+          "source_file": "access_control_policy.pdf",
+          "page_number": 2,
+          "text": "ies the\ndeparture date and exact time. IT disables the account and revokes sessions at that time; for involuntary\ndepartures, HR and Security coordinate immediate removal at the agreed notification time. Device return\nfollows IT-02 and may occur later than account removal.\n7. Reviews and emergency access\nSystem owners review access every 90 days. IT removes unneeded access within 2 business days after\nthe review decision. For an active security incident, the Security incident lead may authorize emergency\naccess in a ticket for up to 4 hours. All actions are logged; the system owner and Security review use\nwithin 1 business day. Extensions require a new approval.\n8. Service accounts and exceptions\nEvery service account needs a named owner, documented purpose and minimum permissions. Its owner\nreviews access every 90 days; secret rotation follows IT-01. Exceptions need written Security approval,\nan owner and an expiry of no more than 30 days. Exceptions cannot permit shared human account"
+        },
+        {
+          "number": 2,
+          "source_file": "access_control_policy.pdf",
+          "page_number": 1,
+          "text": "ason,\nstart date and end date if temporary. The line manager and system owner must approve before IT\nprovisions access. The requester cannot approve their own request. IT records approval and the actual\npermissions in the ticket.\n3. Standard and sensitive roles\nRead-only access is the default when it satisfies the work need. Editing, export and administrative rights\nmust be explicitly requested. Access to payroll, production administration or bulk customer-data exports\nadditionally requires Security approval. IT targets fulfillment of ordinary requests within 2 business days\nafter all approvals; urgent incident access uses the emergency procedure below.\n4. Temporary and contractor access\nTemporary project permissions expire after no more than 30 days. Contractor accounts and VPN\nentitlements expire after no more than 90 days and require a named employee sponsor. For a contractor\nassigned a temporary project role, both limits apply: the project role expires within 30 days even if the\nac"
+        },
+        {
+          "number": 3,
+          "source_file": "laptop_device_policy.pdf",
+          "page_number": 2,
+          "text": " not attempt to recover a stolen device yourself. Use the\nemergency reporting channels in IT-05 if normal sign-in is unavailable.\n7. Repair, replacement and return\nOpen an IT ticket for damage or malfunction; do not arrange repairs independently. IT aims to provide a\nloaner within 1 business day after triage, subject to stock. The standard laptop replacement cycle is 4\nyears; earlier replacement requires IT approval. Return devices, chargers and security keys within 3\nbusiness days of the last working day. IT performs data preservation and secure wiping; do not\nfactory-reset devices yourself.\n8. Exceptions and related policies\nSecurity must approve exceptions in writing with an owner and an expiry of no more than 30 days. See\nIT-03 for remote access, IT-04 for administrator permissions and IT-05 for incident reporting."
+        }
+      ],
+      "answer": "Based on the supplied source excerpts, the emergency access duration for IT-04 is **up to 4 hours**.\n\nAccording to [1]: \"For an active security incident, the Security incident lead may authorize emergency access in a ticket for up to 4 hours. All actions are logged; the system owner and Security review use within 1 business day. Extensions require a new approval.\""
+    },
+    {
+      "id": "vpn_hostname__control",
+      "base_case": "vpn_hostname",
+      "set": "heldout_b",
+      "category": "exact_term",
+      "mutation": "none",
+      "expected": "faithful",
+      "question": "Which VPN hostname should Northstar Connect use?",
+      "sources": [
+        {
+          "number": 1,
+          "source_file": "vpn_remote_access_policy.pdf",
+          "page_number": 2,
+          "text": "NORTHSTAR ANALYTICS | Synthetic training policy | Version 1.0\nIT-03 | Page 2\nNORTHSTAR ANALYTICS / IT POLICY\nVPN & Remote Access Policy\nProcedures and responsibilities\n5. Networks and routing\nUse a trusted home network or a personal mobile hotspot. Public Wi-Fi is permitted only with the\ncompany VPN active, and confidential work should be avoided in exposed locations. The company VPN\nuses full-tunnel routing: all network traffic goes through company controls while connected. Do not use\nanother VPN simultaneously, alter routes or turn off the firewall.\n6. Troubleshooting\nIf connection fails, confirm internet access, check the device clock, restart Northstar Connect and try\nonce more. If the issue persists, open a ticket with the error message, time, client version and device\nasset tag. Never attach passwords or MFA codes. Five failed password attempts lock the account for 15\nminutes under IT-01. Do not repeatedly retry during a lockout.\n7. Restricted remote actions\nDo not expose company"
+        },
+        {
+          "number": 2,
+          "source_file": "globalprotect_809.txt",
+          "page_number": 1,
+          "text": "Synthetic retrieval benchmark runbook | Version 1.0\nGlobalProtect 809 network connection failure\nGlobalProtect error 809 means the network path to the VPN gateway is blocked. Test from an approved mobile hotspot and include the gateway connection log in an IT ticket. Do not disable the device firewall."
+        },
+        {
+          "number": 3,
+          "source_file": "vpn_remote_access_policy.pdf",
+          "page_number": 1,
+          "text": "r and IT must approve a VPN access ticket. Contractors also need a named employee\nsponsor; contractor VPN access expires after no more than 90 days and must be reapproved before\nrenewal. Access approvals follow IT-04.\n3. Connection procedure\nInstall Northstar Connect from the company software catalog. Connect to vpn.northstar.example, sign in\nwith the company account and complete MFA. Confirm the client shows Connected before opening\ninternal systems. The client checks disk encryption, endpoint protection, host firewall and update\ncompliance under IT-02. A failed device check blocks connection; contact IT instead of bypassing it.\n4. Session limits\nVPN sessions disconnect after 30 minutes of inactivity or 12 hours of total connection time, whichever\noccurs first. Reconnect and complete MFA to start a new session. Only 1 concurrent VPN session per\nuser is permitted. Disconnect when work is finished. Do not share a VPN account or allow another person\nto use an active session."
+        }
+      ],
+      "answer": "Based on the supplied documents, Northstar Connect should use the VPN hostname **vpn.northstar.example** [3]."
+    },
+    {
+      "id": "password_reset_url__control",
+      "base_case": "password_reset_url",
+      "set": "heldout_b",
+      "category": "exact_term",
+      "mutation": "none",
+      "expected": "faithful",
+      "question": "Where is the identity password reset URL?",
+      "sources": [
+        {
+          "number": 1,
+          "source_file": "password_mfa_policy.pdf",
+          "page_number": 2,
+          "text": "NORTHSTAR ANALYTICS | Synthetic training policy | Version 1.0\nIT-01 | Page 2\nNORTHSTAR ANALYTICS / IT POLICY\nPassword & MFA Policy\nProcedures and responsibilities\n5. Password reset\nUse https://identity.northstar.example/reset and complete verification with a registered MFA factor. If no\nfactor is available, contact IT Support at https://support.northstar.example. Support verifies identity\nthrough a live video check against the staff directory and confirmation from the recorded manager\nthrough an existing company channel. Support never asks for your password, an MFA code or approval\nof an unsolicited prompt.\n6. Lost factor and recovery\nReport a lost security key or phone immediately. Support revokes the missing factor and active sessions\nafter identity verification. A temporary enrollment pass expires after 30 minutes and can be used once; it\nis issued only to register a replacement factor. Register the replacement before normal access resumes.\nStore recovery codes in the approved passw"
+        },
+        {
+          "number": 2,
+          "source_file": "identity_otp_410.txt",
+          "page_number": 1,
+          "text": "Synthetic retrieval benchmark runbook | Version 1.0\nIdentity portal OTP-410 recovery\nIdentity error OTP-410 means a temporary enrollment pass has expired. Contact IT Support for identity verification and a replacement enrollment pass. Never share the pass in a support ticket."
+        },
+        {
+          "number": 3,
+          "source_file": "identity_otp_411.txt",
+          "page_number": 1,
+          "text": "Synthetic retrieval benchmark runbook | Version 1.0\nIdentity portal OTP-411 recovery\nIdentity error OTP-411 means a temporary enrollment pass has already been used. Contact IT Support to revoke the old pass and issue a new pass after identity verification. Waiting does not make the used pass valid again."
+        }
+      ],
+      "answer": "According to the supplied documents, the identity password reset URL is **https://identity.northstar.example/reset** [1].\n\nTo complete the password reset, you must verify your identity with a registered MFA factor. If you don't have an available factor, you should contact IT Support at https://support.northstar.example, where support will verify your identity through a live video check against the staff directory and confirmation from your manager [1]."
+    },
+    {
+      "id": "contractor_vpn_mfa__control",
+      "base_case": "contractor_vpn_mfa",
+      "set": "heldout_b",
+      "category": "cross_document",
+      "mutation": "none",
+      "expected": "faithful",
+      "question": "How long can contractor VPN access last and which MFA methods are allowed?",
+      "sources": [
+        {
+          "number": 1,
+          "source_file": "vpn_remote_access_policy.pdf",
+          "page_number": 1,
+          "text": "r and IT must approve a VPN access ticket. Contractors also need a named employee\nsponsor; contractor VPN access expires after no more than 90 days and must be reapproved before\nrenewal. Access approvals follow IT-04.\n3. Connection procedure\nInstall Northstar Connect from the company software catalog. Connect to vpn.northstar.example, sign in\nwith the company account and complete MFA. Confirm the client shows Connected before opening\ninternal systems. The client checks disk encryption, endpoint protection, host firewall and update\ncompliance under IT-02. A failed device check blocks connection; contact IT instead of bypassing it.\n4. Session limits\nVPN sessions disconnect after 30 minutes of inactivity or 12 hours of total connection time, whichever\noccurs first. Reconnect and complete MFA to start a new session. Only 1 concurrent VPN session per\nuser is permitted. Disconnect when work is finished. Do not share a VPN account or allow another person\nto use an active session."
+        },
+        {
+          "number": 2,
+          "source_file": "vpn_remote_access_policy.pdf",
+          "page_number": 1,
+          "text": "NORTHSTAR ANALYTICS | Synthetic training policy | Version 1.0\nIT-03 | Page 1\nNORTHSTAR ANALYTICS / IT POLICY\nVPN & Remote Access Policy\nIT-03 | Version 1.0 | Effective 01 September 2026\nOwner: IT & Security | Applies to employees and contractors\nFictional company policy for RAG training and evaluation. All .example addresses are placeholders; these are not live\nservices.\n1. Purpose and scope\nProvide secure remote access to internal systems. Employees and approved contractors must use the\ncompany VPN for internal applications outside the office network. Company cloud email and the support\nportal do not require VPN, but still require company sign-in and MFA.\n2. Eligibility and approval\nVPN use requires a company-issued, managed laptop, an active company account and registered MFA.\nThe manager and IT must approve a VPN access ticket. Contractors also need a named employee\nsponsor; contractor VPN access expires after no more than 90 days and must be reapproved before\nrenewal. Access approv"
+        },
+        {
+          "number": 3,
+          "source_file": "vpn_remote_access_policy.pdf",
+          "page_number": 2,
+          "text": "r attach passwords or MFA codes. Five failed password attempts lock the account for 15\nminutes under IT-01. Do not repeatedly retry during a lockout.\n7. Restricted remote actions\nDo not expose company remote desktop services directly to the internet. Privileged remote access\nrequires the approved administrative gateway and the separate administrator account described in IT-04.\nA VPN connection does not grant new application permissions. Security may immediately terminate\nsessions if compromise is suspected.\n8. Exceptions and related policies\nSecurity must approve any exception in writing with an owner and an expiry of no more than 30 days.\nThis policy does not allow personal laptops on the VPN. Use IT-01 for MFA recovery, IT-02 for device\ncompliance and IT-05 for suspicious sign-ins."
+        }
+      ],
+      "answer": "Based on the supplied documents:\n\n**Contractor VPN Access Duration:**\nContractor VPN access expires after no more than 90 days and must be reapproved before renewal [1].\n\n**MFA Methods Allowed:**\nThe documents do not specify which MFA methods are allowed. The policy requires that users \"complete MFA\" [1] and have \"registered MFA\" [2], but the source excerpts do not detail which specific MFA methods are permitted."
+    },
+    {
+      "id": "vpn_admin_rights__control",
+      "base_case": "vpn_admin_rights",
+      "set": "heldout_a",
+      "category": "cross_document",
+      "mutation": "none",
+      "expected": "faithful",
+      "question": "Does connecting to VPN give application permissions, and how do I get an administrator role?",
+      "sources": [
+        {
+          "number": 1,
+          "source_file": "access_control_policy.pdf",
+          "page_number": 1,
+          "text": "NORTHSTAR ANALYTICS | Synthetic training policy | Version 1.0\nIT-04 | Page 1\nNORTHSTAR ANALYTICS / IT POLICY\nAccess Control Policy\nIT-04 | Version 1.0 | Effective 01 September 2026\nOwner: IT & Security | Applies to employees and contractors\nFictional company policy for RAG training and evaluation. All .example addresses are placeholders; these are not live\nservices.\n1. Purpose and principles\nGive each employee or contractor only the access needed for assigned work. All human users receive\nindividual accounts. Shared human accounts are prohibited. Application permissions are separate from\nVPN eligibility; connection to the VPN does not authorize access to every system.\n2. Request and approval\nSubmit a ticket at https://support.northstar.example naming the system, requested role, business reason,\nstart date and end date if temporary. The line manager and system owner must approve before IT\nprovisions access. The requester cannot approve their own request. IT records approval and the actu"
+        },
+        {
+          "number": 2,
+          "source_file": "access_control_policy.pdf",
+          "page_number": 2,
+          "text": "NORTHSTAR ANALYTICS | Synthetic training policy | Version 1.0\nIT-04 | Page 2\nNORTHSTAR ANALYTICS / IT POLICY\nAccess Control Policy\nProcedures and responsibilities\n5. Privileged access\nUse a separate administrator account for privileged tasks and the normal account for everyday work.\nPrivileged sign-ins require a hardware security key. Local administrator elevation on a laptop expires\nafter no more than 8 hours. Production administrator roles require manager, system owner and Security\napproval, with an explicit end date and a maximum grant of 30 days before renewal.\n6. Role changes and departures\nThe manager submits role changes before the effective date. IT removes permissions no longer needed\nwithin 1 business day of that date, then provisions new permissions only after approval. HR supplies the\ndeparture date and exact time. IT disables the account and revokes sessions at that time; for involuntary\ndepartures, HR and Security coordinate immediate removal at the agreed notification ti"
+        },
+        {
+          "number": 3,
+          "source_file": "vpn_remote_access_policy.pdf",
+          "page_number": 2,
+          "text": "r attach passwords or MFA codes. Five failed password attempts lock the account for 15\nminutes under IT-01. Do not repeatedly retry during a lockout.\n7. Restricted remote actions\nDo not expose company remote desktop services directly to the internet. Privileged remote access\nrequires the approved administrative gateway and the separate administrator account described in IT-04.\nA VPN connection does not grant new application permissions. Security may immediately terminate\nsessions if compromise is suspected.\n8. Exceptions and related policies\nSecurity must approve any exception in writing with an owner and an expiry of no more than 30 days.\nThis policy does not allow personal laptops on the VPN. Use IT-01 for MFA recovery, IT-02 for device\ncompliance and IT-05 for suspicious sign-ins."
+        }
+      ],
+      "answer": "# VPN Connection and Administrator Role Access\n\n## Does VPN Give Application Permissions?\n\nNo. According to the policy:\n\n> \"Application permissions are separate from VPN eligibility; connection to the VPN does not authorize access to every system.\" [1]\n\nThis is further reinforced: \"A VPN connection does not grant new application permissions.\" [3]\n\n## How to Get an Administrator Role\n\nTo obtain an administrator role, follow this process:\n\n1. **Submit a request** at https://support.northstar.example with:\n   - The system name\n   - Requested role\n   - Business reason\n   - Start date and end date (if temporary) [1]\n\n2. **Obtain approvals**: \"The line manager and system owner must approve before IT provisions access. The requester cannot approve their own request.\" [1]\n\n3. **For production administrator roles specifically**: \"Production administrator roles require manager, system owner and Security approval, with an explicit end date and a maximum grant of 30 days before renewal.\" [2]\n\n4. **Use separate accounts**: \"Use a separate administrator account for privileged tasks and the normal account for everyday work. Privileged sign-ins require a hardware security key.\" [2]"
+    },
+    {
+      "id": "gp401__control",
+      "base_case": "gp401",
+      "set": "heldout_a",
+      "category": "identifier",
+      "mutation": "none",
+      "expected": "faithful",
+      "question": "GlobalProtect 401: how do I fix it?",
+      "sources": [
+        {
+          "number": 1,
+          "source_file": "globalprotect_401.txt",
+          "page_number": 1,
+          "text": "Synthetic retrieval benchmark runbook | Version 1.0\nGlobalProtect 401 authentication failure\nGlobalProtect returns HTTP 401 when the saved sign-in token has expired. Sign out of the client, remove the cached account token and sign in again with MFA. Do not request additional application permissions for this error."
+        },
+        {
+          "number": 2,
+          "source_file": "globalprotect_403.txt",
+          "page_number": 1,
+          "text": "Synthetic retrieval benchmark runbook | Version 1.0\nGlobalProtect 403 authorization failure\nGlobalProtect returns HTTP 403 when the account lacks VPN entitlement. Ask the manager and IT to approve a VPN access ticket. Clearing the cached sign-in token does not grant the missing entitlement."
+        },
+        {
+          "number": 3,
+          "source_file": "northstar_connect_401.txt",
+          "page_number": 1,
+          "text": "Synthetic retrieval benchmark runbook | Version 1.0\nNorthstar Connect 401 sign-in failure\nNorthstar Connect returns HTTP 401 when the device clock differs from the identity server by more than five minutes. Enable automatic date and time, sync the device clock and retry once. This procedure is specific to Northstar Connect."
+        }
+      ],
+      "answer": "According to the supplied documents, to fix a GlobalProtect 401 error:\n\n1. Sign out of the client\n2. Remove the cached account token\n3. Sign in again with MFA\n\n[1]\n\nThe GlobalProtect 401 error occurs when your saved sign-in token has expired. The document also notes that you should not request additional application permissions for this error."
+    },
+    {
+      "id": "gp403__control",
+      "base_case": "gp403",
+      "set": "heldout_a",
+      "category": "identifier",
+      "mutation": "none",
+      "expected": "faithful",
+      "question": "GlobalProtect 403: what access is missing?",
+      "sources": [
+        {
+          "number": 1,
+          "source_file": "globalprotect_403.txt",
+          "page_number": 1,
+          "text": "Synthetic retrieval benchmark runbook | Version 1.0\nGlobalProtect 403 authorization failure\nGlobalProtect returns HTTP 403 when the account lacks VPN entitlement. Ask the manager and IT to approve a VPN access ticket. Clearing the cached sign-in token does not grant the missing entitlement."
+        },
+        {
+          "number": 2,
+          "source_file": "globalprotect_401.txt",
+          "page_number": 1,
+          "text": "Synthetic retrieval benchmark runbook | Version 1.0\nGlobalProtect 401 authentication failure\nGlobalProtect returns HTTP 401 when the saved sign-in token has expired. Sign out of the client, remove the cached account token and sign in again with MFA. Do not request additional application permissions for this error."
+        },
+        {
+          "number": 3,
+          "source_file": "payroll_403.txt",
+          "page_number": 1,
+          "text": "Synthetic retrieval benchmark runbook | Version 1.0\nPayroll portal 403 access failure\nThe payroll portal returns HTTP 403 when the employee does not have the payroll reader role. Request the payroll role through the access ticket process with Security approval. VPN entitlement is separate from payroll access."
+        }
+      ],
+      "answer": "According to the supplied document, GlobalProtect 403 indicates that **VPN entitlement is missing** [1].\n\nSpecifically, the source states: \"GlobalProtect returns HTTP 403 when the account lacks VPN entitlement. Ask the manager and IT to approve a VPN access ticket.\" [1]"
+    },
+    {
+      "id": "gp809__control",
+      "base_case": "gp809",
+      "set": "heldout_b",
+      "category": "identifier",
+      "mutation": "none",
+      "expected": "faithful",
+      "question": "GlobalProtect error 809 connection failure",
+      "sources": [
+        {
+          "number": 1,
+          "source_file": "globalprotect_809.txt",
+          "page_number": 1,
+          "text": "Synthetic retrieval benchmark runbook | Version 1.0\nGlobalProtect 809 network connection failure\nGlobalProtect error 809 means the network path to the VPN gateway is blocked. Test from an approved mobile hotspot and include the gateway connection log in an IT ticket. Do not disable the device firewall."
+        },
+        {
+          "number": 2,
+          "source_file": "globalprotect_403.txt",
+          "page_number": 1,
+          "text": "Synthetic retrieval benchmark runbook | Version 1.0\nGlobalProtect 403 authorization failure\nGlobalProtect returns HTTP 403 when the account lacks VPN entitlement. Ask the manager and IT to approve a VPN access ticket. Clearing the cached sign-in token does not grant the missing entitlement."
+        },
+        {
+          "number": 3,
+          "source_file": "globalprotect_401.txt",
+          "page_number": 1,
+          "text": "Synthetic retrieval benchmark runbook | Version 1.0\nGlobalProtect 401 authentication failure\nGlobalProtect returns HTTP 401 when the saved sign-in token has expired. Sign out of the client, remove the cached account token and sign in again with MFA. Do not request additional application permissions for this error."
+        }
+      ],
+      "answer": "# GlobalProtect Error 809 Connection Failure\n\nAccording to the supplied documentation, **GlobalProtect error 809 means the network path to the VPN gateway is blocked** [1].\n\n## Recommended Actions:\n\n1. **Test from an approved mobile hotspot** [1]\n2. **Include the gateway connection log in an IT ticket** [1]\n3. **Do not disable the device firewall** [1]"
+    },
+    {
+      "id": "gp1001__control",
+      "base_case": "gp1001",
+      "set": "heldout_a",
+      "category": "identifier",
+      "mutation": "none",
+      "expected": "faithful",
+      "question": "GlobalProtect GP1001 device check failed",
+      "sources": [
+        {
+          "number": 1,
+          "source_file": "globalprotect_gp1002.txt",
+          "page_number": 1,
+          "text": "Synthetic retrieval benchmark runbook | Version 1.0\nGlobalProtect GP1002 device check\nGlobalProtect GP1002 means endpoint protection is not running. IT must restore endpoint protection before the device may connect. Disk encryption alone does not satisfy this check."
+        },
+        {
+          "number": 2,
+          "source_file": "globalprotect_gp1001.txt",
+          "page_number": 1,
+          "text": "Synthetic retrieval benchmark runbook | Version 1.0\nGlobalProtect GP1001 device check\nGlobalProtect GP1001 means device disk encryption is disabled. IT must restore disk encryption before the device may connect. Restarting the client does not satisfy the encryption check."
+        },
+        {
+          "number": 3,
+          "source_file": "globalprotect_809.txt",
+          "page_number": 1,
+          "text": "Synthetic retrieval benchmark runbook | Version 1.0\nGlobalProtect 809 network connection failure\nGlobalProtect error 809 means the network path to the VPN gateway is blocked. Test from an approved mobile hotspot and include the gateway connection log in an IT ticket. Do not disable the device firewall."
+        }
+      ],
+      "answer": "Based on the supplied documents, **GlobalProtect GP1001 device check failed** means:\n\n**Device disk encryption is disabled.** [2]\n\nAccording to the policy, IT must restore disk encryption before the device may connect. Additionally, restarting the client does not satisfy the encryption check. [2]"
+    },
+    {
+      "id": "gp1002__control",
+      "base_case": "gp1002",
+      "set": "heldout_a",
+      "category": "identifier",
+      "mutation": "none",
+      "expected": "faithful",
+      "question": "GlobalProtect GP1002 device check failed",
+      "sources": [
+        {
+          "number": 1,
+          "source_file": "globalprotect_gp1002.txt",
+          "page_number": 1,
+          "text": "Synthetic retrieval benchmark runbook | Version 1.0\nGlobalProtect GP1002 device check\nGlobalProtect GP1002 means endpoint protection is not running. IT must restore endpoint protection before the device may connect. Disk encryption alone does not satisfy this check."
+        },
+        {
+          "number": 2,
+          "source_file": "globalprotect_gp1001.txt",
+          "page_number": 1,
+          "text": "Synthetic retrieval benchmark runbook | Version 1.0\nGlobalProtect GP1001 device check\nGlobalProtect GP1001 means device disk encryption is disabled. IT must restore disk encryption before the device may connect. Restarting the client does not satisfy the encryption check."
+        },
+        {
+          "number": 3,
+          "source_file": "globalprotect_809.txt",
+          "page_number": 1,
+          "text": "Synthetic retrieval benchmark runbook | Version 1.0\nGlobalProtect 809 network connection failure\nGlobalProtect error 809 means the network path to the VPN gateway is blocked. Test from an approved mobile hotspot and include the gateway connection log in an IT ticket. Do not disable the device firewall."
+        }
+      ],
+      "answer": "Based on the supplied documents, a **GlobalProtect GP1002 device check failure** means that **endpoint protection is not running** [1].\n\nAccording to the policy, IT must restore endpoint protection before the device may connect. The document also notes that disk encryption alone does not satisfy this check [1]."
+    },
+    {
+      "id": "ns401__control",
+      "base_case": "ns401",
+      "set": "heldout_a",
+      "category": "identifier",
+      "mutation": "none",
+      "expected": "faithful",
+      "question": "Northstar Connect 401: how do I fix it?",
+      "sources": [
+        {
+          "number": 1,
+          "source_file": "northstar_connect_401.txt",
+          "page_number": 1,
+          "text": "Synthetic retrieval benchmark runbook | Version 1.0\nNorthstar Connect 401 sign-in failure\nNorthstar Connect returns HTTP 401 when the device clock differs from the identity server by more than five minutes. Enable automatic date and time, sync the device clock and retry once. This procedure is specific to Northstar Connect."
+        },
+        {
+          "number": 2,
+          "source_file": "globalprotect_401.txt",
+          "page_number": 1,
+          "text": "Synthetic retrieval benchmark runbook | Version 1.0\nGlobalProtect 401 authentication failure\nGlobalProtect returns HTTP 401 when the saved sign-in token has expired. Sign out of the client, remove the cached account token and sign in again with MFA. Do not request additional application permissions for this error."
+        },
+        {
+          "number": 3,
+          "source_file": "vpn_remote_access_policy.pdf",
+          "page_number": 2,
+          "text": "NORTHSTAR ANALYTICS | Synthetic training policy | Version 1.0\nIT-03 | Page 2\nNORTHSTAR ANALYTICS / IT POLICY\nVPN & Remote Access Policy\nProcedures and responsibilities\n5. Networks and routing\nUse a trusted home network or a personal mobile hotspot. Public Wi-Fi is permitted only with the\ncompany VPN active, and confidential work should be avoided in exposed locations. The company VPN\nuses full-tunnel routing: all network traffic goes through company controls while connected. Do not use\nanother VPN simultaneously, alter routes or turn off the firewall.\n6. Troubleshooting\nIf connection fails, confirm internet access, check the device clock, restart Northstar Connect and try\nonce more. If the issue persists, open a ticket with the error message, time, client version and device\nasset tag. Never attach passwords or MFA codes. Five failed password attempts lock the account for 15\nminutes under IT-01. Do not repeatedly retry during a lockout.\n7. Restricted remote actions\nDo not expose company"
+        }
+      ],
+      "answer": "# Fixing Northstar Connect 401\n\nBased on the supplied documents, here's how to fix a Northstar Connect 401 error:\n\n**Primary cause and solution:**\n\"Northstar Connect returns HTTP 401 when the device clock differs from the identity server by more than five minutes. Enable automatic date and time, sync the device clock and retry once.\" [1]\n\n**Additional troubleshooting steps:**\nIf the clock sync doesn't resolve the issue, the general troubleshooting procedure recommends: \"confirm internet access, check the device clock, restart Northstar Connect and try once more. If the issue persists, open a ticket with the error message, time, client version and device asset tag.\" [3]\n\nThe primary fix is to **check and synchronize your device's date and time settings**, then retry the connection."
+    },
+    {
+      "id": "payroll403__control",
+      "base_case": "payroll403",
+      "set": "heldout_b",
+      "category": "identifier",
+      "mutation": "none",
+      "expected": "faithful",
+      "question": "Payroll portal 403: what role do I need?",
+      "sources": [
+        {
+          "number": 1,
+          "source_file": "payroll_403.txt",
+          "page_number": 1,
+          "text": "Synthetic retrieval benchmark runbook | Version 1.0\nPayroll portal 403 access failure\nThe payroll portal returns HTTP 403 when the employee does not have the payroll reader role. Request the payroll role through the access ticket process with Security approval. VPN entitlement is separate from payroll access."
+        },
+        {
+          "number": 2,
+          "source_file": "access_control_policy.pdf",
+          "page_number": 1,
+          "text": "ason,\nstart date and end date if temporary. The line manager and system owner must approve before IT\nprovisions access. The requester cannot approve their own request. IT records approval and the actual\npermissions in the ticket.\n3. Standard and sensitive roles\nRead-only access is the default when it satisfies the work need. Editing, export and administrative rights\nmust be explicitly requested. Access to payroll, production administration or bulk customer-data exports\nadditionally requires Security approval. IT targets fulfillment of ordinary requests within 2 business days\nafter all approvals; urgent incident access uses the emergency procedure below.\n4. Temporary and contractor access\nTemporary project permissions expire after no more than 30 days. Contractor accounts and VPN\nentitlements expire after no more than 90 days and require a named employee sponsor. For a contractor\nassigned a temporary project role, both limits apply: the project role expires within 30 days even if the\nac"
+        },
+        {
+          "number": 3,
+          "source_file": "access_control_policy.pdf",
+          "page_number": 2,
+          "text": "NORTHSTAR ANALYTICS | Synthetic training policy | Version 1.0\nIT-04 | Page 2\nNORTHSTAR ANALYTICS / IT POLICY\nAccess Control Policy\nProcedures and responsibilities\n5. Privileged access\nUse a separate administrator account for privileged tasks and the normal account for everyday work.\nPrivileged sign-ins require a hardware security key. Local administrator elevation on a laptop expires\nafter no more than 8 hours. Production administrator roles require manager, system owner and Security\napproval, with an explicit end date and a maximum grant of 30 days before renewal.\n6. Role changes and departures\nThe manager submits role changes before the effective date. IT removes permissions no longer needed\nwithin 1 business day of that date, then provisions new permissions only after approval. HR supplies the\ndeparture date and exact time. IT disables the account and revokes sessions at that time; for involuntary\ndepartures, HR and Security coordinate immediate removal at the agreed notification ti"
+        }
+      ],
+      "answer": "According to the supplied documents, to access the payroll portal you need the **payroll reader role** [1].\n\nTo obtain this role, you should request it through the access ticket process, which requires **Security approval** [1]. Note that VPN entitlement is separate from payroll access [1]."
+    },
+    {
+      "id": "otp410__control",
+      "base_case": "otp410",
+      "set": "heldout_b",
+      "category": "identifier",
+      "mutation": "none",
+      "expected": "faithful",
+      "question": "OTP-410 enrollment pass issue",
+      "sources": [
+        {
+          "number": 1,
+          "source_file": "identity_otp_410.txt",
+          "page_number": 1,
+          "text": "Synthetic retrieval benchmark runbook | Version 1.0\nIdentity portal OTP-410 recovery\nIdentity error OTP-410 means a temporary enrollment pass has expired. Contact IT Support for identity verification and a replacement enrollment pass. Never share the pass in a support ticket."
+        },
+        {
+          "number": 2,
+          "source_file": "identity_otp_411.txt",
+          "page_number": 1,
+          "text": "Synthetic retrieval benchmark runbook | Version 1.0\nIdentity portal OTP-411 recovery\nIdentity error OTP-411 means a temporary enrollment pass has already been used. Contact IT Support to revoke the old pass and issue a new pass after identity verification. Waiting does not make the used pass valid again."
+        },
+        {
+          "number": 3,
+          "source_file": "payroll_403.txt",
+          "page_number": 1,
+          "text": "Synthetic retrieval benchmark runbook | Version 1.0\nPayroll portal 403 access failure\nThe payroll portal returns HTTP 403 when the employee does not have the payroll reader role. Request the payroll role through the access ticket process with Security approval. VPN entitlement is separate from payroll access."
+        }
+      ],
+      "answer": "# OTP-410 Enrollment Pass Issue\n\nAccording to the supplied documents, an OTP-410 error means **a temporary enrollment pass has expired** [1].\n\n## Resolution:\n- Contact IT Support for identity verification and a replacement enrollment pass [1]\n- Do not share the pass in a support ticket [1]"
+    },
+    {
+      "id": "otp411__control",
+      "base_case": "otp411",
+      "set": "heldout_b",
+      "category": "identifier",
+      "mutation": "none",
+      "expected": "faithful",
+      "question": "OTP-411 enrollment pass issue",
+      "sources": [
+        {
+          "number": 1,
+          "source_file": "identity_otp_411.txt",
+          "page_number": 1,
+          "text": "Synthetic retrieval benchmark runbook | Version 1.0\nIdentity portal OTP-411 recovery\nIdentity error OTP-411 means a temporary enrollment pass has already been used. Contact IT Support to revoke the old pass and issue a new pass after identity verification. Waiting does not make the used pass valid again."
+        },
+        {
+          "number": 2,
+          "source_file": "identity_otp_410.txt",
+          "page_number": 1,
+          "text": "Synthetic retrieval benchmark runbook | Version 1.0\nIdentity portal OTP-410 recovery\nIdentity error OTP-410 means a temporary enrollment pass has expired. Contact IT Support for identity verification and a replacement enrollment pass. Never share the pass in a support ticket."
+        },
+        {
+          "number": 3,
+          "source_file": "globalprotect_403.txt",
+          "page_number": 1,
+          "text": "Synthetic retrieval benchmark runbook | Version 1.0\nGlobalProtect 403 authorization failure\nGlobalProtect returns HTTP 403 when the account lacks VPN entitlement. Ask the manager and IT to approve a VPN access ticket. Clearing the cached sign-in token does not grant the missing entitlement."
+        }
+      ],
+      "answer": "# OTP-411 Enrollment Pass Issue\n\nBased on the supplied documents, here is the information about OTP-411:\n\n**What OTP-411 means:** Identity error OTP-411 indicates that a temporary enrollment pass has already been used [1].\n\n**Resolution:** Contact IT Support to:\n1. Revoke the old pass\n2. Issue a new pass after identity verification [1]\n\n**Important note:** Waiting does not make the used pass valid again [1]."
+    },
+    {
+      "id": "clock_skew__control",
+      "base_case": "clock_skew",
+      "set": "heldout_a",
+      "category": "identifier",
+      "mutation": "none",
+      "expected": "faithful",
+      "question": "ERR_CLOCK_SKEW fix",
+      "sources": [
+        {
+          "number": 1,
+          "source_file": "device_clock_skew.txt",
+          "page_number": 1,
+          "text": "Synthetic retrieval benchmark runbook | Version 1.0\nDevice ERR_CLOCK_SKEW troubleshooting\nERR_CLOCK_SKEW means the device clock is outside the permitted time range. Enable automatic date and time and synchronize the clock. Changing a password does not correct device time."
+        },
+        {
+          "number": 2,
+          "source_file": "northstar_connect_401.txt",
+          "page_number": 1,
+          "text": "Synthetic retrieval benchmark runbook | Version 1.0\nNorthstar Connect 401 sign-in failure\nNorthstar Connect returns HTTP 401 when the device clock differs from the identity server by more than five minutes. Enable automatic date and time, sync the device clock and retry once. This procedure is specific to Northstar Connect."
+        },
+        {
+          "number": 3,
+          "source_file": "globalprotect_401.txt",
+          "page_number": 1,
+          "text": "Synthetic retrieval benchmark runbook | Version 1.0\nGlobalProtect 401 authentication failure\nGlobalProtect returns HTTP 401 when the saved sign-in token has expired. Sign out of the client, remove the cached account token and sign in again with MFA. Do not request additional application permissions for this error."
+        }
+      ],
+      "answer": "# ERR_CLOCK_SKEW Fix\n\nAccording to the supplied documents, ERR_CLOCK_SKEW occurs when the device clock is outside the permitted time range [1].\n\n## Resolution Steps:\n\n1. **Enable automatic date and time** [1]\n2. **Synchronize the clock** [1]\n\n## Important Note:\n\nChanging a password does not correct device time [1].\n\n---\n\n**Related Issue:** If you're experiencing Northstar Connect 401 sign-in failures, a similar clock synchronization issue may apply—the device clock must be within five minutes of the identity server. The same fix applies: enable automatic date and time and sync the device clock [2]."
+    },
+    {
+      "id": "disk_full__control",
+      "base_case": "disk_full",
+      "set": "heldout_a",
+      "category": "identifier",
+      "mutation": "none",
+      "expected": "faithful",
+      "question": "ERR_DISK_FULL fix",
+      "sources": [
+        {
+          "number": 1,
+          "source_file": "device_disk_full.txt",
+          "page_number": 1,
+          "text": "Synthetic retrieval benchmark runbook | Version 1.0\nDevice ERR_DISK_FULL troubleshooting\nERR_DISK_FULL means the device has insufficient free storage. Move work files to approved company cloud storage and ask IT to remove approved temporary files. Never delete security logs to free space."
+        },
+        {
+          "number": 2,
+          "source_file": "device_clock_skew.txt",
+          "page_number": 1,
+          "text": "Synthetic retrieval benchmark runbook | Version 1.0\nDevice ERR_CLOCK_SKEW troubleshooting\nERR_CLOCK_SKEW means the device clock is outside the permitted time range. Enable automatic date and time and synchronize the clock. Changing a password does not correct device time."
+        },
+        {
+          "number": 3,
+          "source_file": "globalprotect_gp1001.txt",
+          "page_number": 1,
+          "text": "Synthetic retrieval benchmark runbook | Version 1.0\nGlobalProtect GP1001 device check\nGlobalProtect GP1001 means device disk encryption is disabled. IT must restore disk encryption before the device may connect. Restarting the client does not satisfy the encryption check."
+        }
+      ],
+      "answer": "# ERR_DISK_FULL Fix\n\nAccording to the supplied documents, here are the steps to fix ERR_DISK_FULL [1]:\n\n1. **Move work files to approved company cloud storage** [1]\n2. **Ask IT to remove approved temporary files** [1]\n\n**Important:** Never delete security logs to free space [1].\n\nERR_DISK_FULL indicates that the device has insufficient free storage [1]."
+    },
+    {
+      "id": "kb431__control",
+      "base_case": "kb431",
+      "set": "heldout_b",
+      "category": "identifier",
+      "mutation": "none",
+      "expected": "faithful",
+      "question": "KB-431 recovery steps",
+      "sources": [
+        {
+          "number": 1,
+          "source_file": "vpn_kb431.txt",
+          "page_number": 1,
+          "text": "Synthetic retrieval benchmark runbook | Version 1.0\nKnowledge article KB-431 VPN recovery\nKB-431 covers VPN gateway certificate renewal. Import the replacement gateway certificate through the company software catalog and reconnect. This is a knowledge article identifier, not a support ticket number."
+        },
+        {
+          "number": 2,
+          "source_file": "vpn_kb432.txt",
+          "page_number": 1,
+          "text": "Synthetic retrieval benchmark runbook | Version 1.0\nKnowledge article KB-432 VPN recovery\nKB-432 covers VPN client profile renewal. Download the replacement client profile through the company software catalog and reconnect. This is a knowledge article identifier, not a support ticket number."
+        },
+        {
+          "number": 3,
+          "source_file": "incident_response_security_reporting_policy.pdf",
+          "page_number": 2,
+          "text": "loyees must not contact affected\ncustomers or publish incident details unless explicitly assigned to do so.\n8. Closure and follow-up\nSecurity confirms containment and recovery before IT restores normal access. For P1 and P2 incidents,\nthe incident lead completes a review within 5 business days after closure, recording cause, impact and\npreventive actions with owners. See IT-01 through IT-04 for credential recovery, device handling, VPN\nrestrictions and access approval."
+        }
+      ],
+      "answer": "Based on the supplied source excerpts, KB-431 covers **VPN gateway certificate renewal**. The recovery steps for KB-431 are [1]:\n\n1. Import the replacement gateway certificate through the company software catalog\n2. Reconnect\n\nHowever, the excerpts provided contain only high-level summary information. For detailed step-by-step recovery procedures, you would need to access the complete KB-431 article itself."
+    },
+    {
+      "id": "kb432__control",
+      "base_case": "kb432",
+      "set": "heldout_b",
+      "category": "identifier",
+      "mutation": "none",
+      "expected": "faithful",
+      "question": "KB-432 recovery steps",
+      "sources": [
+        {
+          "number": 1,
+          "source_file": "vpn_kb431.txt",
+          "page_number": 1,
+          "text": "Synthetic retrieval benchmark runbook | Version 1.0\nKnowledge article KB-431 VPN recovery\nKB-431 covers VPN gateway certificate renewal. Import the replacement gateway certificate through the company software catalog and reconnect. This is a knowledge article identifier, not a support ticket number."
+        },
+        {
+          "number": 2,
+          "source_file": "vpn_kb432.txt",
+          "page_number": 1,
+          "text": "Synthetic retrieval benchmark runbook | Version 1.0\nKnowledge article KB-432 VPN recovery\nKB-432 covers VPN client profile renewal. Download the replacement client profile through the company software catalog and reconnect. This is a knowledge article identifier, not a support ticket number."
+        },
+        {
+          "number": 3,
+          "source_file": "incident_response_security_reporting_policy.pdf",
+          "page_number": 2,
+          "text": "loyees must not contact affected\ncustomers or publish incident details unless explicitly assigned to do so.\n8. Closure and follow-up\nSecurity confirms containment and recovery before IT restores normal access. For P1 and P2 incidents,\nthe incident lead completes a review within 5 business days after closure, recording cause, impact and\npreventive actions with owners. See IT-01 through IT-04 for credential recovery, device handling, VPN\nrestrictions and access approval."
+        }
+      ],
+      "answer": "Based on the supplied documents, the recovery steps for KB-432 are:\n\n**KB-432 Recovery Steps:**\n\n1. Download the replacement client profile through the company software catalog\n2. Reconnect\n\n[2]\n\nKB-432 specifically covers VPN client profile renewal, as opposed to KB-431 which covers VPN gateway certificate renewal."
+    },
+    {
+      "id": "forgot_factor__number",
+      "base_case": "forgot_factor",
+      "set": "heldout_a",
+      "category": "paraphrase",
+      "mutation": "number",
+      "expected": "unfaithful",
+      "change": {
+        "find": "expires after 30 minutes and can be used once",
+        "replace": "expires after 60 minutes and can be used once"
+      },
+      "marker": "after 60 minutes",
+      "expected_claim_label": "contradicted",
+      "question": "I cannot use my authenticator anymore. How do I prove who I am to support?",
+      "sources": [
+        {
+          "number": 1,
+          "source_file": "password_mfa_policy.pdf",
+          "page_number": 2,
+          "text": "NORTHSTAR ANALYTICS | Synthetic training policy | Version 1.0\nIT-01 | Page 2\nNORTHSTAR ANALYTICS / IT POLICY\nPassword & MFA Policy\nProcedures and responsibilities\n5. Password reset\nUse https://identity.northstar.example/reset and complete verification with a registered MFA factor. If no\nfactor is available, contact IT Support at https://support.northstar.example. Support verifies identity\nthrough a live video check against the staff directory and confirmation from the recorded manager\nthrough an existing company channel. Support never asks for your password, an MFA code or approval\nof an unsolicited prompt.\n6. Lost factor and recovery\nReport a lost security key or phone immediately. Support revokes the missing factor and active sessions\nafter identity verification. A temporary enrollment pass expires after 30 minutes and can be used once; it\nis issued only to register a replacement factor. Register the replacement before normal access resumes.\nStore recovery codes in the approved passw"
+        },
+        {
+          "number": 2,
+          "source_file": "identity_otp_410.txt",
+          "page_number": 1,
+          "text": "Synthetic retrieval benchmark runbook | Version 1.0\nIdentity portal OTP-410 recovery\nIdentity error OTP-410 means a temporary enrollment pass has expired. Contact IT Support for identity verification and a replacement enrollment pass. Never share the pass in a support ticket."
+        },
+        {
+          "number": 3,
+          "source_file": "identity_otp_411.txt",
+          "page_number": 1,
+          "text": "Synthetic retrieval benchmark runbook | Version 1.0\nIdentity portal OTP-411 recovery\nIdentity error OTP-411 means a temporary enrollment pass has already been used. Contact IT Support to revoke the old pass and issue a new pass after identity verification. Waiting does not make the used pass valid again."
+        }
+      ],
+      "answer": "According to the supplied documents, if you cannot use your authenticator anymore, you should contact IT Support at https://support.northstar.example [1].\n\nSupport will verify your identity through:\n- A live video check against the staff directory\n- Confirmation from your recorded manager through an existing company channel [1]\n\nAfter your identity is verified, Support will revoke your missing authenticator and issue you a temporary enrollment pass that expires after 60 minutes and can be used once to register a replacement factor [1].\n\nImportant: Support never asks for your password, an MFA code, or approval of an unsolicited prompt [1], and you should never share the enrollment pass in a support ticket [2]."
+    },
+    {
+      "id": "random_mfa_prompt__negation",
+      "base_case": "random_mfa_prompt",
+      "set": "heldout_a",
+      "category": "paraphrase",
+      "mutation": "negation",
+      "expected": "unfaithful",
+      "change": {
+        "find": "Do not approve it [2]",
+        "replace": "Approve it if you recognize the device [2]"
+      },
+      "marker": "Approve it if you recognize",
+      "expected_claim_label": "contradicted",
+      "question": "My phone asks me to approve a login I did not start. What should I do?",
+      "sources": [
+        {
+          "number": 1,
+          "source_file": "incident_response_security_reporting_policy.pdf",
+          "page_number": 1,
+          "text": "m rather than replying to a suspicious message.\n4. Immediate employee actions\nFor phishing, do not click links, open attachments or forward the message to coworkers. Use the email\nReport Phishing button or the channels above. For an unexpected MFA prompt, reject it and report it\nimmediately. If malware or ransomware is suspected, disconnect Wi-Fi and the network cable, stop using\nthe device and report from a different device. Keep the device powered on unless Security tells you\notherwise."
+        },
+        {
+          "number": 2,
+          "source_file": "password_mfa_policy.pdf",
+          "page_number": 1,
+          "text": "ty service rejects known\ncompromised passwords. Use the company-approved password manager to generate and store unique\npasswords. Routine password changes are not required; change a password immediately if compromise\nis suspected or Security instructs you to do so.\n3. Multi-factor authentication\nMFA is required for all interactive company sign-ins, including VPN access. Register a security key or the\ncompany authenticator app before the first sign-in. SMS is not an approved MFA method. Administrators\nmust use a hardware security key for privileged access. Reject any MFA prompt you did not initiate and\nreport it immediately under IT-05.\n4. Failed sign-ins\nAfter 5 consecutive failed password attempts, the account is locked for 15 minutes. Wait for the lock to\nexpire or contact IT Support. Repeated lockouts or unfamiliar sign-in alerts must be reported\nimmediately. A lockout does not remove the MFA requirement."
+        },
+        {
+          "number": 3,
+          "source_file": "northstar_connect_401.txt",
+          "page_number": 1,
+          "text": "Synthetic retrieval benchmark runbook | Version 1.0\nNorthstar Connect 401 sign-in failure\nNorthstar Connect returns HTTP 401 when the device clock differs from the identity server by more than five minutes. Enable automatic date and time, sync the device clock and retry once. This procedure is specific to Northstar Connect."
+        }
+      ],
+      "answer": "Based on the supplied documents, if your phone asks you to approve a login you did not start, you should:\n\n1. **Reject the MFA prompt** - Approve it if you recognize the device [2]\n\n2. **Report it immediately** - The policy states to \"report it immediately under IT-05\" [2]\n\nAccording to the incident response policy, \"For an unexpected MFA prompt, reject it and report it immediately\" [1]\n\nThis is treated as a security concern that requires prompt action and reporting to your IT/Security team."
+    },
+    {
+      "id": "ransomware_power__number",
+      "base_case": "ransomware_power",
+      "set": "heldout_b",
+      "category": "paraphrase",
+      "mutation": "number",
+      "expected": "unfaithful",
+      "change": {
+        "find": "The recommended actions are to:\n1. Disconnect Wi-Fi and the network cable\n2. Stop using the device\n3. Report the suspected malware from a different device\n4. Keep the device powered on (unless Security instructs otherwise)",
+        "replace": "The recommended actions are to:\n1. Disconnect Wi-Fi and the network cable\n2. Stop using the device\n3. Report the suspected malware from a different device\n4. Keep the device powered on for at most 30 minutes (unless Security instructs otherwise)"
+      },
+      "marker": "at most 30 minutes",
+      "expected_claim_label": "contradicted",
+      "question": "My files look encrypted by malware. Should I switch off the laptop?",
+      "sources": [
+        {
+          "number": 1,
+          "source_file": "globalprotect_gp1001.txt",
+          "page_number": 1,
+          "text": "Synthetic retrieval benchmark runbook | Version 1.0\nGlobalProtect GP1001 device check\nGlobalProtect GP1001 means device disk encryption is disabled. IT must restore disk encryption before the device may connect. Restarting the client does not satisfy the encryption check."
+        },
+        {
+          "number": 2,
+          "source_file": "incident_response_security_reporting_policy.pdf",
+          "page_number": 1,
+          "text": "m rather than replying to a suspicious message.\n4. Immediate employee actions\nFor phishing, do not click links, open attachments or forward the message to coworkers. Use the email\nReport Phishing button or the channels above. For an unexpected MFA prompt, reject it and report it\nimmediately. If malware or ransomware is suspected, disconnect Wi-Fi and the network cable, stop using\nthe device and report from a different device. Keep the device powered on unless Security tells you\notherwise."
+        },
+        {
+          "number": 3,
+          "source_file": "globalprotect_gp1002.txt",
+          "page_number": 1,
+          "text": "Synthetic retrieval benchmark runbook | Version 1.0\nGlobalProtect GP1002 device check\nGlobalProtect GP1002 means endpoint protection is not running. IT must restore endpoint protection before the device may connect. Disk encryption alone does not satisfy this check."
+        }
+      ],
+      "answer": "Based on the supplied documents, **do not switch off the laptop**. \n\nAccording to the incident response policy [2]: \"If malware or ransomware is suspected, disconnect Wi-Fi and the network cable, stop using the device and report from a different device. **Keep the device powered on unless Security tells you otherwise.**\"\n\nThe recommended actions are to:\n1. Disconnect Wi-Fi and the network cable\n2. Stop using the device\n3. Report the suspected malware from a different device\n4. Keep the device powered on for at most 30 minutes (unless Security instructs otherwise)"
+    },
+    {
+      "id": "vpn_mail__invented_fact",
+      "base_case": "vpn_mail",
+      "set": "heldout_a",
+      "category": "paraphrase",
+      "mutation": "invented_fact",
+      "expected": "unfaithful",
+      "change": {
+        "find": "use multi-factor authentication (MFA) to access it.",
+        "replace": "use multi-factor authentication (MFA) to access it. Email sessions on unmanaged devices are limited to 12 hours before re-authentication is required. [1]"
+      },
+      "marker": "unmanaged devices are limited",
+      "expected_claim_label": "unsupported",
+      "question": "Do I need the remote connection to read company cloud email?",
+      "sources": [
+        {
+          "number": 1,
+          "source_file": "vpn_remote_access_policy.pdf",
+          "page_number": 1,
+          "text": "NORTHSTAR ANALYTICS | Synthetic training policy | Version 1.0\nIT-03 | Page 1\nNORTHSTAR ANALYTICS / IT POLICY\nVPN & Remote Access Policy\nIT-03 | Version 1.0 | Effective 01 September 2026\nOwner: IT & Security | Applies to employees and contractors\nFictional company policy for RAG training and evaluation. All .example addresses are placeholders; these are not live\nservices.\n1. Purpose and scope\nProvide secure remote access to internal systems. Employees and approved contractors must use the\ncompany VPN for internal applications outside the office network. Company cloud email and the support\nportal do not require VPN, but still require company sign-in and MFA.\n2. Eligibility and approval\nVPN use requires a company-issued, managed laptop, an active company account and registered MFA.\nThe manager and IT must approve a VPN access ticket. Contractors also need a named employee\nsponsor; contractor VPN access expires after no more than 90 days and must be reapproved before\nrenewal. Access approv"
+        },
+        {
+          "number": 2,
+          "source_file": "vpn_remote_access_policy.pdf",
+          "page_number": 2,
+          "text": "NORTHSTAR ANALYTICS | Synthetic training policy | Version 1.0\nIT-03 | Page 2\nNORTHSTAR ANALYTICS / IT POLICY\nVPN & Remote Access Policy\nProcedures and responsibilities\n5. Networks and routing\nUse a trusted home network or a personal mobile hotspot. Public Wi-Fi is permitted only with the\ncompany VPN active, and confidential work should be avoided in exposed locations. The company VPN\nuses full-tunnel routing: all network traffic goes through company controls while connected. Do not use\nanother VPN simultaneously, alter routes or turn off the firewall.\n6. Troubleshooting\nIf connection fails, confirm internet access, check the device clock, restart Northstar Connect and try\nonce more. If the issue persists, open a ticket with the error message, time, client version and device\nasset tag. Never attach passwords or MFA codes. Five failed password attempts lock the account for 15\nminutes under IT-01. Do not repeatedly retry during a lockout.\n7. Restricted remote actions\nDo not expose company"
+        },
+        {
+          "number": 3,
+          "source_file": "vpn_remote_access_policy.pdf",
+          "page_number": 2,
+          "text": "r attach passwords or MFA codes. Five failed password attempts lock the account for 15\nminutes under IT-01. Do not repeatedly retry during a lockout.\n7. Restricted remote actions\nDo not expose company remote desktop services directly to the internet. Privileged remote access\nrequires the approved administrative gateway and the separate administrator account described in IT-04.\nA VPN connection does not grant new application permissions. Security may immediately terminate\nsessions if compromise is suspected.\n8. Exceptions and related policies\nSecurity must approve any exception in writing with an owner and an expiry of no more than 30 days.\nThis policy does not allow personal laptops on the VPN. Use IT-01 for MFA recovery, IT-02 for device\ncompliance and IT-05 for suspicious sign-ins."
+        }
+      ],
+      "answer": "No, you do not need the remote connection to read company cloud email. \n\nAccording to the policy: \"Company cloud email and the support portal do not require VPN, but still require company sign-in and MFA.\" [1]\n\nHowever, you will still need to sign in with your company account and use multi-factor authentication (MFA) to access it. Email sessions on unmanaged devices are limited to 12 hours before re-authentication is required. [1]"
+    },
+    {
+      "id": "work_backup__invented_fact",
+      "base_case": "work_backup",
+      "set": "heldout_b",
+      "category": "paraphrase",
+      "mutation": "invented_fact",
+      "expected": "unfaithful",
+      "change": {
+        "find": "rather than saving them locally on your desktop.",
+        "replace": "rather than saving them locally on your desktop. Restoring files from cloud storage backups takes up to 4 hours after a request to IT. [1]"
+      },
+      "marker": "takes up to 4 hours",
+      "expected_claim_label": "unsupported",
+      "question": "Are files saved only on my desktop protected by company backups?",
+      "sources": [
+        {
+          "number": 1,
+          "source_file": "laptop_device_policy.pdf",
+          "page_number": 1,
+          "text": "the host firewall must remain enabled. The screen must lock after 5 minutes of inactivity;\nlock it manually before leaving it unattended. Employees use standard user accounts. Local administrator\naccess requires approval under IT-04 and expires after no more than 8 hours.\n3. Updates and software\nInstall Security-designated critical security updates within 48 hours of the company deployment notice.\nInstall all other security updates within 14 calendar days. Restart when prompted to complete installation.\nInstall software only through the company software catalog or an IT-approved ticket. Do not disable\nsecurity controls or use unlicensed software.\n4. Data and backups\nStore work files in approved company cloud storage, which provides daily backups with 30-day retention.\nLocal-only files are not backed up by IT. Do not copy work files to personal cloud storage or unapproved\nUSB devices. An approved removable drive must be encrypted. Report suspected disclosure under\nIT-05."
+        },
+        {
+          "number": 2,
+          "source_file": "laptop_device_policy.pdf",
+          "page_number": 1,
+          "text": "NORTHSTAR ANALYTICS | Synthetic training policy | Version 1.0\nIT-02 | Page 1\nNORTHSTAR ANALYTICS / IT POLICY\nLaptop & Device Policy\nIT-02 | Version 1.0 | Effective 01 September 2026\nOwner: IT & Security | Applies to employees and contractors\nFictional company policy for RAG training and evaluation. All .example addresses are placeholders; these are not live\nservices.\n1. Purpose and scope\nMaintain secure, reliable company devices. This policy applies to company-issued laptops and\ncompany-managed phones. Only company-issued, managed laptops may connect to the VPN. Personal\nphones may run the authenticator app, but may not store company files or access the VPN.\n2. Required protections\nIT enrolls each device in endpoint management before handover. Full-disk encryption, endpoint\nprotection and the host firewall must remain enabled. The screen must lock after 5 minutes of inactivity;\nlock it manually before leaving it unattended. Employees use standard user accounts. Local administrator\nacce"
+        },
+        {
+          "number": 3,
+          "source_file": "vpn_remote_access_policy.pdf",
+          "page_number": 2,
+          "text": "r attach passwords or MFA codes. Five failed password attempts lock the account for 15\nminutes under IT-01. Do not repeatedly retry during a lockout.\n7. Restricted remote actions\nDo not expose company remote desktop services directly to the internet. Privileged remote access\nrequires the approved administrative gateway and the separate administrator account described in IT-04.\nA VPN connection does not grant new application permissions. Security may immediately terminate\nsessions if compromise is suspected.\n8. Exceptions and related policies\nSecurity must approve any exception in writing with an owner and an expiry of no more than 30 days.\nThis policy does not allow personal laptops on the VPN. Use IT-01 for MFA recovery, IT-02 for device\ncompliance and IT-05 for suspicious sign-ins."
+        }
+      ],
+      "answer": "Based on the supplied documents, **no, files saved only on your desktop are not protected by company backups**.\n\nAccording to the policy: \"Store work files in approved company cloud storage, which provides daily backups with 30-day retention. **Local-only files are not backed up by IT.**\" [1]\n\nTo have your files protected by company backups, you need to store them in approved company cloud storage rather than saving them locally on your desktop. Restoring files from cloud storage backups takes up to 4 hours after a request to IT. [1]"
+    },
+    {
+      "id": "travel_notice__negation",
+      "base_case": "travel_notice",
+      "set": "heldout_b",
+      "category": "paraphrase",
+      "mutation": "negation",
+      "expected": "unfaithful",
+      "change": {
+        "find": "you should notify IT **at least 5 business days before international travel** [1].",
+        "replace": "you do not need to notify IT **at least 5 business days before international travel** [1]."
+      },
+      "marker": "do not need to notify",
+      "expected_claim_label": "contradicted",
+      "question": "I am flying abroad for work. How far ahead should I notify IT?",
+      "sources": [
+        {
+          "number": 1,
+          "source_file": "laptop_device_policy.pdf",
+          "page_number": 2,
+          "text": "NORTHSTAR ANALYTICS | Synthetic training policy | Version 1.0\nIT-02 | Page 2\nNORTHSTAR ANALYTICS / IT POLICY\nLaptop & Device Policy\nProcedures and responsibilities\n5. Travel and physical care\nKeep devices in your possession or in locked storage. Do not leave a laptop in an unattended vehicle or\nchecked baggage. Use a privacy screen when working with confidential information in public. Notify IT\nthrough a ticket at least 5 business days before international travel so it can review device and access\nrequirements.\n6. Lost or stolen devices\nReport loss or theft immediately to Security, and no later than 1 hour after discovery. Give the asset tag if\nknown, last known location, discovery time and whether the device was unlocked. Security coordinates\nsession revocation and remote lock or wipe. Do not attempt to recover a stolen device yourself. Use the\nemergency reporting channels in IT-05 if normal sign-in is unavailable.\n7. Repair, replacement and return\nOpen an IT ticket for damage or malf"
+        },
+        {
+          "number": 2,
+          "source_file": "laptop_device_policy.pdf",
+          "page_number": 2,
+          "text": " not attempt to recover a stolen device yourself. Use the\nemergency reporting channels in IT-05 if normal sign-in is unavailable.\n7. Repair, replacement and return\nOpen an IT ticket for damage or malfunction; do not arrange repairs independently. IT aims to provide a\nloaner within 1 business day after triage, subject to stock. The standard laptop replacement cycle is 4\nyears; earlier replacement requires IT approval. Return devices, chargers and security keys within 3\nbusiness days of the last working day. IT performs data preservation and secure wiping; do not\nfactory-reset devices yourself.\n8. Exceptions and related policies\nSecurity must approve exceptions in writing with an owner and an expiry of no more than 30 days. See\nIT-03 for remote access, IT-04 for administrator permissions and IT-05 for incident reporting."
+        },
+        {
+          "number": 3,
+          "source_file": "access_control_policy.pdf",
+          "page_number": 1,
+          "text": "ason,\nstart date and end date if temporary. The line manager and system owner must approve before IT\nprovisions access. The requester cannot approve their own request. IT records approval and the actual\npermissions in the ticket.\n3. Standard and sensitive roles\nRead-only access is the default when it satisfies the work need. Editing, export and administrative rights\nmust be explicitly requested. Access to payroll, production administration or bulk customer-data exports\nadditionally requires Security approval. IT targets fulfillment of ordinary requests within 2 business days\nafter all approvals; urgent incident access uses the emergency procedure below.\n4. Temporary and contractor access\nTemporary project permissions expire after no more than 30 days. Contractor accounts and VPN\nentitlements expire after no more than 90 days and require a named employee sponsor. For a contractor\nassigned a temporary project role, both limits apply: the project role expires within 30 days even if the\nac"
+        }
+      ],
+      "answer": "According to the supplied documents, you do not need to notify IT **at least 5 business days before international travel** [1].\n\nThe policy states: \"Notify IT through a ticket at least 5 business days before international travel so it can review device and access requirements.\" [1]"
+    },
+    {
+      "id": "contractor_role__invented_fact",
+      "base_case": "contractor_role",
+      "set": "heldout_b",
+      "category": "near_match",
+      "mutation": "invented_fact",
+      "expected": "unfaithful",
+      "change": {
+        "find": "regardless of the overall account status.",
+        "replace": "regardless of the overall account status. Expiry reminders are sent to the sponsor 7 days before the project role ends. [1]"
+      },
+      "marker": "Expiry reminders are sent",
+      "expected_claim_label": "unsupported",
+      "question": "Does a contractor temporary project role last 30 days or 90 days?",
+      "sources": [
+        {
+          "number": 1,
+          "source_file": "access_control_policy.pdf",
+          "page_number": 1,
+          "text": "ts expire after no more than 90 days and require a named employee sponsor. For a contractor\nassigned a temporary project role, both limits apply: the project role expires within 30 days even if the\naccount remains active. Renewals require fresh approval before expiry."
+        },
+        {
+          "number": 2,
+          "source_file": "access_control_policy.pdf",
+          "page_number": 1,
+          "text": "ason,\nstart date and end date if temporary. The line manager and system owner must approve before IT\nprovisions access. The requester cannot approve their own request. IT records approval and the actual\npermissions in the ticket.\n3. Standard and sensitive roles\nRead-only access is the default when it satisfies the work need. Editing, export and administrative rights\nmust be explicitly requested. Access to payroll, production administration or bulk customer-data exports\nadditionally requires Security approval. IT targets fulfillment of ordinary requests within 2 business days\nafter all approvals; urgent incident access uses the emergency procedure below.\n4. Temporary and contractor access\nTemporary project permissions expire after no more than 30 days. Contractor accounts and VPN\nentitlements expire after no more than 90 days and require a named employee sponsor. For a contractor\nassigned a temporary project role, both limits apply: the project role expires within 30 days even if the\nac"
+        },
+        {
+          "number": 3,
+          "source_file": "vpn_remote_access_policy.pdf",
+          "page_number": 1,
+          "text": "NORTHSTAR ANALYTICS | Synthetic training policy | Version 1.0\nIT-03 | Page 1\nNORTHSTAR ANALYTICS / IT POLICY\nVPN & Remote Access Policy\nIT-03 | Version 1.0 | Effective 01 September 2026\nOwner: IT & Security | Applies to employees and contractors\nFictional company policy for RAG training and evaluation. All .example addresses are placeholders; these are not live\nservices.\n1. Purpose and scope\nProvide secure remote access to internal systems. Employees and approved contractors must use the\ncompany VPN for internal applications outside the office network. Company cloud email and the support\nportal do not require VPN, but still require company sign-in and MFA.\n2. Eligibility and approval\nVPN use requires a company-issued, managed laptop, an active company account and registered MFA.\nThe manager and IT must approve a VPN access ticket. Contractors also need a named employee\nsponsor; contractor VPN access expires after no more than 90 days and must be reapproved before\nrenewal. Access approv"
+        }
+      ],
+      "answer": "According to the supplied documents, a contractor temporary project role lasts **30 days**.\n\nThe policy states: \"For a contractor assigned a temporary project role, both limits apply: the project role expires within 30 days even if the account remains active.\" [1]\n\nThis means that while contractor accounts generally expire after 90 days, when a contractor is specifically assigned a temporary project role, that project role component expires within 30 days, regardless of the overall account status. Expiry reminders are sent to the sponsor 7 days before the project role ends. [1]"
+    },
+    {
+      "id": "ordinary_patch__invented_fact",
+      "base_case": "ordinary_patch",
+      "set": "heldout_a",
+      "category": "near_match",
+      "mutation": "invented_fact",
+      "expected": "unfaithful",
+      "change": {
+        "find": "while the 14-calendar-day deadline applies to all other security updates.",
+        "replace": "while the 14-calendar-day deadline applies to all other security updates. Devices that miss the deadline are quarantined from the corporate network until patched. [1]"
+      },
+      "marker": "quarantined from the corporate network",
+      "expected_claim_label": "unsupported",
+      "question": "Are ordinary security updates due in 48 hours or 14 calendar days?",
+      "sources": [
+        {
+          "number": 1,
+          "source_file": "laptop_device_policy.pdf",
+          "page_number": 1,
+          "text": "the host firewall must remain enabled. The screen must lock after 5 minutes of inactivity;\nlock it manually before leaving it unattended. Employees use standard user accounts. Local administrator\naccess requires approval under IT-04 and expires after no more than 8 hours.\n3. Updates and software\nInstall Security-designated critical security updates within 48 hours of the company deployment notice.\nInstall all other security updates within 14 calendar days. Restart when prompted to complete installation.\nInstall software only through the company software catalog or an IT-approved ticket. Do not disable\nsecurity controls or use unlicensed software.\n4. Data and backups\nStore work files in approved company cloud storage, which provides daily backups with 30-day retention.\nLocal-only files are not backed up by IT. Do not copy work files to personal cloud storage or unapproved\nUSB devices. An approved removable drive must be encrypted. Report suspected disclosure under\nIT-05."
+        },
+        {
+          "number": 2,
+          "source_file": "access_control_policy.pdf",
+          "page_number": 2,
+          "text": "er\nreviews access every 90 days; secret rotation follows IT-01. Exceptions need written Security approval,\nan owner and an expiry of no more than 30 days. Exceptions cannot permit shared human accounts or\nself-approval."
+        },
+        {
+          "number": 3,
+          "source_file": "access_control_policy.pdf",
+          "page_number": 1,
+          "text": "ason,\nstart date and end date if temporary. The line manager and system owner must approve before IT\nprovisions access. The requester cannot approve their own request. IT records approval and the actual\npermissions in the ticket.\n3. Standard and sensitive roles\nRead-only access is the default when it satisfies the work need. Editing, export and administrative rights\nmust be explicitly requested. Access to payroll, production administration or bulk customer-data exports\nadditionally requires Security approval. IT targets fulfillment of ordinary requests within 2 business days\nafter all approvals; urgent incident access uses the emergency procedure below.\n4. Temporary and contractor access\nTemporary project permissions expire after no more than 30 days. Contractor accounts and VPN\nentitlements expire after no more than 90 days and require a named employee sponsor. For a contractor\nassigned a temporary project role, both limits apply: the project role expires within 30 days even if the\nac"
+        }
+      ],
+      "answer": "According to the supplied documents, **ordinary security updates are due in 14 calendar days**.\n\nThe policy states: \"Install Security-designated critical security updates within 48 hours of the company deployment notice. Install all other security updates within 14 calendar days.\" [1]\n\nThe 48-hour deadline applies specifically to critical security updates designated by Security, while the 14-calendar-day deadline applies to all other security updates. Devices that miss the deadline are quarantined from the corporate network until patched. [1]"
+    },
+    {
+      "id": "vpn_total_limit__broader_scope",
+      "base_case": "vpn_total_limit",
+      "set": "heldout_a",
+      "category": "near_match",
+      "mutation": "broader_scope",
+      "expected": "unfaithful",
+      "change": {
+        "find": "After a 12-hour session ends, you must reconnect and complete MFA to start a new session.",
+        "replace": "After a 12-hour session ends, you must reconnect and complete MFA to start a new session, and the same limits apply to every company system and remote access tool, not just the VPN."
+      },
+      "marker": "every company system and remote access tool",
+      "expected_claim_label": "unsupported",
+      "question": "What is the maximum total VPN connection time, even if I am active?",
+      "sources": [
+        {
+          "number": 1,
+          "source_file": "vpn_remote_access_policy.pdf",
+          "page_number": 1,
+          "text": "r and IT must approve a VPN access ticket. Contractors also need a named employee\nsponsor; contractor VPN access expires after no more than 90 days and must be reapproved before\nrenewal. Access approvals follow IT-04.\n3. Connection procedure\nInstall Northstar Connect from the company software catalog. Connect to vpn.northstar.example, sign in\nwith the company account and complete MFA. Confirm the client shows Connected before opening\ninternal systems. The client checks disk encryption, endpoint protection, host firewall and update\ncompliance under IT-02. A failed device check blocks connection; contact IT instead of bypassing it.\n4. Session limits\nVPN sessions disconnect after 30 minutes of inactivity or 12 hours of total connection time, whichever\noccurs first. Reconnect and complete MFA to start a new session. Only 1 concurrent VPN session per\nuser is permitted. Disconnect when work is finished. Do not share a VPN account or allow another person\nto use an active session."
+        },
+        {
+          "number": 2,
+          "source_file": "vpn_remote_access_policy.pdf",
+          "page_number": 2,
+          "text": "r attach passwords or MFA codes. Five failed password attempts lock the account for 15\nminutes under IT-01. Do not repeatedly retry during a lockout.\n7. Restricted remote actions\nDo not expose company remote desktop services directly to the internet. Privileged remote access\nrequires the approved administrative gateway and the separate administrator account described in IT-04.\nA VPN connection does not grant new application permissions. Security may immediately terminate\nsessions if compromise is suspected.\n8. Exceptions and related policies\nSecurity must approve any exception in writing with an owner and an expiry of no more than 30 days.\nThis policy does not allow personal laptops on the VPN. Use IT-01 for MFA recovery, IT-02 for device\ncompliance and IT-05 for suspicious sign-ins."
+        },
+        {
+          "number": 3,
+          "source_file": "vpn_remote_access_policy.pdf",
+          "page_number": 2,
+          "text": "NORTHSTAR ANALYTICS | Synthetic training policy | Version 1.0\nIT-03 | Page 2\nNORTHSTAR ANALYTICS / IT POLICY\nVPN & Remote Access Policy\nProcedures and responsibilities\n5. Networks and routing\nUse a trusted home network or a personal mobile hotspot. Public Wi-Fi is permitted only with the\ncompany VPN active, and confidential work should be avoided in exposed locations. The company VPN\nuses full-tunnel routing: all network traffic goes through company controls while connected. Do not use\nanother VPN simultaneously, alter routes or turn off the firewall.\n6. Troubleshooting\nIf connection fails, confirm internet access, check the device clock, restart Northstar Connect and try\nonce more. If the issue persists, open a ticket with the error message, time, client version and device\nasset tag. Never attach passwords or MFA codes. Five failed password attempts lock the account for 15\nminutes under IT-01. Do not repeatedly retry during a lockout.\n7. Restricted remote actions\nDo not expose company"
+        }
+      ],
+      "answer": "According to the supplied documents, the maximum total VPN connection time is **12 hours**, even if you are active.\n\nThis is stated in the policy: \"VPN sessions disconnect after 30 minutes of inactivity or 12 hours of total connection time, whichever occurs first.\" [1]\n\nAfter a 12-hour session ends, you must reconnect and complete MFA to start a new session, and the same limits apply to every company system and remote access tool, not just the VPN."
+    },
+    {
+      "id": "screen_lock__broader_scope",
+      "base_case": "screen_lock",
+      "set": "heldout_b",
+      "category": "near_match",
+      "mutation": "broader_scope",
+      "expected": "unfaithful",
+      "change": {
+        "find": "this describes VPN disconnection, not screen locking behavior.",
+        "replace": "this describes VPN disconnection, not screen locking behavior, and the same 30-minute inactivity limit applies to every company system and application, not just the VPN [2]."
+      },
+      "marker": "every company system and application",
+      "expected_claim_label": "unsupported",
+      "question": "How long can my screen stay idle before it locks, rather than the VPN disconnecting?",
+      "sources": [
+        {
+          "number": 1,
+          "source_file": "vpn_remote_access_policy.pdf",
+          "page_number": 2,
+          "text": "r attach passwords or MFA codes. Five failed password attempts lock the account for 15\nminutes under IT-01. Do not repeatedly retry during a lockout.\n7. Restricted remote actions\nDo not expose company remote desktop services directly to the internet. Privileged remote access\nrequires the approved administrative gateway and the separate administrator account described in IT-04.\nA VPN connection does not grant new application permissions. Security may immediately terminate\nsessions if compromise is suspected.\n8. Exceptions and related policies\nSecurity must approve any exception in writing with an owner and an expiry of no more than 30 days.\nThis policy does not allow personal laptops on the VPN. Use IT-01 for MFA recovery, IT-02 for device\ncompliance and IT-05 for suspicious sign-ins."
+        },
+        {
+          "number": 2,
+          "source_file": "vpn_remote_access_policy.pdf",
+          "page_number": 1,
+          "text": "r and IT must approve a VPN access ticket. Contractors also need a named employee\nsponsor; contractor VPN access expires after no more than 90 days and must be reapproved before\nrenewal. Access approvals follow IT-04.\n3. Connection procedure\nInstall Northstar Connect from the company software catalog. Connect to vpn.northstar.example, sign in\nwith the company account and complete MFA. Confirm the client shows Connected before opening\ninternal systems. The client checks disk encryption, endpoint protection, host firewall and update\ncompliance under IT-02. A failed device check blocks connection; contact IT instead of bypassing it.\n4. Session limits\nVPN sessions disconnect after 30 minutes of inactivity or 12 hours of total connection time, whichever\noccurs first. Reconnect and complete MFA to start a new session. Only 1 concurrent VPN session per\nuser is permitted. Disconnect when work is finished. Do not share a VPN account or allow another person\nto use an active session."
+        },
+        {
+          "number": 3,
+          "source_file": "vpn_remote_access_policy.pdf",
+          "page_number": 2,
+          "text": "NORTHSTAR ANALYTICS | Synthetic training policy | Version 1.0\nIT-03 | Page 2\nNORTHSTAR ANALYTICS / IT POLICY\nVPN & Remote Access Policy\nProcedures and responsibilities\n5. Networks and routing\nUse a trusted home network or a personal mobile hotspot. Public Wi-Fi is permitted only with the\ncompany VPN active, and confidential work should be avoided in exposed locations. The company VPN\nuses full-tunnel routing: all network traffic goes through company controls while connected. Do not use\nanother VPN simultaneously, alter routes or turn off the firewall.\n6. Troubleshooting\nIf connection fails, confirm internet access, check the device clock, restart Northstar Connect and try\nonce more. If the issue persists, open a ticket with the error message, time, client version and device\nasset tag. Never attach passwords or MFA codes. Five failed password attempts lock the account for 15\nminutes under IT-01. Do not repeatedly retry during a lockout.\n7. Restricted remote actions\nDo not expose company"
+        }
+      ],
+      "answer": "I do not know from the supplied documents how long your screen can stay idle before it locks.\n\nThe excerpts provided address VPN session timeouts but do not contain information about screen lock policies. According to the VPN policy [2], \"VPN sessions disconnect after 30 minutes of inactivity,\" but this describes VPN disconnection, not screen locking behavior, and the same 30-minute inactivity limit applies to every company system and application, not just the VPN [2]. Screen lock timing would typically be covered in a separate device security or endpoint policy, which is not included in these excerpts.\n\nTo find this information, you would need to consult your device security policy or contact your IT department directly."
+    },
+    {
+      "id": "p1_ack__negation",
+      "base_case": "p1_ack",
+      "set": "heldout_a",
+      "category": "exact_term",
+      "mutation": "negation",
+      "expected": "unfaithful",
+      "change": {
+        "find": "these are \"24/7 acknowledgment targets, not resolution guarantees.\"",
+        "replace": "these are \"not 24/7 acknowledgment targets, but resolution guarantees.\""
+      },
+      "marker": "not 24/7 acknowledgment targets",
+      "expected_claim_label": "contradicted",
+      "question": "P1 ransomware acknowledgment target?",
+      "sources": [
+        {
+          "number": 1,
+          "source_file": "incident_response_security_reporting_policy.pdf",
+          "page_number": 2,
+          "text": "NORTHSTAR ANALYTICS | Synthetic training policy | Version 1.0\nIT-05 | Page 2\nNORTHSTAR ANALYTICS / IT POLICY\nIncident Response & Security Reporting\nPolicy\nProcedures and responsibilities\n5. Credential and device incidents\nIf credentials may be exposed, contact Security immediately and reset the password through the known\nidentity portal under IT-01 if safe to do so. Security revokes sessions and compromised factors as\nneeded. Report a lost or stolen device within the same 1-hour limit, with the last known location and\nwhether it was unlocked. Security coordinates remote lock or wipe under IT-02.\n6. Triage and response targets\nSecurity assigns severity. P1 covers active ransomware, confirmed account takeover or ongoing\nsensitive-data exposure: target acknowledgment within 15 minutes of receipt. P2 covers suspected\ncompromise without evidence of active spread: target acknowledgment within 1 hour. P3 covers blocked\nphishing with no interaction: target acknowledgment within 4 hours. These "
+        },
+        {
+          "number": 2,
+          "source_file": "incident_response_security_reporting_policy.pdf",
+          "page_number": 2,
+          "text": "ipt. P2 covers suspected\ncompromise without evidence of active spread: target acknowledgment within 1 hour. P3 covers blocked\nphishing with no interaction: target acknowledgment within 4 hours. These are 24/7 acknowledgment\ntargets, not resolution guarantees. If the target passes without acknowledgment, resubmit through the\nalternate reporting channel and reference the original report time.\n7. Containment and evidence\nThe Security incident lead may isolate devices, revoke sessions, block accounts and request emergency\naccess under IT-04. Preserve original messages, screenshots and logs. Do not delete files, reinstall\nsoftware, factory-reset the device or perform a forensic investigation yourself. Security records evidence\naccess and coordinates with Legal before external notifications. Employees must not contact affected\ncustomers or publish incident details unless explicitly assigned to do so.\n8. Closure and follow-up\nSecurity confirms containment and recovery before IT restores norma"
+        },
+        {
+          "number": 3,
+          "source_file": "globalprotect_gp1002.txt",
+          "page_number": 1,
+          "text": "Synthetic retrieval benchmark runbook | Version 1.0\nGlobalProtect GP1002 device check\nGlobalProtect GP1002 means endpoint protection is not running. IT must restore endpoint protection before the device may connect. Disk encryption alone does not satisfy this check."
+        }
+      ],
+      "answer": "Based on the supplied documents, the P1 ransomware acknowledgment target is **15 minutes of receipt**.\n\nAccording to the policy: \"P1 covers active ransomware, confirmed account takeover or ongoing sensitive-data exposure: target acknowledgment within 15 minutes of receipt.\" [1]\n\nThe policy clarifies that these are \"not 24/7 acknowledgment targets, but resolution guarantees.\" [2]"
+    },
+    {
+      "id": "p3_ack__invented_fact",
+      "base_case": "p3_ack",
+      "set": "heldout_a",
+      "category": "exact_term",
+      "mutation": "invented_fact",
+      "expected": "unfaithful",
+      "change": {
+        "find": "not resolution guarantees\" [1].",
+        "replace": "not resolution guarantees\" [1]. P3 reports are reviewed by the Security team's Tier 1 analysts in the Dublin operations center [1]."
+      },
+      "marker": "Dublin operations center",
+      "expected_claim_label": "unsupported",
+      "question": "P3 blocked phishing acknowledgment target?",
+      "sources": [
+        {
+          "number": 1,
+          "source_file": "incident_response_security_reporting_policy.pdf",
+          "page_number": 2,
+          "text": "ipt. P2 covers suspected\ncompromise without evidence of active spread: target acknowledgment within 1 hour. P3 covers blocked\nphishing with no interaction: target acknowledgment within 4 hours. These are 24/7 acknowledgment\ntargets, not resolution guarantees. If the target passes without acknowledgment, resubmit through the\nalternate reporting channel and reference the original report time.\n7. Containment and evidence\nThe Security incident lead may isolate devices, revoke sessions, block accounts and request emergency\naccess under IT-04. Preserve original messages, screenshots and logs. Do not delete files, reinstall\nsoftware, factory-reset the device or perform a forensic investigation yourself. Security records evidence\naccess and coordinates with Legal before external notifications. Employees must not contact affected\ncustomers or publish incident details unless explicitly assigned to do so.\n8. Closure and follow-up\nSecurity confirms containment and recovery before IT restores norma"
+        },
+        {
+          "number": 2,
+          "source_file": "incident_response_security_reporting_policy.pdf",
+          "page_number": 1,
+          "text": "m rather than replying to a suspicious message.\n4. Immediate employee actions\nFor phishing, do not click links, open attachments or forward the message to coworkers. Use the email\nReport Phishing button or the channels above. For an unexpected MFA prompt, reject it and report it\nimmediately. If malware or ransomware is suspected, disconnect Wi-Fi and the network cable, stop using\nthe device and report from a different device. Keep the device powered on unless Security tells you\notherwise."
+        },
+        {
+          "number": 3,
+          "source_file": "incident_response_security_reporting_policy.pdf",
+          "page_number": 2,
+          "text": "NORTHSTAR ANALYTICS | Synthetic training policy | Version 1.0\nIT-05 | Page 2\nNORTHSTAR ANALYTICS / IT POLICY\nIncident Response & Security Reporting\nPolicy\nProcedures and responsibilities\n5. Credential and device incidents\nIf credentials may be exposed, contact Security immediately and reset the password through the known\nidentity portal under IT-01 if safe to do so. Security revokes sessions and compromised factors as\nneeded. Report a lost or stolen device within the same 1-hour limit, with the last known location and\nwhether it was unlocked. Security coordinates remote lock or wipe under IT-02.\n6. Triage and response targets\nSecurity assigns severity. P1 covers active ransomware, confirmed account takeover or ongoing\nsensitive-data exposure: target acknowledgment within 15 minutes of receipt. P2 covers suspected\ncompromise without evidence of active spread: target acknowledgment within 1 hour. P3 covers blocked\nphishing with no interaction: target acknowledgment within 4 hours. These "
+        }
+      ],
+      "answer": "According to the supplied documents, the P3 blocked phishing acknowledgment target is **within 4 hours** [1].\n\nP3 covers \"blocked phishing with no interaction\" and these are described as \"24/7 acknowledgment targets, not resolution guarantees\" [1]. P3 reports are reviewed by the Security team's Tier 1 analysts in the Dublin operations center [1]."
+    },
+    {
+      "id": "it04_emergency__negation",
+      "base_case": "it04_emergency",
+      "set": "heldout_b",
+      "category": "exact_term",
+      "mutation": "negation",
+      "expected": "unfaithful",
+      "change": {
+        "find": "Extensions require a new approval.",
+        "replace": "Extensions do not require a new approval."
+      },
+      "marker": "do not require a new",
+      "expected_claim_label": "contradicted",
+      "question": "IT-04 emergency access duration?",
+      "sources": [
+        {
+          "number": 1,
+          "source_file": "access_control_policy.pdf",
+          "page_number": 2,
+          "text": "ies the\ndeparture date and exact time. IT disables the account and revokes sessions at that time; for involuntary\ndepartures, HR and Security coordinate immediate removal at the agreed notification time. Device return\nfollows IT-02 and may occur later than account removal.\n7. Reviews and emergency access\nSystem owners review access every 90 days. IT removes unneeded access within 2 business days after\nthe review decision. For an active security incident, the Security incident lead may authorize emergency\naccess in a ticket for up to 4 hours. All actions are logged; the system owner and Security review use\nwithin 1 business day. Extensions require a new approval.\n8. Service accounts and exceptions\nEvery service account needs a named owner, documented purpose and minimum permissions. Its owner\nreviews access every 90 days; secret rotation follows IT-01. Exceptions need written Security approval,\nan owner and an expiry of no more than 30 days. Exceptions cannot permit shared human account"
+        },
+        {
+          "number": 2,
+          "source_file": "access_control_policy.pdf",
+          "page_number": 1,
+          "text": "ason,\nstart date and end date if temporary. The line manager and system owner must approve before IT\nprovisions access. The requester cannot approve their own request. IT records approval and the actual\npermissions in the ticket.\n3. Standard and sensitive roles\nRead-only access is the default when it satisfies the work need. Editing, export and administrative rights\nmust be explicitly requested. Access to payroll, production administration or bulk customer-data exports\nadditionally requires Security approval. IT targets fulfillment of ordinary requests within 2 business days\nafter all approvals; urgent incident access uses the emergency procedure below.\n4. Temporary and contractor access\nTemporary project permissions expire after no more than 30 days. Contractor accounts and VPN\nentitlements expire after no more than 90 days and require a named employee sponsor. For a contractor\nassigned a temporary project role, both limits apply: the project role expires within 30 days even if the\nac"
+        },
+        {
+          "number": 3,
+          "source_file": "laptop_device_policy.pdf",
+          "page_number": 2,
+          "text": " not attempt to recover a stolen device yourself. Use the\nemergency reporting channels in IT-05 if normal sign-in is unavailable.\n7. Repair, replacement and return\nOpen an IT ticket for damage or malfunction; do not arrange repairs independently. IT aims to provide a\nloaner within 1 business day after triage, subject to stock. The standard laptop replacement cycle is 4\nyears; earlier replacement requires IT approval. Return devices, chargers and security keys within 3\nbusiness days of the last working day. IT performs data preservation and secure wiping; do not\nfactory-reset devices yourself.\n8. Exceptions and related policies\nSecurity must approve exceptions in writing with an owner and an expiry of no more than 30 days. See\nIT-03 for remote access, IT-04 for administrator permissions and IT-05 for incident reporting."
+        }
+      ],
+      "answer": "Based on the supplied source excerpts, the emergency access duration for IT-04 is **up to 4 hours**.\n\nAccording to [1]: \"For an active security incident, the Security incident lead may authorize emergency access in a ticket for up to 4 hours. All actions are logged; the system owner and Security review use within 1 business day. Extensions do not require a new approval.\""
+    },
+    {
+      "id": "vpn_hostname__broader_scope",
+      "base_case": "vpn_hostname",
+      "set": "heldout_b",
+      "category": "exact_term",
+      "mutation": "broader_scope",
+      "expected": "unfaithful",
+      "change": {
+        "find": "Northstar Connect should use the VPN hostname **vpn.northstar.example** [3].",
+        "replace": "all Northstar Connect clients on any device, including personal phones and tablets, should use the VPN hostname **vpn.northstar.example** [3]."
+      },
+      "marker": "personal phones and tablets",
+      "expected_claim_label": "unsupported",
+      "question": "Which VPN hostname should Northstar Connect use?",
+      "sources": [
+        {
+          "number": 1,
+          "source_file": "vpn_remote_access_policy.pdf",
+          "page_number": 2,
+          "text": "NORTHSTAR ANALYTICS | Synthetic training policy | Version 1.0\nIT-03 | Page 2\nNORTHSTAR ANALYTICS / IT POLICY\nVPN & Remote Access Policy\nProcedures and responsibilities\n5. Networks and routing\nUse a trusted home network or a personal mobile hotspot. Public Wi-Fi is permitted only with the\ncompany VPN active, and confidential work should be avoided in exposed locations. The company VPN\nuses full-tunnel routing: all network traffic goes through company controls while connected. Do not use\nanother VPN simultaneously, alter routes or turn off the firewall.\n6. Troubleshooting\nIf connection fails, confirm internet access, check the device clock, restart Northstar Connect and try\nonce more. If the issue persists, open a ticket with the error message, time, client version and device\nasset tag. Never attach passwords or MFA codes. Five failed password attempts lock the account for 15\nminutes under IT-01. Do not repeatedly retry during a lockout.\n7. Restricted remote actions\nDo not expose company"
+        },
+        {
+          "number": 2,
+          "source_file": "globalprotect_809.txt",
+          "page_number": 1,
+          "text": "Synthetic retrieval benchmark runbook | Version 1.0\nGlobalProtect 809 network connection failure\nGlobalProtect error 809 means the network path to the VPN gateway is blocked. Test from an approved mobile hotspot and include the gateway connection log in an IT ticket. Do not disable the device firewall."
+        },
+        {
+          "number": 3,
+          "source_file": "vpn_remote_access_policy.pdf",
+          "page_number": 1,
+          "text": "r and IT must approve a VPN access ticket. Contractors also need a named employee\nsponsor; contractor VPN access expires after no more than 90 days and must be reapproved before\nrenewal. Access approvals follow IT-04.\n3. Connection procedure\nInstall Northstar Connect from the company software catalog. Connect to vpn.northstar.example, sign in\nwith the company account and complete MFA. Confirm the client shows Connected before opening\ninternal systems. The client checks disk encryption, endpoint protection, host firewall and update\ncompliance under IT-02. A failed device check blocks connection; contact IT instead of bypassing it.\n4. Session limits\nVPN sessions disconnect after 30 minutes of inactivity or 12 hours of total connection time, whichever\noccurs first. Reconnect and complete MFA to start a new session. Only 1 concurrent VPN session per\nuser is permitted. Disconnect when work is finished. Do not share a VPN account or allow another person\nto use an active session."
+        }
+      ],
+      "answer": "Based on the supplied documents, all Northstar Connect clients on any device, including personal phones and tablets, should use the VPN hostname **vpn.northstar.example** [3]."
+    },
+    {
+      "id": "password_reset_url__invented_fact",
+      "base_case": "password_reset_url",
+      "set": "heldout_b",
+      "category": "exact_term",
+      "mutation": "invented_fact",
+      "expected": "unfaithful",
+      "change": {
+        "find": "confirmation from your manager [1].",
+        "replace": "confirmation from your manager [1]. Support completes each of these verification checks within 15 business minutes [1]."
+      },
+      "marker": "within 15 business minutes",
+      "expected_claim_label": "unsupported",
+      "question": "Where is the identity password reset URL?",
+      "sources": [
+        {
+          "number": 1,
+          "source_file": "password_mfa_policy.pdf",
+          "page_number": 2,
+          "text": "NORTHSTAR ANALYTICS | Synthetic training policy | Version 1.0\nIT-01 | Page 2\nNORTHSTAR ANALYTICS / IT POLICY\nPassword & MFA Policy\nProcedures and responsibilities\n5. Password reset\nUse https://identity.northstar.example/reset and complete verification with a registered MFA factor. If no\nfactor is available, contact IT Support at https://support.northstar.example. Support verifies identity\nthrough a live video check against the staff directory and confirmation from the recorded manager\nthrough an existing company channel. Support never asks for your password, an MFA code or approval\nof an unsolicited prompt.\n6. Lost factor and recovery\nReport a lost security key or phone immediately. Support revokes the missing factor and active sessions\nafter identity verification. A temporary enrollment pass expires after 30 minutes and can be used once; it\nis issued only to register a replacement factor. Register the replacement before normal access resumes.\nStore recovery codes in the approved passw"
+        },
+        {
+          "number": 2,
+          "source_file": "identity_otp_410.txt",
+          "page_number": 1,
+          "text": "Synthetic retrieval benchmark runbook | Version 1.0\nIdentity portal OTP-410 recovery\nIdentity error OTP-410 means a temporary enrollment pass has expired. Contact IT Support for identity verification and a replacement enrollment pass. Never share the pass in a support ticket."
+        },
+        {
+          "number": 3,
+          "source_file": "identity_otp_411.txt",
+          "page_number": 1,
+          "text": "Synthetic retrieval benchmark runbook | Version 1.0\nIdentity portal OTP-411 recovery\nIdentity error OTP-411 means a temporary enrollment pass has already been used. Contact IT Support to revoke the old pass and issue a new pass after identity verification. Waiting does not make the used pass valid again."
+        }
+      ],
+      "answer": "According to the supplied documents, the identity password reset URL is **https://identity.northstar.example/reset** [1].\n\nTo complete the password reset, you must verify your identity with a registered MFA factor. If you don't have an available factor, you should contact IT Support at https://support.northstar.example, where support will verify your identity through a live video check against the staff directory and confirmation from your manager [1]. Support completes each of these verification checks within 15 business minutes [1]."
+    },
+    {
+      "id": "contractor_vpn_mfa__number",
+      "base_case": "contractor_vpn_mfa",
+      "set": "heldout_b",
+      "category": "cross_document",
+      "mutation": "number",
+      "expected": "unfaithful",
+      "change": {
+        "find": "expires after no more than 90 days and must be reapproved",
+        "replace": "expires after no more than 45 days and must be reapproved"
+      },
+      "marker": "no more than 45 days",
+      "expected_claim_label": "contradicted",
+      "question": "How long can contractor VPN access last and which MFA methods are allowed?",
+      "sources": [
+        {
+          "number": 1,
+          "source_file": "vpn_remote_access_policy.pdf",
+          "page_number": 1,
+          "text": "r and IT must approve a VPN access ticket. Contractors also need a named employee\nsponsor; contractor VPN access expires after no more than 90 days and must be reapproved before\nrenewal. Access approvals follow IT-04.\n3. Connection procedure\nInstall Northstar Connect from the company software catalog. Connect to vpn.northstar.example, sign in\nwith the company account and complete MFA. Confirm the client shows Connected before opening\ninternal systems. The client checks disk encryption, endpoint protection, host firewall and update\ncompliance under IT-02. A failed device check blocks connection; contact IT instead of bypassing it.\n4. Session limits\nVPN sessions disconnect after 30 minutes of inactivity or 12 hours of total connection time, whichever\noccurs first. Reconnect and complete MFA to start a new session. Only 1 concurrent VPN session per\nuser is permitted. Disconnect when work is finished. Do not share a VPN account or allow another person\nto use an active session."
+        },
+        {
+          "number": 2,
+          "source_file": "vpn_remote_access_policy.pdf",
+          "page_number": 1,
+          "text": "NORTHSTAR ANALYTICS | Synthetic training policy | Version 1.0\nIT-03 | Page 1\nNORTHSTAR ANALYTICS / IT POLICY\nVPN & Remote Access Policy\nIT-03 | Version 1.0 | Effective 01 September 2026\nOwner: IT & Security | Applies to employees and contractors\nFictional company policy for RAG training and evaluation. All .example addresses are placeholders; these are not live\nservices.\n1. Purpose and scope\nProvide secure remote access to internal systems. Employees and approved contractors must use the\ncompany VPN for internal applications outside the office network. Company cloud email and the support\nportal do not require VPN, but still require company sign-in and MFA.\n2. Eligibility and approval\nVPN use requires a company-issued, managed laptop, an active company account and registered MFA.\nThe manager and IT must approve a VPN access ticket. Contractors also need a named employee\nsponsor; contractor VPN access expires after no more than 90 days and must be reapproved before\nrenewal. Access approv"
+        },
+        {
+          "number": 3,
+          "source_file": "vpn_remote_access_policy.pdf",
+          "page_number": 2,
+          "text": "r attach passwords or MFA codes. Five failed password attempts lock the account for 15\nminutes under IT-01. Do not repeatedly retry during a lockout.\n7. Restricted remote actions\nDo not expose company remote desktop services directly to the internet. Privileged remote access\nrequires the approved administrative gateway and the separate administrator account described in IT-04.\nA VPN connection does not grant new application permissions. Security may immediately terminate\nsessions if compromise is suspected.\n8. Exceptions and related policies\nSecurity must approve any exception in writing with an owner and an expiry of no more than 30 days.\nThis policy does not allow personal laptops on the VPN. Use IT-01 for MFA recovery, IT-02 for device\ncompliance and IT-05 for suspicious sign-ins."
+        }
+      ],
+      "answer": "Based on the supplied documents:\n\n**Contractor VPN Access Duration:**\nContractor VPN access expires after no more than 45 days and must be reapproved before renewal [1].\n\n**MFA Methods Allowed:**\nThe documents do not specify which MFA methods are allowed. The policy requires that users \"complete MFA\" [1] and have \"registered MFA\" [2], but the source excerpts do not detail which specific MFA methods are permitted."
+    },
+    {
+      "id": "vpn_admin_rights__number",
+      "base_case": "vpn_admin_rights",
+      "set": "heldout_a",
+      "category": "cross_document",
+      "mutation": "number",
+      "expected": "unfaithful",
+      "change": {
+        "find": "a maximum grant of 30 days before renewal.\" [2]",
+        "replace": "a maximum grant of 90 days before renewal.\" [2]"
+      },
+      "marker": "maximum grant of 90 days",
+      "expected_claim_label": "contradicted",
+      "question": "Does connecting to VPN give application permissions, and how do I get an administrator role?",
+      "sources": [
+        {
+          "number": 1,
+          "source_file": "access_control_policy.pdf",
+          "page_number": 1,
+          "text": "NORTHSTAR ANALYTICS | Synthetic training policy | Version 1.0\nIT-04 | Page 1\nNORTHSTAR ANALYTICS / IT POLICY\nAccess Control Policy\nIT-04 | Version 1.0 | Effective 01 September 2026\nOwner: IT & Security | Applies to employees and contractors\nFictional company policy for RAG training and evaluation. All .example addresses are placeholders; these are not live\nservices.\n1. Purpose and principles\nGive each employee or contractor only the access needed for assigned work. All human users receive\nindividual accounts. Shared human accounts are prohibited. Application permissions are separate from\nVPN eligibility; connection to the VPN does not authorize access to every system.\n2. Request and approval\nSubmit a ticket at https://support.northstar.example naming the system, requested role, business reason,\nstart date and end date if temporary. The line manager and system owner must approve before IT\nprovisions access. The requester cannot approve their own request. IT records approval and the actu"
+        },
+        {
+          "number": 2,
+          "source_file": "access_control_policy.pdf",
+          "page_number": 2,
+          "text": "NORTHSTAR ANALYTICS | Synthetic training policy | Version 1.0\nIT-04 | Page 2\nNORTHSTAR ANALYTICS / IT POLICY\nAccess Control Policy\nProcedures and responsibilities\n5. Privileged access\nUse a separate administrator account for privileged tasks and the normal account for everyday work.\nPrivileged sign-ins require a hardware security key. Local administrator elevation on a laptop expires\nafter no more than 8 hours. Production administrator roles require manager, system owner and Security\napproval, with an explicit end date and a maximum grant of 30 days before renewal.\n6. Role changes and departures\nThe manager submits role changes before the effective date. IT removes permissions no longer needed\nwithin 1 business day of that date, then provisions new permissions only after approval. HR supplies the\ndeparture date and exact time. IT disables the account and revokes sessions at that time; for involuntary\ndepartures, HR and Security coordinate immediate removal at the agreed notification ti"
+        },
+        {
+          "number": 3,
+          "source_file": "vpn_remote_access_policy.pdf",
+          "page_number": 2,
+          "text": "r attach passwords or MFA codes. Five failed password attempts lock the account for 15\nminutes under IT-01. Do not repeatedly retry during a lockout.\n7. Restricted remote actions\nDo not expose company remote desktop services directly to the internet. Privileged remote access\nrequires the approved administrative gateway and the separate administrator account described in IT-04.\nA VPN connection does not grant new application permissions. Security may immediately terminate\nsessions if compromise is suspected.\n8. Exceptions and related policies\nSecurity must approve any exception in writing with an owner and an expiry of no more than 30 days.\nThis policy does not allow personal laptops on the VPN. Use IT-01 for MFA recovery, IT-02 for device\ncompliance and IT-05 for suspicious sign-ins."
+        }
+      ],
+      "answer": "# VPN Connection and Administrator Role Access\n\n## Does VPN Give Application Permissions?\n\nNo. According to the policy:\n\n> \"Application permissions are separate from VPN eligibility; connection to the VPN does not authorize access to every system.\" [1]\n\nThis is further reinforced: \"A VPN connection does not grant new application permissions.\" [3]\n\n## How to Get an Administrator Role\n\nTo obtain an administrator role, follow this process:\n\n1. **Submit a request** at https://support.northstar.example with:\n   - The system name\n   - Requested role\n   - Business reason\n   - Start date and end date (if temporary) [1]\n\n2. **Obtain approvals**: \"The line manager and system owner must approve before IT provisions access. The requester cannot approve their own request.\" [1]\n\n3. **For production administrator roles specifically**: \"Production administrator roles require manager, system owner and Security approval, with an explicit end date and a maximum grant of 90 days before renewal.\" [2]\n\n4. **Use separate accounts**: \"Use a separate administrator account for privileged tasks and the normal account for everyday work. Privileged sign-ins require a hardware security key.\" [2]"
+    },
+    {
+      "id": "gp401__broader_scope",
+      "base_case": "gp401",
+      "set": "heldout_a",
+      "category": "identifier",
+      "mutation": "broader_scope",
+      "expected": "unfaithful",
+      "change": {
+        "find": "The GlobalProtect 401 error occurs when your saved sign-in token has expired.",
+        "replace": "The GlobalProtect 401 error occurs when your saved sign-in token has expired, and the same fix applies to HTTP 401 errors in any VPN client."
+      },
+      "marker": "any VPN client",
+      "expected_claim_label": "unsupported",
+      "question": "GlobalProtect 401: how do I fix it?",
+      "sources": [
+        {
+          "number": 1,
+          "source_file": "globalprotect_401.txt",
+          "page_number": 1,
+          "text": "Synthetic retrieval benchmark runbook | Version 1.0\nGlobalProtect 401 authentication failure\nGlobalProtect returns HTTP 401 when the saved sign-in token has expired. Sign out of the client, remove the cached account token and sign in again with MFA. Do not request additional application permissions for this error."
+        },
+        {
+          "number": 2,
+          "source_file": "globalprotect_403.txt",
+          "page_number": 1,
+          "text": "Synthetic retrieval benchmark runbook | Version 1.0\nGlobalProtect 403 authorization failure\nGlobalProtect returns HTTP 403 when the account lacks VPN entitlement. Ask the manager and IT to approve a VPN access ticket. Clearing the cached sign-in token does not grant the missing entitlement."
+        },
+        {
+          "number": 3,
+          "source_file": "northstar_connect_401.txt",
+          "page_number": 1,
+          "text": "Synthetic retrieval benchmark runbook | Version 1.0\nNorthstar Connect 401 sign-in failure\nNorthstar Connect returns HTTP 401 when the device clock differs from the identity server by more than five minutes. Enable automatic date and time, sync the device clock and retry once. This procedure is specific to Northstar Connect."
+        }
+      ],
+      "answer": "According to the supplied documents, to fix a GlobalProtect 401 error:\n\n1. Sign out of the client\n2. Remove the cached account token\n3. Sign in again with MFA\n\n[1]\n\nThe GlobalProtect 401 error occurs when your saved sign-in token has expired, and the same fix applies to HTTP 401 errors in any VPN client. The document also notes that you should not request additional application permissions for this error."
+    },
+    {
+      "id": "gp403__number",
+      "base_case": "gp403",
+      "set": "heldout_a",
+      "category": "identifier",
+      "mutation": "number",
+      "expected": "unfaithful",
+      "change": {
+        "find": "GlobalProtect returns HTTP 403 when the account lacks VPN entitlement. Ask",
+        "replace": "GlobalProtect returns HTTP 401 when the account lacks VPN entitlement. Ask"
+      },
+      "marker": "HTTP 401 when the account",
+      "expected_claim_label": "contradicted",
+      "question": "GlobalProtect 403: what access is missing?",
+      "sources": [
+        {
+          "number": 1,
+          "source_file": "globalprotect_403.txt",
+          "page_number": 1,
+          "text": "Synthetic retrieval benchmark runbook | Version 1.0\nGlobalProtect 403 authorization failure\nGlobalProtect returns HTTP 403 when the account lacks VPN entitlement. Ask the manager and IT to approve a VPN access ticket. Clearing the cached sign-in token does not grant the missing entitlement."
+        },
+        {
+          "number": 2,
+          "source_file": "globalprotect_401.txt",
+          "page_number": 1,
+          "text": "Synthetic retrieval benchmark runbook | Version 1.0\nGlobalProtect 401 authentication failure\nGlobalProtect returns HTTP 401 when the saved sign-in token has expired. Sign out of the client, remove the cached account token and sign in again with MFA. Do not request additional application permissions for this error."
+        },
+        {
+          "number": 3,
+          "source_file": "payroll_403.txt",
+          "page_number": 1,
+          "text": "Synthetic retrieval benchmark runbook | Version 1.0\nPayroll portal 403 access failure\nThe payroll portal returns HTTP 403 when the employee does not have the payroll reader role. Request the payroll role through the access ticket process with Security approval. VPN entitlement is separate from payroll access."
+        }
+      ],
+      "answer": "According to the supplied document, GlobalProtect 403 indicates that **VPN entitlement is missing** [1].\n\nSpecifically, the source states: \"GlobalProtect returns HTTP 401 when the account lacks VPN entitlement. Ask the manager and IT to approve a VPN access ticket.\" [1]"
+    },
+    {
+      "id": "gp809__number",
+      "base_case": "gp809",
+      "set": "heldout_b",
+      "category": "identifier",
+      "mutation": "number",
+      "expected": "unfaithful",
+      "change": {
+        "find": "GlobalProtect error 809 means",
+        "replace": "GlobalProtect error 403 means"
+      },
+      "marker": "error 403 means",
+      "expected_claim_label": "contradicted",
+      "question": "GlobalProtect error 809 connection failure",
+      "sources": [
+        {
+          "number": 1,
+          "source_file": "globalprotect_809.txt",
+          "page_number": 1,
+          "text": "Synthetic retrieval benchmark runbook | Version 1.0\nGlobalProtect 809 network connection failure\nGlobalProtect error 809 means the network path to the VPN gateway is blocked. Test from an approved mobile hotspot and include the gateway connection log in an IT ticket. Do not disable the device firewall."
+        },
+        {
+          "number": 2,
+          "source_file": "globalprotect_403.txt",
+          "page_number": 1,
+          "text": "Synthetic retrieval benchmark runbook | Version 1.0\nGlobalProtect 403 authorization failure\nGlobalProtect returns HTTP 403 when the account lacks VPN entitlement. Ask the manager and IT to approve a VPN access ticket. Clearing the cached sign-in token does not grant the missing entitlement."
+        },
+        {
+          "number": 3,
+          "source_file": "globalprotect_401.txt",
+          "page_number": 1,
+          "text": "Synthetic retrieval benchmark runbook | Version 1.0\nGlobalProtect 401 authentication failure\nGlobalProtect returns HTTP 401 when the saved sign-in token has expired. Sign out of the client, remove the cached account token and sign in again with MFA. Do not request additional application permissions for this error."
+        }
+      ],
+      "answer": "# GlobalProtect Error 809 Connection Failure\n\nAccording to the supplied documentation, **GlobalProtect error 403 means the network path to the VPN gateway is blocked** [1].\n\n## Recommended Actions:\n\n1. **Test from an approved mobile hotspot** [1]\n2. **Include the gateway connection log in an IT ticket** [1]\n3. **Do not disable the device firewall** [1]"
+    },
+    {
+      "id": "gp1001__negation",
+      "base_case": "gp1001",
+      "set": "heldout_a",
+      "category": "identifier",
+      "mutation": "negation",
+      "expected": "unfaithful",
+      "change": {
+        "find": "IT must restore disk encryption before the device may connect.",
+        "replace": "IT does not need to restore disk encryption before the device may connect."
+      },
+      "marker": "does not need to restore",
+      "expected_claim_label": "contradicted",
+      "question": "GlobalProtect GP1001 device check failed",
+      "sources": [
+        {
+          "number": 1,
+          "source_file": "globalprotect_gp1002.txt",
+          "page_number": 1,
+          "text": "Synthetic retrieval benchmark runbook | Version 1.0\nGlobalProtect GP1002 device check\nGlobalProtect GP1002 means endpoint protection is not running. IT must restore endpoint protection before the device may connect. Disk encryption alone does not satisfy this check."
+        },
+        {
+          "number": 2,
+          "source_file": "globalprotect_gp1001.txt",
+          "page_number": 1,
+          "text": "Synthetic retrieval benchmark runbook | Version 1.0\nGlobalProtect GP1001 device check\nGlobalProtect GP1001 means device disk encryption is disabled. IT must restore disk encryption before the device may connect. Restarting the client does not satisfy the encryption check."
+        },
+        {
+          "number": 3,
+          "source_file": "globalprotect_809.txt",
+          "page_number": 1,
+          "text": "Synthetic retrieval benchmark runbook | Version 1.0\nGlobalProtect 809 network connection failure\nGlobalProtect error 809 means the network path to the VPN gateway is blocked. Test from an approved mobile hotspot and include the gateway connection log in an IT ticket. Do not disable the device firewall."
+        }
+      ],
+      "answer": "Based on the supplied documents, **GlobalProtect GP1001 device check failed** means:\n\n**Device disk encryption is disabled.** [2]\n\nAccording to the policy, IT does not need to restore disk encryption before the device may connect. Additionally, restarting the client does not satisfy the encryption check. [2]"
+    },
+    {
+      "id": "gp1002__invented_fact",
+      "base_case": "gp1002",
+      "set": "heldout_a",
+      "category": "identifier",
+      "mutation": "invented_fact",
+      "expected": "unfaithful",
+      "change": {
+        "find": "does not satisfy this check [1].",
+        "replace": "does not satisfy this check [1]. The check is re-run automatically every 15 minutes after IT restores protection [1]."
+      },
+      "marker": "re-run automatically every 15 minutes",
+      "expected_claim_label": "unsupported",
+      "question": "GlobalProtect GP1002 device check failed",
+      "sources": [
+        {
+          "number": 1,
+          "source_file": "globalprotect_gp1002.txt",
+          "page_number": 1,
+          "text": "Synthetic retrieval benchmark runbook | Version 1.0\nGlobalProtect GP1002 device check\nGlobalProtect GP1002 means endpoint protection is not running. IT must restore endpoint protection before the device may connect. Disk encryption alone does not satisfy this check."
+        },
+        {
+          "number": 2,
+          "source_file": "globalprotect_gp1001.txt",
+          "page_number": 1,
+          "text": "Synthetic retrieval benchmark runbook | Version 1.0\nGlobalProtect GP1001 device check\nGlobalProtect GP1001 means device disk encryption is disabled. IT must restore disk encryption before the device may connect. Restarting the client does not satisfy the encryption check."
+        },
+        {
+          "number": 3,
+          "source_file": "globalprotect_809.txt",
+          "page_number": 1,
+          "text": "Synthetic retrieval benchmark runbook | Version 1.0\nGlobalProtect 809 network connection failure\nGlobalProtect error 809 means the network path to the VPN gateway is blocked. Test from an approved mobile hotspot and include the gateway connection log in an IT ticket. Do not disable the device firewall."
+        }
+      ],
+      "answer": "Based on the supplied documents, a **GlobalProtect GP1002 device check failure** means that **endpoint protection is not running** [1].\n\nAccording to the policy, IT must restore endpoint protection before the device may connect. The document also notes that disk encryption alone does not satisfy this check [1]. The check is re-run automatically every 15 minutes after IT restores protection [1]."
+    },
+    {
+      "id": "ns401__negation",
+      "base_case": "ns401",
+      "set": "heldout_a",
+      "category": "identifier",
+      "mutation": "negation",
+      "expected": "unfaithful",
+      "change": {
+        "find": "Enable automatic date and time, sync the device clock and retry once.\" [1]",
+        "replace": "Do not enable automatic date and time, sync the device clock and retry once.\" [1]"
+      },
+      "marker": "Do not enable automatic",
+      "expected_claim_label": "contradicted",
+      "question": "Northstar Connect 401: how do I fix it?",
+      "sources": [
+        {
+          "number": 1,
+          "source_file": "northstar_connect_401.txt",
+          "page_number": 1,
+          "text": "Synthetic retrieval benchmark runbook | Version 1.0\nNorthstar Connect 401 sign-in failure\nNorthstar Connect returns HTTP 401 when the device clock differs from the identity server by more than five minutes. Enable automatic date and time, sync the device clock and retry once. This procedure is specific to Northstar Connect."
+        },
+        {
+          "number": 2,
+          "source_file": "globalprotect_401.txt",
+          "page_number": 1,
+          "text": "Synthetic retrieval benchmark runbook | Version 1.0\nGlobalProtect 401 authentication failure\nGlobalProtect returns HTTP 401 when the saved sign-in token has expired. Sign out of the client, remove the cached account token and sign in again with MFA. Do not request additional application permissions for this error."
+        },
+        {
+          "number": 3,
+          "source_file": "vpn_remote_access_policy.pdf",
+          "page_number": 2,
+          "text": "NORTHSTAR ANALYTICS | Synthetic training policy | Version 1.0\nIT-03 | Page 2\nNORTHSTAR ANALYTICS / IT POLICY\nVPN & Remote Access Policy\nProcedures and responsibilities\n5. Networks and routing\nUse a trusted home network or a personal mobile hotspot. Public Wi-Fi is permitted only with the\ncompany VPN active, and confidential work should be avoided in exposed locations. The company VPN\nuses full-tunnel routing: all network traffic goes through company controls while connected. Do not use\nanother VPN simultaneously, alter routes or turn off the firewall.\n6. Troubleshooting\nIf connection fails, confirm internet access, check the device clock, restart Northstar Connect and try\nonce more. If the issue persists, open a ticket with the error message, time, client version and device\nasset tag. Never attach passwords or MFA codes. Five failed password attempts lock the account for 15\nminutes under IT-01. Do not repeatedly retry during a lockout.\n7. Restricted remote actions\nDo not expose company"
+        }
+      ],
+      "answer": "# Fixing Northstar Connect 401\n\nBased on the supplied documents, here's how to fix a Northstar Connect 401 error:\n\n**Primary cause and solution:**\n\"Northstar Connect returns HTTP 401 when the device clock differs from the identity server by more than five minutes. Do not enable automatic date and time, sync the device clock and retry once.\" [1]\n\n**Additional troubleshooting steps:**\nIf the clock sync doesn't resolve the issue, the general troubleshooting procedure recommends: \"confirm internet access, check the device clock, restart Northstar Connect and try once more. If the issue persists, open a ticket with the error message, time, client version and device asset tag.\" [3]\n\nThe primary fix is to **check and synchronize your device's date and time settings**, then retry the connection."
+    },
+    {
+      "id": "payroll403__negation",
+      "base_case": "payroll403",
+      "set": "heldout_b",
+      "category": "identifier",
+      "mutation": "negation",
+      "expected": "unfaithful",
+      "change": {
+        "find": "Note that VPN entitlement is separate from payroll access [1].",
+        "replace": "Note that VPN entitlement is not separate from payroll access [1]."
+      },
+      "marker": "is not separate from",
+      "expected_claim_label": "contradicted",
+      "question": "Payroll portal 403: what role do I need?",
+      "sources": [
+        {
+          "number": 1,
+          "source_file": "payroll_403.txt",
+          "page_number": 1,
+          "text": "Synthetic retrieval benchmark runbook | Version 1.0\nPayroll portal 403 access failure\nThe payroll portal returns HTTP 403 when the employee does not have the payroll reader role. Request the payroll role through the access ticket process with Security approval. VPN entitlement is separate from payroll access."
+        },
+        {
+          "number": 2,
+          "source_file": "access_control_policy.pdf",
+          "page_number": 1,
+          "text": "ason,\nstart date and end date if temporary. The line manager and system owner must approve before IT\nprovisions access. The requester cannot approve their own request. IT records approval and the actual\npermissions in the ticket.\n3. Standard and sensitive roles\nRead-only access is the default when it satisfies the work need. Editing, export and administrative rights\nmust be explicitly requested. Access to payroll, production administration or bulk customer-data exports\nadditionally requires Security approval. IT targets fulfillment of ordinary requests within 2 business days\nafter all approvals; urgent incident access uses the emergency procedure below.\n4. Temporary and contractor access\nTemporary project permissions expire after no more than 30 days. Contractor accounts and VPN\nentitlements expire after no more than 90 days and require a named employee sponsor. For a contractor\nassigned a temporary project role, both limits apply: the project role expires within 30 days even if the\nac"
+        },
+        {
+          "number": 3,
+          "source_file": "access_control_policy.pdf",
+          "page_number": 2,
+          "text": "NORTHSTAR ANALYTICS | Synthetic training policy | Version 1.0\nIT-04 | Page 2\nNORTHSTAR ANALYTICS / IT POLICY\nAccess Control Policy\nProcedures and responsibilities\n5. Privileged access\nUse a separate administrator account for privileged tasks and the normal account for everyday work.\nPrivileged sign-ins require a hardware security key. Local administrator elevation on a laptop expires\nafter no more than 8 hours. Production administrator roles require manager, system owner and Security\napproval, with an explicit end date and a maximum grant of 30 days before renewal.\n6. Role changes and departures\nThe manager submits role changes before the effective date. IT removes permissions no longer needed\nwithin 1 business day of that date, then provisions new permissions only after approval. HR supplies the\ndeparture date and exact time. IT disables the account and revokes sessions at that time; for involuntary\ndepartures, HR and Security coordinate immediate removal at the agreed notification ti"
+        }
+      ],
+      "answer": "According to the supplied documents, to access the payroll portal you need the **payroll reader role** [1].\n\nTo obtain this role, you should request it through the access ticket process, which requires **Security approval** [1]. Note that VPN entitlement is not separate from payroll access [1]."
+    },
+    {
+      "id": "otp410__broader_scope",
+      "base_case": "otp410",
+      "set": "heldout_b",
+      "category": "identifier",
+      "mutation": "broader_scope",
+      "expected": "unfaithful",
+      "change": {
+        "find": "Do not share the pass in a support ticket [1]",
+        "replace": "Do not share the pass in a support ticket, chat message, or email to anyone in the company [1]"
+      },
+      "marker": "chat message, or email",
+      "expected_claim_label": "unsupported",
+      "question": "OTP-410 enrollment pass issue",
+      "sources": [
+        {
+          "number": 1,
+          "source_file": "identity_otp_410.txt",
+          "page_number": 1,
+          "text": "Synthetic retrieval benchmark runbook | Version 1.0\nIdentity portal OTP-410 recovery\nIdentity error OTP-410 means a temporary enrollment pass has expired. Contact IT Support for identity verification and a replacement enrollment pass. Never share the pass in a support ticket."
+        },
+        {
+          "number": 2,
+          "source_file": "identity_otp_411.txt",
+          "page_number": 1,
+          "text": "Synthetic retrieval benchmark runbook | Version 1.0\nIdentity portal OTP-411 recovery\nIdentity error OTP-411 means a temporary enrollment pass has already been used. Contact IT Support to revoke the old pass and issue a new pass after identity verification. Waiting does not make the used pass valid again."
+        },
+        {
+          "number": 3,
+          "source_file": "payroll_403.txt",
+          "page_number": 1,
+          "text": "Synthetic retrieval benchmark runbook | Version 1.0\nPayroll portal 403 access failure\nThe payroll portal returns HTTP 403 when the employee does not have the payroll reader role. Request the payroll role through the access ticket process with Security approval. VPN entitlement is separate from payroll access."
+        }
+      ],
+      "answer": "# OTP-410 Enrollment Pass Issue\n\nAccording to the supplied documents, an OTP-410 error means **a temporary enrollment pass has expired** [1].\n\n## Resolution:\n- Contact IT Support for identity verification and a replacement enrollment pass [1]\n- Do not share the pass in a support ticket, chat message, or email to anyone in the company [1]"
+    },
+    {
+      "id": "otp411__number",
+      "base_case": "otp411",
+      "set": "heldout_b",
+      "category": "identifier",
+      "mutation": "number",
+      "expected": "unfaithful",
+      "change": {
+        "find": "Identity error OTP-411 indicates",
+        "replace": "Identity error OTP-414 indicates"
+      },
+      "marker": "OTP-414 indicates",
+      "expected_claim_label": "contradicted",
+      "question": "OTP-411 enrollment pass issue",
+      "sources": [
+        {
+          "number": 1,
+          "source_file": "identity_otp_411.txt",
+          "page_number": 1,
+          "text": "Synthetic retrieval benchmark runbook | Version 1.0\nIdentity portal OTP-411 recovery\nIdentity error OTP-411 means a temporary enrollment pass has already been used. Contact IT Support to revoke the old pass and issue a new pass after identity verification. Waiting does not make the used pass valid again."
+        },
+        {
+          "number": 2,
+          "source_file": "identity_otp_410.txt",
+          "page_number": 1,
+          "text": "Synthetic retrieval benchmark runbook | Version 1.0\nIdentity portal OTP-410 recovery\nIdentity error OTP-410 means a temporary enrollment pass has expired. Contact IT Support for identity verification and a replacement enrollment pass. Never share the pass in a support ticket."
+        },
+        {
+          "number": 3,
+          "source_file": "globalprotect_403.txt",
+          "page_number": 1,
+          "text": "Synthetic retrieval benchmark runbook | Version 1.0\nGlobalProtect 403 authorization failure\nGlobalProtect returns HTTP 403 when the account lacks VPN entitlement. Ask the manager and IT to approve a VPN access ticket. Clearing the cached sign-in token does not grant the missing entitlement."
+        }
+      ],
+      "answer": "# OTP-411 Enrollment Pass Issue\n\nBased on the supplied documents, here is the information about OTP-411:\n\n**What OTP-411 means:** Identity error OTP-414 indicates that a temporary enrollment pass has already been used [1].\n\n**Resolution:** Contact IT Support to:\n1. Revoke the old pass\n2. Issue a new pass after identity verification [1]\n\n**Important note:** Waiting does not make the used pass valid again [1]."
+    },
+    {
+      "id": "clock_skew__broader_scope",
+      "base_case": "clock_skew",
+      "set": "heldout_a",
+      "category": "identifier",
+      "mutation": "broader_scope",
+      "expected": "unfaithful",
+      "change": {
+        "find": "If you're experiencing Northstar Connect 401 sign-in failures, a similar clock synchronization issue may apply",
+        "replace": "If you're experiencing HTTP 401 sign-in failures in any application, a similar clock synchronization issue may apply"
+      },
+      "marker": "any application",
+      "expected_claim_label": "unsupported",
+      "question": "ERR_CLOCK_SKEW fix",
+      "sources": [
+        {
+          "number": 1,
+          "source_file": "device_clock_skew.txt",
+          "page_number": 1,
+          "text": "Synthetic retrieval benchmark runbook | Version 1.0\nDevice ERR_CLOCK_SKEW troubleshooting\nERR_CLOCK_SKEW means the device clock is outside the permitted time range. Enable automatic date and time and synchronize the clock. Changing a password does not correct device time."
+        },
+        {
+          "number": 2,
+          "source_file": "northstar_connect_401.txt",
+          "page_number": 1,
+          "text": "Synthetic retrieval benchmark runbook | Version 1.0\nNorthstar Connect 401 sign-in failure\nNorthstar Connect returns HTTP 401 when the device clock differs from the identity server by more than five minutes. Enable automatic date and time, sync the device clock and retry once. This procedure is specific to Northstar Connect."
+        },
+        {
+          "number": 3,
+          "source_file": "globalprotect_401.txt",
+          "page_number": 1,
+          "text": "Synthetic retrieval benchmark runbook | Version 1.0\nGlobalProtect 401 authentication failure\nGlobalProtect returns HTTP 401 when the saved sign-in token has expired. Sign out of the client, remove the cached account token and sign in again with MFA. Do not request additional application permissions for this error."
+        }
+      ],
+      "answer": "# ERR_CLOCK_SKEW Fix\n\nAccording to the supplied documents, ERR_CLOCK_SKEW occurs when the device clock is outside the permitted time range [1].\n\n## Resolution Steps:\n\n1. **Enable automatic date and time** [1]\n2. **Synchronize the clock** [1]\n\n## Important Note:\n\nChanging a password does not correct device time [1].\n\n---\n\n**Related Issue:** If you're experiencing HTTP 401 sign-in failures in any application, a similar clock synchronization issue may apply—the device clock must be within five minutes of the identity server. The same fix applies: enable automatic date and time and sync the device clock [2]."
+    },
+    {
+      "id": "disk_full__number",
+      "base_case": "disk_full",
+      "set": "heldout_a",
+      "category": "identifier",
+      "mutation": "number",
+      "expected": "unfaithful",
+      "change": {
+        "find": "here are the steps to fix ERR_DISK_FULL [1]:\n\n1. **Move work files to approved company cloud storage** [1]\n2. **Ask IT to remove approved temporary files** [1]",
+        "replace": "here are the 3 steps to fix ERR_DISK_FULL [1]:\n\n1. **Move work files to approved company cloud storage** [1]\n2. **Ask IT to remove approved temporary files** [1]"
+      },
+      "marker": "the 3 steps",
+      "expected_claim_label": "contradicted",
+      "question": "ERR_DISK_FULL fix",
+      "sources": [
+        {
+          "number": 1,
+          "source_file": "device_disk_full.txt",
+          "page_number": 1,
+          "text": "Synthetic retrieval benchmark runbook | Version 1.0\nDevice ERR_DISK_FULL troubleshooting\nERR_DISK_FULL means the device has insufficient free storage. Move work files to approved company cloud storage and ask IT to remove approved temporary files. Never delete security logs to free space."
+        },
+        {
+          "number": 2,
+          "source_file": "device_clock_skew.txt",
+          "page_number": 1,
+          "text": "Synthetic retrieval benchmark runbook | Version 1.0\nDevice ERR_CLOCK_SKEW troubleshooting\nERR_CLOCK_SKEW means the device clock is outside the permitted time range. Enable automatic date and time and synchronize the clock. Changing a password does not correct device time."
+        },
+        {
+          "number": 3,
+          "source_file": "globalprotect_gp1001.txt",
+          "page_number": 1,
+          "text": "Synthetic retrieval benchmark runbook | Version 1.0\nGlobalProtect GP1001 device check\nGlobalProtect GP1001 means device disk encryption is disabled. IT must restore disk encryption before the device may connect. Restarting the client does not satisfy the encryption check."
+        }
+      ],
+      "answer": "# ERR_DISK_FULL Fix\n\nAccording to the supplied documents, here are the 3 steps to fix ERR_DISK_FULL [1]:\n\n1. **Move work files to approved company cloud storage** [1]\n2. **Ask IT to remove approved temporary files** [1]\n\n**Important:** Never delete security logs to free space [1].\n\nERR_DISK_FULL indicates that the device has insufficient free storage [1]."
+    },
+    {
+      "id": "kb431__negation",
+      "base_case": "kb431",
+      "set": "heldout_b",
+      "category": "identifier",
+      "mutation": "negation",
+      "expected": "unfaithful",
+      "change": {
+        "find": "1. Import the replacement gateway certificate through the company software catalog",
+        "replace": "1. Do not import the replacement gateway certificate through the company software catalog"
+      },
+      "marker": "Do not import",
+      "expected_claim_label": "contradicted",
+      "question": "KB-431 recovery steps",
+      "sources": [
+        {
+          "number": 1,
+          "source_file": "vpn_kb431.txt",
+          "page_number": 1,
+          "text": "Synthetic retrieval benchmark runbook | Version 1.0\nKnowledge article KB-431 VPN recovery\nKB-431 covers VPN gateway certificate renewal. Import the replacement gateway certificate through the company software catalog and reconnect. This is a knowledge article identifier, not a support ticket number."
+        },
+        {
+          "number": 2,
+          "source_file": "vpn_kb432.txt",
+          "page_number": 1,
+          "text": "Synthetic retrieval benchmark runbook | Version 1.0\nKnowledge article KB-432 VPN recovery\nKB-432 covers VPN client profile renewal. Download the replacement client profile through the company software catalog and reconnect. This is a knowledge article identifier, not a support ticket number."
+        },
+        {
+          "number": 3,
+          "source_file": "incident_response_security_reporting_policy.pdf",
+          "page_number": 2,
+          "text": "loyees must not contact affected\ncustomers or publish incident details unless explicitly assigned to do so.\n8. Closure and follow-up\nSecurity confirms containment and recovery before IT restores normal access. For P1 and P2 incidents,\nthe incident lead completes a review within 5 business days after closure, recording cause, impact and\npreventive actions with owners. See IT-01 through IT-04 for credential recovery, device handling, VPN\nrestrictions and access approval."
+        }
+      ],
+      "answer": "Based on the supplied source excerpts, KB-431 covers **VPN gateway certificate renewal**. The recovery steps for KB-431 are [1]:\n\n1. Do not import the replacement gateway certificate through the company software catalog\n2. Reconnect\n\nHowever, the excerpts provided contain only high-level summary information. For detailed step-by-step recovery procedures, you would need to access the complete KB-431 article itself."
+    },
+    {
+      "id": "kb432__invented_fact",
+      "base_case": "kb432",
+      "set": "heldout_b",
+      "category": "identifier",
+      "mutation": "invented_fact",
+      "expected": "unfaithful",
+      "change": {
+        "find": "2. Reconnect\n\n[2]",
+        "replace": "2. Reconnect\n3. Confirm the VPN status icon turns green within 30 seconds\n\n[2]"
+      },
+      "marker": "status icon turns green",
+      "expected_claim_label": "unsupported",
+      "question": "KB-432 recovery steps",
+      "sources": [
+        {
+          "number": 1,
+          "source_file": "vpn_kb431.txt",
+          "page_number": 1,
+          "text": "Synthetic retrieval benchmark runbook | Version 1.0\nKnowledge article KB-431 VPN recovery\nKB-431 covers VPN gateway certificate renewal. Import the replacement gateway certificate through the company software catalog and reconnect. This is a knowledge article identifier, not a support ticket number."
+        },
+        {
+          "number": 2,
+          "source_file": "vpn_kb432.txt",
+          "page_number": 1,
+          "text": "Synthetic retrieval benchmark runbook | Version 1.0\nKnowledge article KB-432 VPN recovery\nKB-432 covers VPN client profile renewal. Download the replacement client profile through the company software catalog and reconnect. This is a knowledge article identifier, not a support ticket number."
+        },
+        {
+          "number": 3,
+          "source_file": "incident_response_security_reporting_policy.pdf",
+          "page_number": 2,
+          "text": "loyees must not contact affected\ncustomers or publish incident details unless explicitly assigned to do so.\n8. Closure and follow-up\nSecurity confirms containment and recovery before IT restores normal access. For P1 and P2 incidents,\nthe incident lead completes a review within 5 business days after closure, recording cause, impact and\npreventive actions with owners. See IT-01 through IT-04 for credential recovery, device handling, VPN\nrestrictions and access approval."
+        }
+      ],
+      "answer": "Based on the supplied documents, the recovery steps for KB-432 are:\n\n**KB-432 Recovery Steps:**\n\n1. Download the replacement client profile through the company software catalog\n2. Reconnect\n3. Confirm the VPN status icon turns green within 30 seconds\n\n[2]\n\nKB-432 specifically covers VPN client profile renewal, as opposed to KB-431 which covers VPN gateway certificate renewal."
+    }
+  ],
+  "failures": []
+}
