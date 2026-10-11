@@ -3,6 +3,7 @@
     python -m evaluation.faithfulness_calibration run      # judge the mutation set, then report
     python -m evaluation.faithfulness_calibration report   # rescore saved verdicts with the current checks
     python -m evaluation.faithfulness_calibration human    # compare the judge with hand labels
+    python -m evaluation.faithfulness_calibration run --set heldout_a   # once; prints totals only
 
 Mutation cases each contain one injected unfaithful claim; controls are the same
 answers unchanged. The headline is recall on the unfaithful answers: a judge that
@@ -19,6 +20,7 @@ from pathlib import Path
 import anthropic
 
 from app.config import get_settings
+from evaluation.faithfulness_heldout import HELDOUT_SETS, MUTATIONS_FILE as HELDOUT_MUTATIONS_FILE
 from evaluation.faithfulness_judge import (
     JUDGE_MODEL, RESULTS_FILE, ClaimVerdict, JudgeResult, judge_answer, normalize, score_answer,
 )
@@ -134,7 +136,7 @@ def human_agreement(results: dict, labels: dict) -> dict:
     }
 
 
-def print_calibration(report: dict) -> None:
+def print_calibration(report: dict, details: bool = True) -> None:
     m = report["confusion_matrix"]
     print(f"Judged {report['judged']} cases ({report['errors']} errors), judge {JUDGE_MODEL}\n")
     print("                     judge: faithful   judge: unfaithful")
@@ -148,6 +150,9 @@ def print_calibration(report: dict) -> None:
         print(f"  {kind:<16} {value['count']}")
     print(f"\nInjected claim found in the judge's claims: {report['target_claim_found']}/{len(report['mutations'])}; "
           f"verdict matched the expected label: {report['target_verdict_matches']}")
+    if not details:
+        print("\nHeld-out set: case-level results are not shown, so its failures cannot steer later fixes.")
+        return
     for item in report["mutations"]:
         if not item["answer_flagged"] or item["judge_verdict"] != item["expected_label"]:
             print(f"  {item['id']}: expected {item['expected_label']}, judge {item['judge_verdict']}, "
@@ -156,9 +161,18 @@ def print_calibration(report: dict) -> None:
         print(f"False alarms on controls: {', '.join(report['false_alarm_ids'])}")
 
 
+def load_set(name: str) -> tuple[list[dict], Path]:
+    """Cases and the saved-results path for the development or a held-out set."""
+    if name == "dev":
+        return json.loads(MUTATIONS_FILE.read_text(encoding="utf-8"))["cases"], CALIBRATION_FILE
+    cases = json.loads(HELDOUT_MUTATIONS_FILE.read_text(encoding="utf-8"))["cases"]
+    return [case for case in cases if case["set"] == name], Path(__file__).with_name(f"faithfulness_calibration_{name}.json")
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description="Calibrate the faithfulness judge")
     parser.add_argument("step", choices=("run", "report", "human"))
+    parser.add_argument("--set", default="dev", choices=("dev", *HELDOUT_SETS), dest="case_set")
     args = parser.parse_args()
     sys.stdout.reconfigure(encoding="utf-8")
 
@@ -170,21 +184,24 @@ def main() -> None:
         print(json.dumps(report, ensure_ascii=False, indent=2))
         return
 
-    cases = json.loads(MUTATIONS_FILE.read_text(encoding="utf-8"))["cases"]
+    cases, results_file = load_set(args.case_set)
+    heldout = args.case_set != "dev"
     if args.step == "run":
+        if heldout and results_file.exists():
+            sys.exit(f"{args.case_set} was already scored; a held-out set is judged once per decision.")
         settings = get_settings()
         api_key = settings.anthropic_api_key.get_secret_value() if settings.anthropic_api_key else ""
         if not api_key:
             parser.error("Set ANTHROPIC_API_KEY in .env before judging")
         client = anthropic.Anthropic(api_key=api_key)
         results = [judge_answer(client, case) for case in cases]
-        CALIBRATION_FILE.write_text(json.dumps({"judge_model": JUDGE_MODEL, "results": results},
-                                               ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-    elif not CALIBRATION_FILE.exists():
+        results_file.write_text(json.dumps({"judge_model": JUDGE_MODEL, "results": results},
+                                           ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    elif not results_file.exists():
         parser.error("Run the calibration first")
-    saved = {item["id"]: item for item in json.loads(CALIBRATION_FILE.read_text(encoding="utf-8"))["results"]}
+    saved = {item["id"]: item for item in json.loads(results_file.read_text(encoding="utf-8"))["results"]}
     results = [rescore(case, saved[case["id"]]) for case in cases if case["id"] in saved]
-    print_calibration(calibration_report(cases, results))
+    print_calibration(calibration_report(cases, results), details=not heldout)
 
 
 if __name__ == "__main__":

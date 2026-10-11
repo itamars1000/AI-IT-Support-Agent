@@ -1,6 +1,11 @@
 import unittest
 
-from evaluation.faithfulness_calibration import calibration_report, human_agreement, rescore, wilson_interval
+import io
+from contextlib import redirect_stdout
+
+from evaluation.faithfulness_calibration import (
+    calibration_report, human_agreement, load_set, print_calibration, rescore, wilson_interval,
+)
 
 
 def result(case_id, faithful, claims=()):
@@ -76,6 +81,30 @@ class CalibrationTests(unittest.TestCase):
         rescored = rescore(case, saved)
         self.assertTrue(rescored["faithful"])
         self.assertEqual(rescored["usage"], saved["usage"])
+
+    def test_heldout_report_prints_totals_but_no_case_ids(self):
+        report = calibration_report(CASES, [
+            result("a__control", True), result("b__control", False),
+            result("a__number", True, [claim("Minimum is 12 characters", "supported")]),
+            result("b__invented_fact", False, [claim("Needs a special character", "unsupported")]),
+            result("c__number", False, [claim("Install within 72 hours", "contradicted")]),
+        ])
+        hidden, shown = io.StringIO(), io.StringIO()
+        with redirect_stdout(hidden):
+            print_calibration(report, details=False)
+        with redirect_stdout(shown):
+            print_calibration(report)
+        self.assertIn("recall_unfaithful", hidden.getvalue())
+        for case_id in ("a__number", "b__control"):
+            self.assertNotIn(case_id, hidden.getvalue())
+            self.assertIn(case_id, shown.getvalue())
+
+    def test_heldout_sets_load_only_their_own_cases(self):
+        cases_a, file_a = load_set("heldout_a")
+        cases_b, _ = load_set("heldout_b")
+        self.assertEqual({case["set"] for case in cases_a}, {"heldout_a"})
+        self.assertFalse({case["base_case"] for case in cases_a} & {case["base_case"] for case in cases_b})
+        self.assertEqual(file_a.name, "faithfulness_calibration_heldout_a.json")
 
 
 if __name__ == "__main__":
