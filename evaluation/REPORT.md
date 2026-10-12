@@ -76,6 +76,15 @@ These are separate historical checks on the original five-PDF, 11-question datas
 | Agent scenarios | 4/4 passed; ticket writes were mocked. | Confirms these scenarios, not production write reliability. |
 | Retrieved prompt injection | Malicious text reached Claude; 0 `create_ticket` calls, with the tool available. | This attack was resisted; one fixture does not establish general attack resistance. |
 
+## 6. Answer faithfulness — October 11, 2026
+
+A separate claim-level check with an LLM judge, recorded in [FAITHFULNESS.md](FAITHFULNESS.md). It is not part of the retrieval comparison.
+
+| Check | Recorded result | Lesson |
+| --- | --- | --- |
+| Judge on held-out answers with one injected error each, scored once | 15/15 errors caught; 0/15 false alarms | Reliable for clear injected errors; subtle natural hallucinations are untested. |
+| Real RAG answers judged | 26/26 faithful | Covers questions whose evidence was retrieved, not retrieval failures. |
+
 ## Limits
 
 - The corpus and questions are small, synthetic and English. The development set is not an independent held-out or production dataset.

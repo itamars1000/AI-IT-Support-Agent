@@ -25,6 +25,7 @@ An AI support system that combines RAG and agentic tool calling to answer IT-pol
 - Validates tool calls and enforces critical business rules server-side rather than relying on the LLM.
 - Logs request, retrieval, LLM, token, and tool timing as structured JSON for observability.
 - Includes retrieval, chunking, agent, and prompt-injection evaluation.
+- Scores answer faithfulness claim by claim with an LLM judge whose evidence quotes are verified in code, calibrated on injected errors and a pre-registered held-out set.
 
 ## Architecture
 
@@ -62,7 +63,7 @@ flowchart TB
     DocumentEmbed --> Documents
 ```
 
-For agent requests, Pydantic validates tool inputs, `allowed_actions` gates writes, idempotency prevents duplicate ticket creation, and citation checks reject unknown source references. Structured logs trace requests and tool calls; [evaluation](evaluation/REPORT.md) measures retrieval, agent behavior, and prompt-injection resistance offline.
+For agent requests, Pydantic validates tool inputs, `allowed_actions` gates writes, idempotency prevents duplicate ticket creation, and citation checks reject unknown source references. Structured logs trace requests and tool calls; [evaluation](evaluation/REPORT.md) measures retrieval, answer faithfulness, agent behavior, and prompt-injection resistance offline.
 
 ## Example
 
@@ -95,6 +96,8 @@ The expanded retrieval benchmark contains 41 questions over five synthetic polic
 
 Vector search found all required evidence in Top-5 for **41/41 questions**, compared with **40/41 for hybrid**. Hybrid improved identifier questions at Top-1 from **11/13 to 13/13**, but hurt an unsolicited MFA-prompt question. Vector remains the default; hybrid is available for explicit selection and further experiments.
 
+Answer faithfulness is scored claim by claim: an LLM judge (Claude Haiku 5.5) must quote the source behind each supported claim, and the quote is checked in code. Before trusting its scores, the judge was tested on answers with one injected error each. On a held-out set written by a separate model and scored once, it caught **15/15** errors with **0/15** false alarms, and all 26 real answers it judged were faithful. The injected errors are fairly clear; subtle natural hallucinations remain untested. See the [faithfulness evaluation](evaluation/FAITHFULNESS.md).
+
 Earlier checks compared three chunkers and tested agent behavior and a retrieved prompt injection. Reranking is deferred. These are small, synthetic evaluations; see the [evaluation report](evaluation/REPORT.md) for measured trade-offs, limitations and reproduction steps.
 
 ## Run Locally
@@ -114,4 +117,5 @@ See the [technical guide](docs/TECHNICAL_GUIDE.md) for ticket confirmation, requ
 - Kept 1000-character chunks with 200-character overlap after comparing retrieval across three strategies.
 - Kept vector search as the default after hybrid improved exact identifiers but reduced overall Top-5 evidence coverage.
 - Deferred reranking while testing retrieval and fusion on a broader dataset.
+- Tested the faithfulness judge on known errors, with a held-out set split before any answer existed, rather than trusting its scores directly.
 - Treats retrieved text as data; tool names, arguments, write permissions, and citations are checked by the server.
