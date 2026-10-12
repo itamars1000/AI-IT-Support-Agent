@@ -8,6 +8,9 @@ from app.observability import current_trace, elapsed_ms
 from time import perf_counter
 
 
+THINKING_BLOCKS = ("thinking", "redacted_thinking")
+
+
 class AnthropicRequestError(RuntimeError):
     """The answer request failed without exposing credentials or source text."""
 
@@ -19,6 +22,7 @@ def create_message(
     model: str,
     tools: list[dict] | None = None,
     tool_choice: dict | None = None,
+    effort: str | None = None,
 ) -> dict:
     trace = current_trace.get()
     if trace is not None:
@@ -26,7 +30,8 @@ def create_message(
     started = perf_counter()
     body = {
         "model": model,
-        "max_tokens": 800,
+        # Room for adaptive thinking, which counts toward max_tokens on models that use it.
+        "max_tokens": 4096,
         "system": system,
         "messages": messages,
     }
@@ -34,6 +39,9 @@ def create_message(
         body["tools"] = tools
     if tool_choice is not None:
         body["tool_choice"] = tool_choice
+    if effort is not None:
+        # Unset by default: models without effort support, such as Claude Haiku 4.5, reject the field.
+        body["output_config"] = {"effort": effort}
     payload = json.dumps(
         body,
         ensure_ascii=False,
@@ -82,8 +90,9 @@ def extract_final_text(data: dict) -> str:
     try:
         if data["stop_reason"] != "end_turn":
             raise AnthropicRequestError("Anthropic did not finish the answer")
-        blocks = data["content"]
-        if not isinstance(blocks, list) or not blocks or any(
+        # Models with adaptive thinking can start a response with thinking blocks.
+        blocks = [block for block in data["content"] if block.get("type") not in THINKING_BLOCKS]
+        if not blocks or any(
             block.get("type") != "text" or not isinstance(block.get("text"), str)
             for block in blocks
         ):
@@ -96,6 +105,6 @@ def extract_final_text(data: dict) -> str:
         raise AnthropicRequestError("Anthropic API returned an invalid response") from None
 
 
-def generate_text(system: str, user: str, api_key: str, model: str) -> str:
-    data = create_message(system, [{"role": "user", "content": user}], api_key, model)
+def generate_text(system: str, user: str, api_key: str, model: str, effort: str | None = None) -> str:
+    data = create_message(system, [{"role": "user", "content": user}], api_key, model, effort=effort)
     return extract_final_text(data)

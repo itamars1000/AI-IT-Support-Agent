@@ -2,7 +2,7 @@ from functools import lru_cache
 from pathlib import Path
 from typing import Literal
 
-from pydantic import SecretStr
+from pydantic import SecretStr, field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -19,7 +19,15 @@ class Settings(BaseSettings):
     voyage_api_key: SecretStr | None = None
     anthropic_api_key: SecretStr | None = None
     anthropic_model: str = "claude-haiku-4-5-20251001"
+    # Sent only when set; unset uses the model's default (medium on Claude Haiku 5.5).
+    # Leave it unset for models without effort levels, such as Claude Haiku 4.5.
+    anthropic_effort: Literal["low", "medium", "high"] | None = None
     retrieval_mode: Literal["vector", "hybrid"] = "vector"
+
+    @field_validator("anthropic_effort", mode="before")
+    @classmethod
+    def blank_effort_is_unset(cls, value):
+        return value or None
 
 
 @lru_cache

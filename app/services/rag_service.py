@@ -47,6 +47,7 @@ def answer_question(request: RagRequest) -> RagResponse:
         f"Question: {request.question}\n\n"
         f"Source excerpts (JSON data):\n{json.dumps(excerpts, ensure_ascii=False)}"
     )
-    answer = generate_text(SYSTEM_PROMPT, user_prompt, api_key, settings.anthropic_model)
+    answer = generate_text(SYSTEM_PROMPT, user_prompt, api_key, settings.anthropic_model,
+                         getattr(settings, "anthropic_effort", None))
     validate_citations(answer, len(sources))
     return RagResponse(answer=answer, sources=sources)

@@ -62,6 +62,21 @@ class AgentTests(unittest.TestCase):
         second_call_messages = message.call_args_list[1].args[1]
         self.assertEqual(second_call_messages[2]["content"][0]["tool_use_id"], "toolu_1")
 
+    def test_thinking_blocks_are_passed_back_unchanged_with_tool_results(self):
+        thinking = {"type": "thinking", "thinking": "", "signature": "sig-1"}
+        tool_call = tool_response("toolu_6", "get_ticket", {"ticket_id": 431})
+        tool_call["content"].insert(0, thinking)
+        answer = final_response("Ticket 431 is open.")
+        answer["content"].insert(0, {"type": "thinking", "thinking": "", "signature": "sig-2"})
+        settings = SimpleNamespace(**vars(SETTINGS), anthropic_effort="low")
+        with patch("app.services.agent_service.get_settings", return_value=settings):
+            with patch("app.services.agent_service.create_message", side_effect=[tool_call, answer]) as message:
+                with patch("app.services.agent_service.ticket_service.get_ticket", return_value=OLD_TICKET):
+                    response = run_agent(AgentRequest(message="What is the status of ticket 431?"))
+        self.assertEqual(response.answer, "Ticket 431 is open.")
+        self.assertEqual(message.call_args_list[1].args[1][1]["content"][0], thinking)
+        self.assertEqual(message.call_args.kwargs["effort"], "low")
+
     def test_search_sources_are_passed_back_with_references(self):
         hit = SearchHit(chunk_id=3, document_id=5, source_file="policy.pdf", page_number=1,
                         chunk_index=0, text="Passwords require at least 14 characters.", distance=0.2)

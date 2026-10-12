@@ -70,6 +70,7 @@ def run_tool_call(request: ToolCallRequest) -> ToolCallResponse:
     first = create_message(
         SYSTEM_PROMPT, messages, api_key, settings.anthropic_model,
         tools=offered_tools, tool_choice={"type": "auto", "disable_parallel_tool_use": True},
+        effort=getattr(settings, "anthropic_effort", None),
     )
     blocks = first["content"]
     calls = [block for block in blocks if isinstance(block, dict) and block.get("type") == "tool_use"]
@@ -120,6 +121,7 @@ def run_tool_call(request: ToolCallRequest) -> ToolCallResponse:
         final = create_message(
             SYSTEM_PROMPT, messages, api_key, settings.anthropic_model,
             tools=offered_tools, tool_choice={"type": "none"},
+            effort=getattr(settings, "anthropic_effort", None),
         )
         answer = extract_final_text(final)
     except AnthropicRequestError:

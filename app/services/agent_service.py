@@ -197,6 +197,7 @@ def run_agent(request: AgentRequest) -> AgentResponse:
             response = create_message(
                 system_prompt, messages, api_key, settings.anthropic_model,
                 tools=offered_tools, tool_choice=choice,
+                effort=getattr(settings, "anthropic_effort", None),
             )
             blocks = response["content"]
             calls = [block for block in blocks if isinstance(block, dict) and block.get("type") == "tool_use"]

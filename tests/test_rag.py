@@ -9,7 +9,8 @@ from pydantic import SecretStr
 
 from app.main import app
 from app.schemas import RagRequest, SearchHit
-from app.services.anthropic_client import AnthropicRequestError, generate_text
+from app.config import Settings
+from app.services.anthropic_client import AnthropicRequestError, extract_final_text, generate_text
 from app.services.rag_service import answer_question
 
 
@@ -61,6 +62,37 @@ class RagTests(unittest.TestCase):
             self.assertEqual(body["model"], "test-model")
             self.assertEqual(body["messages"], [{"role": "user", "content": "Question"}])
             self.assertEqual(request.headers["X-api-key"], "test-key")
+
+    def test_http_adapter_sends_effort_only_when_configured(self):
+        data = {"stop_reason": "end_turn", "content": [{"type": "text", "text": "Answer."}]}
+        with patch("app.services.anthropic_client.urlopen") as urlopen:
+            urlopen.return_value.__enter__.side_effect = [
+                io.BytesIO(json.dumps(data).encode("utf-8")) for _ in range(2)
+            ]
+            generate_text("System", "Question", "test-key", "test-model")
+            generate_text("System", "Question", "test-key", "test-model", effort="low")
+            unset, low = (json.loads(call.args[0].data) for call in urlopen.call_args_list)
+        self.assertNotIn("output_config", unset)
+        self.assertEqual(low["output_config"], {"effort": "low"})
+        self.assertEqual(low["max_tokens"], 4096)
+
+    def test_answer_after_thinking_blocks_is_accepted(self):
+        data = {"stop_reason": "end_turn", "content": [
+            {"type": "thinking", "thinking": "", "signature": "sig"},
+            {"type": "redacted_thinking", "data": "opaque"},
+            {"type": "text", "text": "Answer [1]."},
+        ]}
+        self.assertEqual(extract_final_text(data), "Answer [1].")
+
+    def test_thinking_without_text_is_rejected(self):
+        data = {"stop_reason": "end_turn", "content": [{"type": "thinking", "thinking": "", "signature": "sig"}]}
+        with self.assertRaises(AnthropicRequestError):
+            extract_final_text(data)
+
+    def test_blank_effort_setting_means_unset(self):
+        settings = Settings(database_url="postgresql://x", anthropic_effort="")
+        self.assertIsNone(settings.anthropic_effort)
+        self.assertEqual(Settings(database_url="postgresql://x", anthropic_effort="high").anthropic_effort, "high")
 
     def test_http_adapter_rejects_truncated_answer(self):
         data = {"stop_reason": "max_tokens", "content": [{"type": "text", "text": "Partial"}]}
