@@ -36,3 +36,4 @@ evaluation/faithfulness_labels.json
 evaluation/faithfulness_calibration_results.json
 evaluation/faithfulness_heldout_answers.json
 evaluation/faithfulness_calibration_heldout_*.json
+evaluation/agent_regression_*.json
