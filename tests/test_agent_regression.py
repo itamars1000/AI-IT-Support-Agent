@@ -6,7 +6,7 @@ from unittest.mock import patch
 from pydantic import SecretStr
 
 from evaluation.agent_regression import (
-    SCENARIO_FILE, failed_checks, is_hebrew, resolve_search, run_scenario, summarize,
+    SCENARIO_FILE, failed_checks, is_hebrew, rescore, resolve_search, run_scenario, summarize,
 )
 
 
@@ -74,6 +74,17 @@ class CheckTests(unittest.TestCase):
         summary = summarize(scenarios, {"a": [good, good], "b": [good, bad], "c": [bad, bad]})
         self.assertEqual((summary["all_runs_passed"], summary["flaky"], summary["never_passed"]), (1, 1, 1))
         self.assertEqual(summary["run_pass_rate"], 0.5)
+
+    def test_rescore_applies_current_checks_to_saved_runs(self):
+        import tempfile
+        from pathlib import Path
+        scenarios = [{"id": "a", "set": "dev", "group": "g", "checks": {"answer_contains_any": ["unable to find"]}},
+                     {"id": "b", "set": "heldout", "group": "g", "checks": {}}]
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "runs.json"
+            path.write_text(json.dumps({"summary": {"stale": True}, "runs": {"a": [run(answer="I was unable to find it.")]}}))
+            summary = rescore(scenarios, "dev", path)
+        self.assertEqual((summary["scenarios"], summary["all_runs_passed"]), (1, 1))
 
 
 class HarnessTests(unittest.TestCase):

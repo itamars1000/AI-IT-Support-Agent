@@ -5,7 +5,7 @@
 Requirements: Docker with Compose. For local tests and evaluation scripts, use Python 3.12.
 
 1. Copy `.env.example` to `.env` (`Copy-Item .env.example .env` in PowerShell, or `cp .env.example .env` in Bash).
-2. Set `VOYAGE_API_KEY` and `ANTHROPIC_API_KEY` for document questions. The model defaults to the Claude Haiku model used in the recorded checks; change `ANTHROPIC_MODEL` for another model available to your account.
+2. Set `VOYAGE_API_KEY` and `ANTHROPIC_API_KEY` for document questions. The model defaults to Claude Haiku 5.5 at `medium` effort, chosen with the agent regression suite below; change `ANTHROPIC_MODEL` for another model available to your account. Leave `ANTHROPIC_EFFORT` empty for models without effort levels, such as Claude Haiku 4.5.
 3. The example database credentials are for local development. If changing the password, update both `POSTGRES_PASSWORD` and `DATABASE_URL` consistently.
 4. Start the app:
 
@@ -63,6 +63,17 @@ $env:RUN_DATABASE_TESTS='1'
 ```
 
 Database test fixtures use transactions that are rolled back. The tests mock external model/embedding calls and do not need API keys. GitHub Actions installs `requirements-dev.txt`, starts a disposable pgvector database, applies the migrations and runs the complete suite including database tests.
+
+## Agent regression suite
+
+Run the suite before changing the agent's prompt, tools or model. It runs the real agent loop against Claude with fake tools: search returns fixed fixture chunks and tickets live in memory, so no database is used and only the agent's decisions are tested. Each of the 24 scenarios in [`agent_scenarios.json`](../evaluation/agent_scenarios.json) runs three times.
+
+```powershell
+.\.venv\Scripts\python.exe -m evaluation.agent_regression run --model claude-haiku-5-5 --effort medium
+.\.venv\Scripts\python.exe -m evaluation.agent_regression compare --baseline claude-haiku-4-5-20251001 --candidate claude-haiku-5-5_medium
+```
+
+Development scenarios print each failure with its reason; held-out scenarios print totals only and run once per label. `report` and `compare` reapply the current checks to saved runs without new API calls. Read failures before trusting them: in the recorded runs, three development failures came from checks that were too strict, not from the agent.
 
 ## Evaluation and scope
 

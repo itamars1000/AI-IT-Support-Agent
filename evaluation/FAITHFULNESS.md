@@ -6,7 +6,7 @@
 
 Faithfulness asks whether every claim in an answer is stated by the sources the answer was given. It is not correctness: a claim can be true in the world and still unsupported by the retrieved text. The existing answer checks look for expected terms and a relevant citation, so an answer that is mostly right but adds one invented sentence still passes them.
 
-Results are from **2026-10-11**. Answers: `claude-haiku-4-5-20251001` (the application's default). Judge: `claude-haiku-5-5`. Held-out errors were written by `claude-sonnet-5-5`.
+Results are from **2026-10-11**. Answers: `claude-haiku-4-5-20251001` (the application's default at the time). Judge: `claude-haiku-5-5`. Held-out errors were written by `claude-sonnet-5-5`.
 
 ## 1. How an answer is scored
 
@@ -43,6 +43,7 @@ Each set rotates four error types: changed number, negation, invented fact and b
 - The errors were injected and are fairly clear; some edited answers even contradict their own quotes. These results do not show how the judge handles subtle, natural hallucinations, such as those that appear when retrieval misses the evidence.
 - The samples are small and synthetic. 15/15 establishes recall of at least about 80% for these error types, not 100%.
 - The 26 real answers come from questions whose evidence retrieval found. Faithfulness when retrieval fails was not measured.
+- The application now answers with Claude Haiku 5.5, the judge's model. Judging answers written by the same model risks self-preference; these results were measured on Claude Haiku 4.5 answers, so re-run the held-out B set with a different judge model before relying on them for the new default.
 - Claim-level comparisons depend on how the judge splits an answer, which can change between runs. Hand labels apply to one frozen judge run.
 
 <details>

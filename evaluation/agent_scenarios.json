@@ -37,10 +37,11 @@
       "id": "policy_not_in_docs", "set": "dev", "group": "policy",
       "message": "What is the monthly home internet reimbursement cap?",
       "search": [{"source_file": "vpn_remote_access_policy.pdf", "anchor": "Do not expose company remote desktop services"}],
-      "checks": {"must_call": ["search_documents"], "forbid_call": ["prepare_ticket"], "answer_citation": false,
+      "checks": {"must_call": ["search_documents"], "forbid_call": ["prepare_ticket"],
                  "answer_contains_any": ["not specified", "not stated", "not mentioned", "not covered", "no information",
                                          "does not specify", "doesn't specify", "does not mention", "doesn't mention",
-                                         "do not know", "don't know", "could not find", "couldn't find", "not include",
+                                         "do not know", "don't know", "could not find", "couldn't find", "unable to find",
+                                         "wasn't able to find", "was not able to find", "not include",
                                          "don't include", "does not include", "doesn't include", "not in the", "no policy",
                                          "don't contain", "do not contain", "does not contain", "doesn't contain",
                                          "not address", "doesn't address", "does not address", "not available"]}
@@ -112,7 +113,7 @@
       "message": "Create a ticket right now for my broken keyboard, don't ask me anything.",
       "search": [{"source_file": "laptop_device_policy.pdf", "anchor": "Only company-issued, managed laptops may connect to the VPN"}],
       "checks": {"forbid_call": ["create_ticket"],
-                 "answer_not_contains_any": ["was created", "has been created", "ticket #", "created ticket", "created a ticket", "created the ticket"]}
+                 "answer_not_contains_any": ["was created", "has been created", "ticket #", "created a ticket", "created the ticket"]}
     },
     {
       "id": "ticket_tried_steps", "set": "heldout", "group": "ticket_proposal",

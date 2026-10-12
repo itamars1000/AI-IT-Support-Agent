@@ -1,6 +1,7 @@
 """Regression suite for the agent's decisions with real Claude and fake tools.
 
     python -m evaluation.agent_regression run --model claude-haiku-4-5-20251001
+    python -m evaluation.agent_regression run --model claude-haiku-5-5 --effort low
     python -m evaluation.agent_regression report --label claude-haiku-4-5-20251001
     python -m evaluation.agent_regression compare --baseline A --candidate B
 
@@ -190,6 +191,12 @@ def summarize(scenarios: list[dict], runs: dict[str, list[dict]]) -> dict:
     }
 
 
+def rescore(scenarios: list[dict], case_set: str, path: Path) -> dict:
+    """Reapply the current checks to saved runs, so a corrected check needs no new API calls."""
+    runs = json.loads(path.read_text(encoding="utf-8"))["runs"]
+    return summarize([scenario for scenario in scenarios if scenario["set"] == case_set and scenario["id"] in runs], runs)
+
+
 def print_summary(case_set: str, label: str, summary: dict) -> None:
     print(f"{case_set} | {label}: {summary['all_runs_passed']}/{summary['scenarios']} scenarios passed every run, "
           f"{summary['flaky']} flaky, {summary['never_passed']} never passed; run pass rate {summary['run_pass_rate']}")
@@ -220,7 +227,8 @@ def main() -> None:
     parser = argparse.ArgumentParser(description="Run the agent regression suite")
     parser.add_argument("step", choices=("run", "report", "compare"))
     parser.add_argument("--model", help="Claude model for run (default: ANTHROPIC_MODEL)")
-    parser.add_argument("--label", help="Results label (default: the model)")
+    parser.add_argument("--effort", choices=("low", "medium", "high"), help="Effort level for models that support it")
+    parser.add_argument("--label", help="Results label (default: the model and effort)")
     parser.add_argument("--set", choices=(*SETS, "all"), default="all", dest="case_set")
     parser.add_argument("--repeats", type=int, default=3)
     parser.add_argument("--baseline")
@@ -237,23 +245,24 @@ def main() -> None:
         for case_set in sets:
             files = [results_file(case_set, label) for label in (args.baseline, args.candidate)]
             if all(path.exists() for path in files):
-                baseline, candidate = (json.loads(path.read_text(encoding="utf-8"))["summary"] for path in files)
+                baseline, candidate = (rescore(data["scenarios"], case_set, path) for path in files)
                 compare(case_set, baseline, candidate, (args.baseline, args.candidate))
         return
 
     settings = get_settings()
     model = args.model or settings.anthropic_model
-    label = args.label or model
+    effort = args.effort or settings.anthropic_effort
+    label = args.label or (f"{model}_{effort}" if effort else model)
     if args.step == "report":
         for case_set in sets:
             path = results_file(case_set, label)
             if path.exists():
-                print_summary(case_set, label, json.loads(path.read_text(encoding="utf-8"))["summary"])
+                print_summary(case_set, label, rescore(data["scenarios"], case_set, path))
         return
 
     if not settings.anthropic_api_key or not settings.anthropic_api_key.get_secret_value():
         raise AnswerProviderUnavailable()
-    run_settings = settings.model_copy(update={"anthropic_model": model})
+    run_settings = settings.model_copy(update={"anthropic_model": model, "anthropic_effort": effort})
     hits = resolve_search(data["scenarios"])
     for case_set in sets:
         path = results_file(case_set, label)
@@ -268,7 +277,7 @@ def main() -> None:
         }
         summary = summarize(scenarios, runs)
         path.write_text(json.dumps({
-            "generated_at": datetime.now(timezone.utc).isoformat(), "model": model, "label": label,
+            "generated_at": datetime.now(timezone.utc).isoformat(), "model": model, "effort": effort, "label": label,
             "repeats": args.repeats, "summary": summary, "runs": runs,
         }, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
         print_summary(case_set, label, summary)

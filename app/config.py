@@ -18,7 +18,7 @@ class Settings(BaseSettings):
     database_port: int | None = None
     voyage_api_key: SecretStr | None = None
     anthropic_api_key: SecretStr | None = None
-    anthropic_model: str = "claude-haiku-4-5-20251001"
+    anthropic_model: str = "claude-haiku-5-5"
     # Sent only when set; unset uses the model's default (medium on Claude Haiku 5.5).
     # Leave it unset for models without effort levels, such as Claude Haiku 4.5.
     anthropic_effort: Literal["low", "medium", "high"] | None = None

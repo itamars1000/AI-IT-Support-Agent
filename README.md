@@ -98,6 +98,8 @@ Vector search found all required evidence in Top-5 for **41/41 questions**, comp
 
 Answer faithfulness is scored claim by claim: an LLM judge (Claude Haiku 5.5) must quote the source behind each supported claim, and the quote is checked in code. Before trusting its scores, the judge was tested on answers with one injected error each. On a held-out set written by a separate model and scored once, it caught **15/15** errors with **0/15** false alarms, and all 26 real answers it judged were faithful. The injected errors are fairly clear; subtle natural hallucinations remain untested. See the [faithfulness evaluation](evaluation/FAITHFULNESS.md).
 
+An agent regression suite runs 24 scenarios three times each against the real agent loop with fake tools. It found that Claude Haiku 4.5 sometimes asked follow-up questions instead of preparing a requested ticket in Hebrew (2/3 runs passed). Claude Haiku 5.5 passed every development scenario in every run and raised the held-out run pass rate from **0.88 to 0.96**; one held-out scenario still regressed in one of three runs. Haiku 5.5 at `medium` effort is now the default, at about a tenth of the price.
+
 Earlier checks compared three chunkers and tested agent behavior and a retrieved prompt injection. Reranking is deferred. These are small, synthetic evaluations; see the [evaluation report](evaluation/REPORT.md) for measured trade-offs, limitations and reproduction steps.
 
 ## Run Locally
@@ -117,5 +119,6 @@ See the [technical guide](docs/TECHNICAL_GUIDE.md) for ticket confirmation, requ
 - Kept 1000-character chunks with 200-character overlap after comparing retrieval across three strategies.
 - Kept vector search as the default after hybrid improved exact identifiers but reduced overall Top-5 evidence coverage.
 - Deferred reranking while testing retrieval and fusion on a broader dataset.
+- Switched the default model from Claude Haiku 4.5 to 5.5 only after the agent regression suite compared both, and made the client accept thinking blocks before the switch.
 - Tested the faithfulness judge on known errors, with a held-out set split before any answer existed, rather than trusting its scores directly.
 - Treats retrieved text as data; tool names, arguments, write permissions, and citations are checked by the server.
